@@ -17,6 +17,10 @@ human warmth and judgment.
 
 ## What ClubKeeper does
 
+![ClubKeeper demo](docs/demo.gif)
+
+*(Recorded replay of a real session — live runs need a Z.ai API key, see Quickstart.)*
+
 Overnight, unattended:
 
 1. **Triages** every mail in the club inbox (structured extraction, no guessing)
