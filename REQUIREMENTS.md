@@ -16,8 +16,8 @@ Official rules take precedence over anything else. Deviations: none found so far
 - [ ] Repo contains: all source code, assets, setup instructions
 - [ ] Open-source license file MIT or Apache-2.0 in repo
 - [ ] License visible in repo "About" section (GitHub side panel — Kosi does this at go-live)
-- [ ] README
-- [ ] Architecture diagram
+- [x] README (problem, demo, quickstart, architecture, decisions table)
+- [x] Architecture diagram (docs/architecture.svg + mermaid in README)
 - [ ] Demo video ≤ 5 minutes, public on YouTube or Vimeo
 - [ ] Video demonstrates the working project (end-to-end, no fake demos)
 - [ ] AWS Builder ID provided at submission (Kosi creates, Phase 4)
