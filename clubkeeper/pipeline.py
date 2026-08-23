@@ -13,6 +13,7 @@ from pathlib import Path
 
 from .agents import ClubKeeper, evaluate_policy, triage_one
 from .config import Config
+from .interventions import set_case
 from .models import Decision, MailItem
 from .policy import ClubPolicy
 from .tools import set_config
@@ -69,7 +70,12 @@ def run(max_mails: int | None = None) -> int:
             asked += 1
             mail_text = mail.body  # act later, after human answers
             continue
-        # auto path: run act agent
+        # auto path: run act agent (HITL classifier approves writes via policy)
+        set_case(ck.act_agent, {
+            "autonomy": "auto",
+            "intent": triage.intent.value,
+            "mail_file": path.name,
+        })
         result = ck.act_agent(act_prompt(mail, triage))
         print(f"  act: {str(result)[:140]}")
         shutil.move(str(path), cfg.processed_dir / path.name)

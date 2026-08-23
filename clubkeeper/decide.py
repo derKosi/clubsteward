@@ -12,6 +12,7 @@ from pathlib import Path
 
 from .agents import ClubKeeper, triage_one
 from .config import Config
+from .interventions import set_case
 from .models import Decision, MailItem
 from .policy import ClubPolicy
 from .tools import set_config
@@ -75,6 +76,13 @@ def run(assume: str | None = None) -> int:
 def approve(d: Decision, ck: ClubKeeper, extra: str = "") -> None:
     mail_path = Config.load().decisions_dir / d.mail_file
     mail = MailItem.parse(mail_path)
+    # Human decided → write pre-approved; the audit trail carries the decision id
+    set_case(ck.act_agent, {
+        "autonomy": "auto_preapproved",
+        "intent": d.triage.intent.value,
+        "decision_id": d.id,
+        "mail_file": d.mail_file,
+    })
     prompt = (
         f"The human club secretary has APPROVED this case with the following judgment.\n"
         f"Human note: {extra or 'approved as proposed'}\n\n"

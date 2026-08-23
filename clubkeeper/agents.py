@@ -6,6 +6,7 @@ from strands import Agent
 from strands.models.litellm import LiteLLMModel
 
 from .config import Config
+from .interventions import make_hitl
 from .models import Decision, Draft, Intent, MailItem, TriageResult
 from .policy import ClubPolicy, PolicyRule
 from .tools import log_activity, register_add, register_lookup, register_update, save_draft
@@ -34,7 +35,7 @@ def make_model(cfg: Config):
 
 
 class ClubKeeper:
-    def __init__(self, cfg: Config, policy: ClubPolicy):
+    def __init__(self, cfg: Config, policy: ClubPolicy, interactive: bool = False):
         self.cfg = cfg
         self.policy = policy
         self.triage_agent = Agent(
@@ -47,6 +48,7 @@ class ClubKeeper:
             model=make_model(cfg),
             system_prompt=ACT_SYSTEM,
             tools=[register_lookup, register_update, register_add, save_draft, log_activity],
+            interventions=[make_hitl(interactive)],
             callback_handler=None,
         )
 
