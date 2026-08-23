@@ -1,0 +1,8 @@
+member_id,first_name,last_name,email,birth_year,team,fee_status,joined,notes
+M001,Emma,Johnson,emma.johnson@example.com,2012,U12,paid,2024-07-15,Address: 45 Lakeview Road - 12367 Riverside
+M002,Liam,Smith,liam.smith@example.com,2013,U12,paid,2024-07-15,
+M003,Sofia,Garcia,sofia.garcia.new@example.com,2011,U14,paid,2023-08-02,Coach recommends potential promotion to U16 next month.
+M004,Noah,Brown,noah.brown@example.com,2014,U10,paid,2025-06-20,
+M005,Ava,Wilson,ava.wilson@example.com,2012,U12,invoice_sent,2025-07-01,invoice 2026/27 sent
+M006,Ethan,Miller,ethan.miller@example.com,2010,U16,paid,2022-07-10,captain
+M007,Irena,Novak,daniel.novak@example.com,2016,U10,invoice_sent,2026-08-23,"Father: Daniel Novak. Irenastrasse 12, 12345 Riverside. Brother Tomas (tomas.novak@example.com) reportedly an existing member."

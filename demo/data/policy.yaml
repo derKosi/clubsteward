@@ -1,0 +1,40 @@
+# ClubKeeper policy — the club's rules as data, editable by volunteers, not code.
+club_name: Riverside Juniors FC
+season: "2026/27"
+fees:
+  annual_member: 96.0
+  sibling_discount: 0.25
+  hardship_waiver_max: 100.0
+tone: friendly, warm, concise club volunteer
+reply_signature: |
+  Sarah Miller
+  Club Secretary, Riverside Juniors FC
+  (This reply was drafted by ClubKeeper, the club's agent — approved by a human)
+rules:
+  - intent: signup
+    decision: auto
+    note: complete signups are routine; incomplete ones fall through via ask_if
+    ask_if:
+      - "waiting list needed (team full)"
+      - "medical notes that require coach coordination"
+  - intent: address_change
+    decision: auto
+    note: routine data hygiene
+  - intent: cancellation
+    decision: ask
+    note: mid-season cancellations affect team planning and refunds
+  - intent: hardship_waiver
+    decision: ask
+    note: money + empathy decisions always go to a human
+  - intent: question
+    decision: auto
+    note: informational replies are routine
+  - intent: complaint
+    decision: ask
+    note: conflicts need a human touch
+  - intent: spam
+    decision: reject
+    note: obvious spam/scam mail is discarded silently
+  - intent: unknown
+    decision: ask
+    note: never guess

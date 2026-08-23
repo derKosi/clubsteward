@@ -3,7 +3,15 @@
 Entry for the [Agents for Humans Hackathon](https://agentsforhumans.devpost.com/) (AWS × Devpost, 2026).
 Built with the [Strands Agents SDK](https://strandsagents.com/) and GLM (Z.ai) via LiteLLM.
 
-> Status: Phase 0 — setup & smoke test complete. Concept decision in `DECISION.md` (coming).
+> Status: Phase 2 — **ClubKeeper v0.1 runs end-to-end** (triage → policy → act → human decisions).
+> Concept & reasoning: see [DECISION.md](DECISION.md). Progress log: [PROGRESS.md](PROGRESS.md).
+
+## What it does
+
+ClubKeeper runs a volunteer sports club''s secretary inbox overnight:
+it classifies member emails, updates the member register, drafts warm replies,
+and queues **only real judgment calls** (hardship waivers, mid-season cancellations,
+complaints) for a human — governed by a policy file the club edits, not code.
 
 ## Quickstart
 

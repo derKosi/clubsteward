@@ -42,5 +42,25 @@
 - Kosi's veto on concept C (default: we build C). Veto window: while Phase 2 < 3 days old (until ~Aug 26, 12:00).
 
 **Next**
-- Phase 2 build kickoff (architecture skeleton, demo corpus, pipeline skeleton) — starts on Kosi's go
+- Phase 2 build kickoff (architecture skeleton, demo corpus, pipeline skeleton) — started same day, see below
+
+## Session 2026-08-23 — Phase 2 kickoff: ClubKeeper v0.1 end-to-end
+
+**Done**
+- Package `clubkeeper/`: models (MailItem, TriageResult, Decision), policy-as-data loader (YAML), config, 5 structured tools (register lookup/update/add, save_draft, log_activity), triage agent (structured output), act agent (tool loop), batch pipeline, human decision CLI.
+- Demo corpus: 8 synthetic English club emails covering all intents (signup, address change, hardship, cancellation, question, complaint, spam) + register.csv (6 members) + policy.yaml (Riverside Juniors FC).
+- `scripts/reset_demo.py` — restores pristine sandbox from `demo/corpus/`.
+- End-to-end verified (real LLM, glm-5-turbo): 8 mails → 5 auto-processed, 3 queued (hardship, cancellation, complaint), spam correctly REJECTED. Then `decide y` approved all 3 → executed, outbox 7 drafts, register updated, activity log written.
+- Quality highlights: agent caught that "brother Tomas" is NOT in the register and asked instead of inventing; hardship reply offered concrete options (50% reduction / instalments) with warm tone.
+
+**Learned**
+- Z.ai emits `reasoningContent` warnings on multi-turn Chat Completions — harmless noise; filter in logs.
+- `Agent.structured_output(PydanticModel, prompt)` works reliably with GLM via LiteLLM `openai/` prefix.
+- Decision JSONs + policy_reason give a clean audit trail (judges love this).
+
+**Blocked / decisions needed**
+- none (concept C in build; veto window closed)
+
+**Next**
+- demo/run_demo.sh (<3 min end-to-end), README with architecture + GIF, tests (unit for policy/tools), Strands depth upgrades: HumanInTheLoop intervention w/ custom classifier replacing manual policy eval, session persistence, multi-agent orchestration polish.
 
