@@ -148,3 +148,22 @@
 **Next**
 - Move agg binary to ~/.local/bin; optional: regenerate GIF with decide-CLI colors once; Phase 3 (video recording per storyboard) in a fresh session; Phase 4 with Kosi.
 
+## Session 2026-08-23 (6) — Eval harness, prompt fix, Devpost draft, better GIF
+
+**Done**
+- Triage eval harness `scripts/eval_triage.py` (+ run_eval.sh): labeled 9-mail corpus, intent accuracy + confidence report, JSON output, exit 1 below 90%.
+- First run caught a REAL autonomy bug: mail 09 (hardship follow-up) classified as `question` (=auto route!) — fixed via TRIAGE_SYSTEM prompt rule (any mail touching fee relief/waivers = hardship_waiver, never question). Re-run: **9/9 = 100%**, avg conf 0.97. Reports in docs/triage-eval-report.json.
+- Devpost submission text drafted (docs/devpost-submission-draft.md) — all sections per Devpost structure, track: Good Neighbor Agents.
+- Decision cards in recording upgraded (subject/from/intent/wants/why-asked box lines); session re-recorded; demo GIF regenerated with cards (1.8 MB).
+- agg 1.9.0 moved to ~/.local/bin.
+
+**Learned**
+- The eval immediately paid for itself: prompt-level fix + regression protection — great judging story ("eval caught a follow-up misread as routine question = silent autonomy leak").
+- Box-drawing chars in recorded lines render fine in agg/monokai.
+
+**Blocked / decisions needed**
+- none
+
+**Next**
+- Phase 3 video recording (fresh session, per storyboard) & Kosi's registrations (Devpost, AWS Builder ID, optional credits). Phase 4 submission together.
+
