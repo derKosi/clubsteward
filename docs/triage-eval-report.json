@@ -1,0 +1,72 @@
+{
+  "model": "glm-5-turbo",
+  "accuracy": 1.0,
+  "correct": 9,
+  "total": 9,
+  "avg_confidence": 0.97,
+  "results": [
+    {
+      "mail": "01-signup-irena.eml",
+      "expected": "signup",
+      "actual": "signup",
+      "confidence": 0.97,
+      "ok": true
+    },
+    {
+      "mail": "02-address-johnson.eml",
+      "expected": "address_change",
+      "actual": "address_change",
+      "confidence": 0.98,
+      "ok": true
+    },
+    {
+      "mail": "03-hardship-kwame.eml",
+      "expected": "hardship_waiver",
+      "actual": "hardship_waiver",
+      "confidence": 0.98,
+      "ok": true
+    },
+    {
+      "mail": "04-cancel-noah.eml",
+      "expected": "cancellation",
+      "actual": "cancellation",
+      "confidence": 0.98,
+      "ok": true
+    },
+    {
+      "mail": "05-question-fixtures.eml",
+      "expected": "question",
+      "actual": "question",
+      "confidence": 0.98,
+      "ok": true
+    },
+    {
+      "mail": "06-email-change-sofia.eml",
+      "expected": "address_change",
+      "actual": "address_change",
+      "confidence": 0.95,
+      "ok": true
+    },
+    {
+      "mail": "07-complaint-training.eml",
+      "expected": "complaint",
+      "actual": "complaint",
+      "confidence": 0.95,
+      "ok": true
+    },
+    {
+      "mail": "08-spam-prize.eml",
+      "expected": "spam",
+      "actual": "spam",
+      "confidence": 1.0,
+      "ok": true
+    },
+    {
+      "mail": "09-hardship-followup.eml",
+      "expected": "hardship_waiver",
+      "actual": "hardship_waiver",
+      "confidence": 0.97,
+      "ok": true
+    }
+  ]
+}
