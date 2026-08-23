@@ -15,9 +15,12 @@ Screen recording + voiceover (no camera needed, officially allowed). English.
 
 ## 0:25–0:45 — INTRODUCING CLUBKEEPER (title card + architecture flash)
 
-- Visual: architecture.svg (2s), then terminal.
+- Visual: architecture.svg (2s), then `club list` showing SIX clubs — German carnival club,
+  football club, neighborhood org, US Little League, US PTA, Spanish vecinos association
+  (name + tagline + colors each) — ~15 seconds total.
 - VO: "ClubKeeper is an agent built with the Strands Agents SDK. It runs at night,
-  does the repetitive 80%, and hands Sarah only the decisions that deserve her judgment."
+  does the repetitive 80%, and hands volunteers only the decisions that deserve
+  their judgment. Any club. Any language."
 
 ## 0:45–2:45 — LIVE DEMO (real terminal, sped up 2x where idle)
 
