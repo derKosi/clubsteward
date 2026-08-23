@@ -108,6 +108,17 @@ uv run python -m clubkeeper.pipeline
 uv run python -m clubkeeper.decide      # approve / edit / deny per case
 ```
 
+**No API key? Watch the recorded session instead:**
+
+```bash
+uv sync && uv run python scripts/reset_demo.py
+uv run python -m clubkeeper.replay      # replays a real recorded run, clearly labeled
+```
+
+The replay prints the recorded transcript step by step and reproduces every artifact
+(drafts, register updates, decision queue) — marked `[RECORDED SESSION]` so it's never
+mistaken for a live call.
+
 Results appear in `demo/data/`: `outbox/` (drafts), `register.csv` (updated),
 `decisions/` (cleared), `activity.log` (audit trail).
 

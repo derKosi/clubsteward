@@ -17,10 +17,11 @@ from .interventions import set_case
 from .metrics import new_summary, record_act, record_triage, save as save_summary, cost_estimate
 from .models import Decision, MailItem
 from .policy import ClubPolicy
+from .recorder import RunRecorder
 from .tools import set_config
 
 
-def run(max_mails: int | None = None) -> int:
+def run(max_mails: int | None = None, recorder: RunRecorder | None = None) -> int:
     cfg = Config.load()
     if not cfg.api_key:
         print("ERROR: ZAI_API_KEY not set (see .env.example)")
@@ -28,6 +29,8 @@ def run(max_mails: int | None = None) -> int:
     set_config(cfg)
     policy = ClubPolicy.load(cfg.data_dir / "policy.yaml")
     ck = ClubKeeper(cfg, policy)
+    if recorder:
+        recorder.set_model(cfg.model_id)
 
     for d in (cfg.outbox_dir, cfg.decisions_dir, cfg.processed_dir):
         d.mkdir(parents=True, exist_ok=True)
@@ -53,10 +56,13 @@ def run(max_mails: int | None = None) -> int:
             continue
         decision, reason = evaluate_policy(policy, triage)
         record_triage(summary, path.name, triage.intent.value, decision, None, triage_tokens=tracker.delta())
-        print(f"  intent={triage.intent.value} confidence={triage.confidence:.2f} → {decision.upper()}")
+        line1 = f"  intent={triage.intent.value} confidence={triage.confidence:.2f} → {decision.upper()}"
+        print(line1)
         if decision == "reject":
             shutil.move(str(path), cfg.processed_dir / path.name)
             processed += 1
+            if recorder:
+                recorder.pipeline_step(path.name, [line1], ["inbox→processed"])  # spam: processed + discarded silently
             continue
         if decision == "ask":
             d = Decision(
@@ -69,10 +75,12 @@ def run(max_mails: int | None = None) -> int:
                 policy_reason=reason,
             )
             (cfg.decisions_dir / f"{d.id}.json").write_text(d.model_dump_json(indent=2), encoding="utf-8")
-            print(f"  → decision queued: {d.id} ({reason})")
+            line2 = f"  → decision queued: {d.id} ({reason})"
+            print(line2)
             shutil.move(str(path), cfg.decisions_dir / path.name)
             asked += 1
-            mail_text = mail.body  # act later, after human answers
+            if recorder:
+                recorder.pipeline_step(path.name, [line1, line2], ["inbox→decisions"])
             continue
         # auto path: run act agent (HITL classifier approves writes via policy)
         agent = ck.act_agent_for(mail.from_email)
@@ -83,15 +91,22 @@ def run(max_mails: int | None = None) -> int:
         })
         result = agent(act_prompt(mail, triage))
         record_act(summary, path.name, result, agent.messages)
-        print(f"  act: {str(result)[:140]}")
+        line3 = f"  act: {str(result)[:140]}"
+        print(line3)
         shutil.move(str(path), cfg.processed_dir / path.name)
         processed += 1
-
-    print(f"\nDone: {processed} auto-processed, {asked} queued for human decision.")
-    print(f"Outbox drafts: {len(list(cfg.outbox_dir.glob('*.eml')))} | Decisions pending: {len(list(cfg.decisions_dir.glob('*.json')))}")
+        if recorder:
+            recorder.pipeline_step(path.name, [line1, line3], ["inbox→processed"])
+    tail1 = f"\nDone: {processed} auto-processed, {asked} queued for human decision."
+    tail2 = f"Outbox drafts: {len(list(cfg.outbox_dir.glob('*.eml')))} | Decisions pending: {len(list(cfg.decisions_dir.glob('*.json')))}"
+    print(tail1)
+    print(tail2)
     save_summary(summary, cfg.data_dir / "run_summary.json")
-    print(f"Run summary: {summary.mails_total} mails · {summary.auto} auto / {summary.ask} ask / {summary.rejected} reject · "
-          f"{summary.total_tokens} tokens (~€{cost_estimate(summary.total_tokens)})")
+    tail3 = (f"Run summary: {summary.mails_total} mails · {summary.auto} auto / {summary.ask} ask / {summary.rejected} reject · "
+             f"{summary.total_tokens} tokens (~€{cost_estimate(summary.total_tokens)})")
+    print(tail3)
+    if recorder:
+        recorder.finish([tail1, tail2, tail3])
     return 0
 
 

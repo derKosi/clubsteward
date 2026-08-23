@@ -116,6 +116,38 @@ class TestEvaluatePolicy:
         assert evaluate_policy(policy, t_spam)[0] == "reject"
 
 
+class TestRecorder:
+    def _mk(self, tmp_path):
+        from clubkeeper.recorder import RunRecorder, _snapshot
+        for sub in ("outbox", "decisions"):
+            (tmp_path / sub).mkdir(parents=True, exist_ok=True)
+        (tmp_path / "register.csv").write_text("member_id\n", encoding="utf-8")
+        return RunRecorder(tmp_path), _snapshot
+
+    def test_pipeline_step_captures_draft_effect(self, tmp_path):
+        rec, _ = self._mk(tmp_path)
+        rec.set_model("test-model")
+        (tmp_path / "outbox" / "d1.eml").write_text("To: a\n", encoding="utf-8")
+        rec.pipeline_step("m1.eml", ["line"], ["inbox→processed"])
+        rec.finish(["end"])
+        rec.save(tmp_path / "session.json")
+        import json
+        doc = json.loads((tmp_path / "session.json").read_text())
+        assert doc["model"] == "test-model"
+        assert "d1.eml" in doc["pipeline_steps"][0]["effects"]["drafts"]
+
+    def test_decide_step_captures_post_execution_effects(self, tmp_path):
+        rec, _ = self._mk(tmp_path)
+        rec.decide_step_begin("d1", "subj", ["l1"])
+        (tmp_path / "outbox" / "d2.eml").write_text("To: b\n", encoding="utf-8")  # execution effect
+        rec.decide_step_end()
+        rec.finish(["end"])
+        rec.save(tmp_path / "session.json")
+        import json
+        doc = json.loads((tmp_path / "session.json").read_text())
+        assert "d2.eml" in doc["decide_steps"][0]["effects"]["drafts"]
+
+
 class TestSessionRouting:
     def test_act_agent_for_is_stable_per_member(self, tmp_path):
         """Same member email → same agent instance (persistent session) within one run."""
