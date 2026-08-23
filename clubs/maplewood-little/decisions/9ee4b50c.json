@@ -1,0 +1,25 @@
+{
+  "id": "9ee4b50c",
+  "mail_file": "05-complaint-umpire.eml",
+  "from_name": "Howard Litvak",
+  "from_email": "howard.litvak@example.org",
+  "subject": "Complaint: umpire language at Saturdays Majors game",
+  "triage": {
+    "intent": "complaint",
+    "member_email": "howard.litvak@example.org",
+    "member_name": "Howard Litvak",
+    "summary": "Howard complains that the home plate umpire used inappropriate language toward visiting coaches that kids overheard and repeated, and asks what the board will do about it.",
+    "proposed_action": "Forward to the club board/complaint coordinator for review and follow-up regarding umpire conduct at the Majors game.",
+    "details": {
+      "division": "Majors",
+      "incident_date": "Saturday",
+      "role_involved": "home plate umpire",
+      "issue": "inappropriate language toward visitors' coaches, audible and repeated by children on the fence"
+    },
+    "flags": [],
+    "confidence": 0.98
+  },
+  "policy_reason": "Policy: intent 'complaint' requires human decision (conflicts need a human touch)",
+  "status": "pending",
+  "created_at": "2026-08-23T13:20:59+00:00"
+}

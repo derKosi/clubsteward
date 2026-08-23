@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "tool-51af3cf0079e405199f0ec394cc60810",
+          "status": "success",
+          "content": [
+            {
+              "text": "member_id=M001, first_name=Tyler, last_name=Brooks, email=tyler.brooks.family@example.org, birth_year=2015, team=Minors, fee_status=paid, joined=2025-03-01, notes="
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "de94eb57-c413-409b-93bf-e07e7ae30a85"
+  },
+  "message_id": 2,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:20:35.206679+00:00",
+  "updated_at": "2026-08-23T13:20:35.206684+00:00"
+}

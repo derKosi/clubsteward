@@ -1,0 +1,41 @@
+# ClubKeeper policy — the league board edits this file, nobody edits code.
+club_name: Maplewood Little League
+season: "Spring 2026"
+fees:
+  season_fee: 125.0
+  sibling_discount: 0.15
+  snack_shack_deposit: 40.0
+  hardship_waiver_max: 125.0
+tone: friendly, upbeat, concise — small-town league warmth
+reply_signature: |
+  Coach Dana
+  Player Agent, Maplewood Little League
+  (This reply was drafted by ClubKeeper, the league's agent — approved by a human)
+rules:
+  - intent: signup
+    decision: auto
+    note: complete registrations are routine
+    ask_if:
+      - "medical notes that require coach coordination"
+      - "waiting list needed (division full)"
+  - intent: address_change
+    decision: auto
+    note: routine data hygiene
+  - intent: cancellation
+    decision: ask
+    note: mid-season cancellations involve refunds and roster spots
+  - intent: hardship_waiver
+    decision: ask
+    note: money + empathy decisions always go to a human
+  - intent: question
+    decision: auto
+    note: informational replies are routine
+  - intent: complaint
+    decision: ask
+    note: conflicts need a human touch
+  - intent: spam
+    decision: reject
+    note: obvious spam is discarded silently
+  - intent: unknown
+    decision: ask
+    note: never guess

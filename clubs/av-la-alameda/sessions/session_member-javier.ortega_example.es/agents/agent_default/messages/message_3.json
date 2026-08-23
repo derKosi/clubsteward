@@ -1,0 +1,40 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "Found the member. Now I need to update his address. The register_update function takes email and comma-separated key=value pairs. I'll update the address field."
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "tool-b78725a5b50e4d429037db2a657692c2",
+          "name": "register_update",
+          "input": {
+            "email": "javier.ortega@example.es",
+            "updates": "address=Plaza del Rosal 3, 5º A"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 646,
+        "outputTokens": 67,
+        "totalTokens": 713
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1330
+      }
+    },
+    "tracking_id": "6f6acfe2-e26a-4772-b694-a1872a62d9d4"
+  },
+  "message_id": 3,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:27:09.594911+00:00",
+  "updated_at": "2026-08-23T13:27:09.594921+00:00"
+}

@@ -1,0 +1,6 @@
+member_id,first_name,last_name,email,birth_year,team,fee_status,joined,notes
+M001,Tyler,Brooks,tyler.brooks.family@example.org,2015,Minors,paid,2025-03-01,
+M002,Ava,Nguyen,ava.nguyen.family@example.org,2014,Majors,paid,2024-03-01,pitcher
+M003,Mason,Delgado,mason.delgado.family@example.org,2017,T-Ball,invoice_sent,2026-02-10,spring invoice sent
+M004,Sophie,Kowalski,sophie.kowalski.family@example.org,2015,Minors,paid,2024-03-01,
+M005,Elijah,Washington,elijah.washington.family@example.org,2013,Majors,paid,2023-03-01,all-star

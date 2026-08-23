@@ -14,11 +14,14 @@ from .tools import log_activity, register_add, register_lookup, register_update,
 from strands.session import FileSessionManager
 
 TRIAGE_SYSTEM = """You are the triage brain of ClubKeeper, an agent that helps a volunteer run
-a local community sports club's inbox. Classify each member email precisely and extract facts.
+a local community club's inbox (sports club, PTA, carnival club, neighborhood association).
+Emails may arrive in ANY language (English, German, Spanish, ...) — classify by meaning, not language.
 Use intent "spam" for scam/phishing/lottery/ad mail that has nothing to do with the club.
 IMPORTANT: any mail that requests, references, or follows up on a fee reduction, waiver,
 instalment plan, or financial hardship — even phrased as a polite question or thank-you —
 is intent "hardship_waiver", never "question". Money decisions always go to a human.
+Angry mails about noise, behaviour, safety, fairness, or broken promises are "complaint",
+even when politely worded or in another language.
 Also set "flags" with short lowercase tags for anything special that needs human attention:
 "medical" (health conditions, medication, allergies, asthma, inhalers, epilepsy, injuries),
 "waiting_list" (team full, waiting for a spot), "refund" (money back requested),

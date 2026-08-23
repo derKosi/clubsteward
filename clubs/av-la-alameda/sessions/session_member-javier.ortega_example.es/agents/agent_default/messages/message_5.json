@@ -1,0 +1,41 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "The update seems to have gone through. Now I'll draft a reply and log the activity."
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "tool-06c87e9115d04859b90f8118a2795358",
+          "name": "save_draft",
+          "input": {
+            "to": "javier.ortega@example.es",
+            "subject": "Re: Cambio de dirección",
+            "body": "Hola, Javier:\n\nTodo listo, ya hemos actualizado tu dirección en el censo a Plaza del Rosal 3, 5º A. ¡Qué bueno que sigues por el barrio!\n\nSi necesitas cualquier otra cosa, aquí estamos.\n\nUn saludo,\n\nLa Junta Directiva\nAsociación de Vecinos La Alameda\n(Redactado por ClubKeeper, el agente de la asociación — aprobado por una persona)"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 715,
+        "outputTokens": 174,
+        "totalTokens": 889
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1267
+      }
+    },
+    "tracking_id": "ef99b620-6090-47f7-b255-70c3685df780"
+  },
+  "message_id": 5,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:27:15.979610+00:00",
+  "updated_at": "2026-08-23T13:27:15.979619+00:00"
+}

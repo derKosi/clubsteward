@@ -1,0 +1,29 @@
+{
+  "id": "9e4537ca",
+  "mail_file": "02-cancel-moving.eml",
+  "from_name": "Derek Paton",
+  "from_email": "derek.paton@example.org",
+  "subject": "Withdrawing Mason - relocating to Denver",
+  "triage": {
+    "intent": "cancellation",
+    "member_email": null,
+    "member_name": "Derek Paton",
+    "summary": "Requesting to withdraw his son Mason from T-Ball due to relocation to Denver and asking if any mid-season fee is refundable.",
+    "proposed_action": "Forward to a human to process the withdrawal and make a decision on the partial refund request.",
+    "details": {
+      "child_name": "Mason",
+      "team": "T-Ball",
+      "reason": "Relocating to Denver in April (company transfer)",
+      "refund_requested": true,
+      "refund_note": "Mid-season fee refundability question",
+      "additional": "Offers to return fundraiser candy box"
+    },
+    "flags": [
+      "refund"
+    ],
+    "confidence": 0.97
+  },
+  "policy_reason": "Policy: intent 'cancellation' requires human decision (mid-season cancellations involve refunds and roster spots)",
+  "status": "pending",
+  "created_at": "2026-08-23T13:19:43+00:00"
+}

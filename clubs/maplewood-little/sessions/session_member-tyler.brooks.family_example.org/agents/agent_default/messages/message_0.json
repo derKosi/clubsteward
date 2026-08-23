@@ -1,0 +1,15 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "text": "Process this case for the club automatically.\n\nCLUB FACTS (authoritative — NEVER invent or change amounts; if a fee is not listed, say you will confirm):\n  club: Maplewood Little League\n  season: Spring 2026\n  tone: friendly, upbeat, concise — small-town league warmth\n  fees:\n  season_fee: 125.0\n  sibling_discount: 0.15\n  snack_shack_deposit: 40.0\n  hardship_waiver_max: 125.0\n  signature (use EXACTLY this signature):\nCoach Dana\nPlayer Agent, Maplewood Little League\n(This reply was drafted by ClubKeeper, the league's agent — approved by a human)\n\nMAIL from Brooks Family <tyler.brooks.family@example.org> subject 'Picture day schedule?':\nHey,\n\nWhen is picture day for Minors, and do we need to pre-order packages or\ncan we decide that morning? Also is there a makeup date?\n\nThanks!\nTyler's dad\n\nTRIAGE: intent=question, summary=Asking about picture day schedule for Minors, including pre-order requirements and makeup date availability.\nDETAILS: {'team': 'Minors', 'child_name': 'Tyler'}\nProposed action: Reply with picture day date/time for Minors, whether pre-orders are required, and if a makeup session is offered.\n\nReply in the language of the member's mail (this club's default: German if unsure). Use the tools to update the register and draft a reply to tyler.brooks.family@example.org. Finish with a log entry."
+      }
+    ],
+    "tracking_id": "94097664-9091-4810-ba43-a39d834c0e1f"
+  },
+  "message_id": 0,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:20:30.851430+00:00",
+  "updated_at": "2026-08-23T13:20:30.851434+00:00"
+}

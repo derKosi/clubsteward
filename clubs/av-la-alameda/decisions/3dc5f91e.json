@@ -1,0 +1,28 @@
+{
+  "id": "3dc5f91e",
+  "mail_file": "03-cuota-pension.eml",
+  "from_name": "Carmen Ruiz",
+  "from_email": "carmen.ruiz@example.es",
+  "subject": "La cuota - ¿habría alguna rebaja para jubilados?",
+  "triage": {
+    "intent": "hardship_waiver",
+    "member_email": "carmen.ruiz@example.es",
+    "member_name": "Carmen Ruiz",
+    "summary": "Carmen Ruiz, una socia jubilada, solicita una reducción de la cuota de 30 € o un plan de pagos a plazos debido a su situación de bajos ingresos con la pensión congelada.",
+    "proposed_action": "Derivar a la junta directiva para evaluar la solicitud de cuota reducida de jubilados y/o la posibilidad de fraccionar el pago de los 30 € en dos plazos.",
+    "details": {
+      "fee_amount": "30 euros",
+      "reason": "pensión congelada y gastos crecientes",
+      "payment_options_requested": [
+        "reducción por jubilación",
+        "pago fraccionado en dos veces"
+      ],
+      "tenure": "socia de toda la vida"
+    },
+    "flags": [],
+    "confidence": 0.97
+  },
+  "policy_reason": "Policy: intent 'hardship_waiver' requires human decision (el dinero y la empatía los decide siempre una persona)",
+  "status": "pending",
+  "created_at": "2026-08-23T13:28:35+00:00"
+}

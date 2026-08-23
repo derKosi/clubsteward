@@ -1,0 +1,39 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "Good, the draft was saved. Now I need to log the activity."
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "tool-44fd033a09694a5781cc00ca747bd4c5",
+          "name": "log_activity",
+          "input": {
+            "event": "Received picture day question from Tyler Brooks (Minors, fee_status=paid). No picture day details available in club facts — drafted reply confirming receipt and promising to follow up with board on date/time, pre-order policy, and makeup availability. Draft saved to outbox."
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 788,
+        "outputTokens": 95,
+        "totalTokens": 883
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1185
+      }
+    },
+    "tracking_id": "06397288-871a-41ae-8777-bc74500950e9"
+  },
+  "message_id": 5,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:20:48.951956+00:00",
+  "updated_at": "2026-08-23T13:20:48.951966+00:00"
+}

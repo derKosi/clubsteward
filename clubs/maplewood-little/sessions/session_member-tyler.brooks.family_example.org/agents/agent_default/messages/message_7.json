@@ -1,0 +1,33 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "Done. I looked up the member, drafted a reply explaining that I don't have picture day details and will get back to them, and logged the activity."
+          }
+        }
+      },
+      {
+        "text": "**Processed.** I looked up Tyler Brooks (confirmed: Minors, fees paid) and drafted a reply. Since no picture day schedule details exist in the club facts, the draft lets the family know we're checking with the board and will follow up with the date/time, pre-order info, and makeup availability. No register changes were needed."
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 876,
+        "outputTokens": 70,
+        "totalTokens": 946
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1180
+      }
+    },
+    "tracking_id": "bd9fa303-b4db-4011-a13f-67aca134337e"
+  },
+  "message_id": 7,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:20:53.400526+00:00",
+  "updated_at": "2026-08-23T13:20:53.400535+00:00"
+}

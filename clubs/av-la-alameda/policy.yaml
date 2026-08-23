@@ -1,0 +1,38 @@
+# Política de ClubKeeper — la Junta edita este archivo, nadie toca código.
+club_name: Asociación de Vecinos La Alameda
+season: "Año 2026"
+fees:
+  cuota_anual: 30.0
+  cuota_jubilados: 15.0
+  hardship_waiver_max: 30.0
+tone: cercano y sencillo, en español
+reply_signature: |
+  La Junta Directiva
+  Asociación de Vecinos La Alameda
+  (Redactado por ClubKeeper, el agente de la asociación — aprobado por una persona)
+rules:
+  - intent: signup
+    decision: auto
+    note: las altas completas son rutina
+    ask_if: []
+  - intent: address_change
+    decision: auto
+    note: simple mantenimiento de datos
+  - intent: cancellation
+    decision: ask
+    note: una baja merece una llamada personal
+  - intent: hardship_waiver
+    decision: ask
+    note: el dinero y la empatía los decide siempre una persona
+  - intent: question
+    decision: auto
+    note: las consultas son rutina
+  - intent: complaint
+    decision: ask
+    note: los conflictos necesitan mediación humana
+  - intent: spam
+    decision: reject
+    note: el spam se descarta en silencio
+  - intent: unknown
+    decision: ask
+    note: nunca adivinar

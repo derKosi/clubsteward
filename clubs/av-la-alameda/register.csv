@@ -1,0 +1,6 @@
+member_id,first_name,last_name,email,birth_year,team,fee_status,joined,notes
+M001,Carmen,Ruiz,carmen.ruiz@example.es,1958,Jubilados,paid,2020-01-01,
+M002,Javier,Ortega,javier.ortega@example.es,1979,Comisión de Fiestas,paid,2021-06-01,
+M003,Lucía,Ferrer,lucia.ferrer@example.es,1983,Comisión de Fiestas,paid,2022-03-01,
+M004,Antonio,Molina,antonio.molina@example.es,1963,Jubilados,invoice_sent,2026-01-15,cuota 2026 pendiente
+M005,Pilar,Soto,pilar.soto@example.es,1990,Familias,invoice_sent,2026-05-01,cuota 2026 pendiente

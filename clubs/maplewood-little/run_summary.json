@@ -1,0 +1,71 @@
+{
+  "started_at": "2026-08-23T13:19:23+00:00",
+  "finished_at": "2026-08-23T13:22:12+00:00",
+  "mails_total": 6,
+  "auto": 1,
+  "ask": 4,
+  "rejected": 1,
+  "total_tokens": 3166,
+  "steps": [
+    {
+      "mail_file": "01-signup-epipen.eml",
+      "intent": "signup",
+      "route": "ask",
+      "triage_tokens": 0,
+      "act_tokens": 0,
+      "act_latency_ms": 0,
+      "tool_calls": 0,
+      "notes": ""
+    },
+    {
+      "mail_file": "02-cancel-moving.eml",
+      "intent": "cancellation",
+      "route": "ask",
+      "triage_tokens": 0,
+      "act_tokens": 0,
+      "act_latency_ms": 0,
+      "tool_calls": 0,
+      "notes": ""
+    },
+    {
+      "mail_file": "03-hardship-fee.eml",
+      "intent": "hardship_waiver",
+      "route": "ask",
+      "triage_tokens": 0,
+      "act_tokens": 0,
+      "act_latency_ms": 0,
+      "tool_calls": 0,
+      "notes": ""
+    },
+    {
+      "mail_file": "04-question-pictureday.eml",
+      "intent": "question",
+      "route": "auto",
+      "triage_tokens": 0,
+      "act_tokens": 3166,
+      "act_latency_ms": 0,
+      "tool_calls": 3,
+      "notes": ""
+    },
+    {
+      "mail_file": "05-complaint-umpire.eml",
+      "intent": "complaint",
+      "route": "ask",
+      "triage_tokens": 0,
+      "act_tokens": 0,
+      "act_latency_ms": 0,
+      "tool_calls": 0,
+      "notes": ""
+    },
+    {
+      "mail_file": "06-spam.eml",
+      "intent": "spam",
+      "route": "reject",
+      "triage_tokens": 0,
+      "act_tokens": 0,
+      "act_latency_ms": 0,
+      "tool_calls": 0,
+      "notes": ""
+    }
+  ]
+}

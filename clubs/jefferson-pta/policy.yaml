@@ -1,0 +1,39 @@
+# ClubKeeper policy — the PTA board edits this file, nobody edits code.
+club_name: Jefferson Elementary PTA
+season: "School year 2026/27"
+fees:
+  membership_fee: 12.0
+  field_trip_fund: 25.0
+  hardship_waiver_max: 37.0
+tone: warm, inclusive, brief — everyone is welcome here
+reply_signature: |
+  Maria Chen
+  PTA President, Jefferson Elementary
+  (This reply was drafted by ClubKeeper, the PTA's agent — approved by a human)
+rules:
+  - intent: signup
+    decision: auto
+    note: membership signups are routine
+    ask_if:
+      - "medical notes that require coordination"
+  - intent: address_change
+    decision: auto
+    note: routine data hygiene
+  - intent: cancellation
+    decision: ask
+    note: withdrawals deserve a personal note
+  - intent: hardship_waiver
+    decision: ask
+    note: money + empathy decisions always go to a human
+  - intent: question
+    decision: auto
+    note: informational replies are routine
+  - intent: complaint
+    decision: ask
+    note: conflicts need a human touch
+  - intent: spam
+    decision: reject
+    note: obvious spam is discarded silently
+  - intent: unknown
+    decision: ask
+    note: never guess

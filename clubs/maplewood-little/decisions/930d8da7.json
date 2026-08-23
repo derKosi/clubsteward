@@ -1,0 +1,30 @@
+{
+  "id": "930d8da7",
+  "mail_file": "01-signup-epipen.eml",
+  "from_name": "Rachel Torres",
+  "from_email": "rachel.torres@example.org",
+  "subject": "Registering Danny for T-Ball - severe peanut allergy",
+  "triage": {
+    "intent": "signup",
+    "member_email": null,
+    "member_name": null,
+    "summary": "Rachel Torres wants to register her son Danny (born 2018) for T-Ball and flags his severe peanut allergy and EpiPen.",
+    "proposed_action": "Send T-Ball registration info and fee details; escalate the severe peanut allergy/EpiPen alert to the coaching staff and safety coordinator before placement.",
+    "details": {
+      "child_name": "Danny Torres",
+      "dob": 2018,
+      "program": "T-Ball",
+      "season": "spring",
+      "parent_name": "Rachel Torres",
+      "related_member": "Sophie (cousin, plays Majors)",
+      "medical_condition": "Severe peanut allergy; carries EpiPen in backpack"
+    },
+    "flags": [
+      "medical"
+    ],
+    "confidence": 0.98
+  },
+  "policy_reason": "Policy escalation: 'signup' is normally auto, but flag 'medical' matches ask_if condition (medical notes that require coach coordination...)",
+  "status": "pending",
+  "created_at": "2026-08-23T13:19:31+00:00"
+}

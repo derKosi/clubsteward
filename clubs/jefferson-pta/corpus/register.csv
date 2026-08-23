@@ -1,0 +1,5 @@
+member_id,first_name,last_name,email,birth_year,team,fee_status,joined,notes
+M001,Kylie,Park,kylie.park@example.org,2017,Grade 2,paid,2025-09-01,
+M002,Devon,Marsh,devon.marsh@example.org,2015,Grade 4,paid,2024-09-01,bake sale lead
+M003,Amara,Okoye,amara.okoye@example.org,2016,Grade 3,invoice_sent,2026-09-02,membership invoice sent
+M004,Owen,Reilly,owen.reilly@example.org,2018,Grade 1,paid,2025-09-01,

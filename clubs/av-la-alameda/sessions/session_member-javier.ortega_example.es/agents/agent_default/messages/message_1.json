@@ -1,0 +1,39 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "The member wants to update their address. Let me first look up their record, then update it."
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "tool-b9abed81bbe2494d913491d11d7104d5",
+          "name": "register_lookup",
+          "input": {
+            "query": "javier.ortega@example.es"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 550,
+        "outputTokens": 49,
+        "totalTokens": 599
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1181
+      }
+    },
+    "tracking_id": "3fbfa0d1-38d5-4ae7-ba42-9740d4c0ce0e"
+  },
+  "message_id": 1,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:27:05.871193+00:00",
+  "updated_at": "2026-08-23T13:27:05.871203+00:00"
+}

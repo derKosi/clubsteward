@@ -1,0 +1,25 @@
+{
+  "agent_id": "default",
+  "state": {
+    "clubkeeper:case": {
+      "autonomy": "auto",
+      "intent": "question",
+      "mail_file": "04-question-pictureday.eml"
+    }
+  },
+  "conversation_manager_state": {
+    "__name__": "SlidingWindowConversationManager",
+    "removed_message_count": 0,
+    "model_call_count": 0
+  },
+  "_internal_state": {
+    "interrupt_state": {
+      "interrupts": {},
+      "context": {},
+      "activated": false
+    },
+    "model_state": {}
+  },
+  "created_at": "2026-08-23T13:20:30.850424+00:00",
+  "updated_at": "2026-08-23T13:20:48.954441+00:00"
+}

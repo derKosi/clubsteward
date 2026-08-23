@@ -1,0 +1,20 @@
+{
+  "id": "3f6ae6bb",
+  "mail_file": "03-hardship-fee.eml",
+  "from_name": "Tanya Briscoe",
+  "from_email": "tanya.briscoe@example.org",
+  "subject": "Fee help for Ava? Between jobs right now",
+  "triage": {
+    "intent": "hardship_waiver",
+    "member_email": null,
+    "member_name": null,
+    "summary": "Tanya Briscoe is requesting a fee reduction or scholarship for her daughter Ava Nguyen's Majors season registration due to being laid off and between jobs.",
+    "proposed_action": "Forward to the club treasurer/board member who handles fee waivers and hardship requests for review and decision.",
+    "details": {},
+    "flags": [],
+    "confidence": 0.98
+  },
+  "policy_reason": "Policy: intent 'hardship_waiver' requires human decision (money + empathy decisions always go to a human)",
+  "status": "pending",
+  "created_at": "2026-08-23T13:20:12+00:00"
+}

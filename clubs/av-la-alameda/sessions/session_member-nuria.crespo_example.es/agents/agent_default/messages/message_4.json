@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "tool-a872ee2531b2476b8b8b3df4f97d08a6",
+          "status": "success",
+          "content": [
+            {
+              "text": "DRAFT SAVED draft_Re__Quiero_darme_de_alta_como_socia.eml"
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "394d866e-db5d-47ba-9af3-d9f08af99600"
+  },
+  "message_id": 4,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:26:47.719662+00:00",
+  "updated_at": "2026-08-23T13:26:47.719668+00:00"
+}

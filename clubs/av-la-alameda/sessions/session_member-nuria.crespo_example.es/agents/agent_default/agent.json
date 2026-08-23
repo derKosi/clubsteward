@@ -1,0 +1,25 @@
+{
+  "agent_id": "default",
+  "state": {
+    "clubkeeper:case": {
+      "autonomy": "auto",
+      "intent": "signup",
+      "mail_file": "01-alta-socia.eml"
+    }
+  },
+  "conversation_manager_state": {
+    "__name__": "SlidingWindowConversationManager",
+    "removed_message_count": 0,
+    "model_call_count": 0
+  },
+  "_internal_state": {
+    "interrupt_state": {
+      "interrupts": {},
+      "context": {},
+      "activated": false
+    },
+    "model_state": {}
+  },
+  "created_at": "2026-08-23T13:25:21.402153+00:00",
+  "updated_at": "2026-08-23T13:26:51.375440+00:00"
+}

@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "tool-b78725a5b50e4d429037db2a657692c2",
+          "status": "success",
+          "content": [
+            {
+              "text": "UPDATED javier.ortega@example.es: {}"
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "d78214d3-ab20-49b5-a177-696fb514b59b"
+  },
+  "message_id": 4,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:27:09.597405+00:00",
+  "updated_at": "2026-08-23T13:27:09.597411+00:00"
+}
