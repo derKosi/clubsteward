@@ -19,6 +19,10 @@ Use intent "spam" for scam/phishing/lottery/ad mail that has nothing to do with 
 IMPORTANT: any mail that requests, references, or follows up on a fee reduction, waiver,
 instalment plan, or financial hardship — even phrased as a polite question or thank-you —
 is intent "hardship_waiver", never "question". Money decisions always go to a human.
+Also set "flags" with short lowercase tags for anything special that needs human attention:
+"medical" (health conditions, medication, allergies), "waiting_list" (team full, waiting for a spot),
+"refund" (money back requested), "duplicate" (possible duplicate member/record), "legal", or a
+similar short tag of your own. Empty list if nothing special applies.
 Be conservative: if the sender asks for money relief or cancellation, extract amounts and reasons.
 Respond ONLY with the structured schema."""
 
@@ -84,8 +88,9 @@ class ClubKeeper:
 
 
 def triage_one(triage_agent: Agent, mail: MailItem) -> TriageResult:
+    """Classify one mail; returns the agent's structured TriageResult."""
     prompt = (
-        f"Classify this club inbox email.\n\n"
+        f"Classify this club inbox email. Set flags for special conditions (medical, waiting_list, refund, ...).\n\n"
         f"From: {mail.from_name} <{mail.from_email}>\n"
         f"Subject: {mail.subject}\nDate: {mail.date}\n\n"
         f"{mail.body[:2500]}"
@@ -117,13 +122,29 @@ class TriageTokenTracker:
 
 
 def evaluate_policy(policy: ClubPolicy, triage: TriageResult) -> tuple[str, str]:
-    """Return (decision, reason). decision in {auto, ask, reject}."""
+    """Return (decision, reason). decision in {auto, ask, reject}.
+
+    ask_if conditions in the policy name flags (e.g. "medical", "waiting_list").
+    The triage agent extracts those flags; if any condition matches, an otherwise
+    auto intent is escalated to ask — policy-as-data all the way down.
+    """
     rule = policy.rule_for(triage.intent.value)
     if rule is None:
         return "ask", f"No policy rule for intent '{triage.intent.value}' — defaulting to ask."
-    if rule.decision == "auto":
-        return "auto", f"Policy: intent '{rule.intent}' is auto-approved ({rule.note})"
     if rule.decision == "reject":
         return "reject", f"Policy: intent '{rule.intent}' is rejected ({rule.note})"
-    # 'ask' base decision: check ask_if conditions against extracted details
-    return "ask", f"Policy: intent '{rule.intent}' requires human decision ({rule.note})"
+    if rule.decision == "ask":
+        return "ask", f"Policy: intent '{rule.intent}' requires human decision ({rule.note})"
+
+    # decision == "auto": check ask_if conditions against extracted flags
+    if rule.ask_if:
+        triage_flags = {f.lower().strip() for f in triage.flags}
+        for cond in rule.ask_if:
+            key = cond.lower().strip()
+            # conditions are free text ("waiting list needed (team full)", "medical notes ...")
+            # → match if any flag word appears in the condition text
+            cond_words = {w.strip("()") for w in key.split() if len(w) > 3}
+            if triage_flags and (triage_flags & cond_words or any(f.replace("_", " ") in key for f in triage_flags)):
+                matched = next(f for f in triage_flags if f.replace("_", " ") in key or f in cond_words)
+                return "ask", f"Policy escalation: '{rule.intent}' is normally auto, but flag '{matched}' matches ask_if condition ({cond[:60]}...)"
+    return "auto", f"Policy: intent '{rule.intent}' is auto-approved ({rule.note})"

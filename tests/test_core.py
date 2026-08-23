@@ -115,6 +115,31 @@ class TestEvaluatePolicy:
         assert evaluate_policy(policy, t_ask)[0] == "ask"
         assert evaluate_policy(policy, t_spam)[0] == "reject"
 
+    def test_ask_if_escalates_auto_on_flag(self, policy):
+        from clubkeeper.agents import evaluate_policy
+
+        t = TriageResult(intent=Intent.SIGNUP, summary="s", proposed_action="a",
+                         confidence=1.0, flags=["medical"])
+        decision, reason = evaluate_policy(policy, t)
+        assert decision == "ask"
+        assert "medical" in reason
+
+    def test_ask_if_no_flag_stays_auto(self, policy):
+        from clubkeeper.agents import evaluate_policy
+
+        t = TriageResult(intent=Intent.SIGNUP, summary="s", proposed_action="a",
+                         confidence=1.0, flags=[])
+        assert evaluate_policy(policy, t)[0] == "auto"
+
+    def test_ask_if_waiting_list_escalates(self, policy):
+        from clubkeeper.agents import evaluate_policy
+
+        t = TriageResult(intent=Intent.SIGNUP, summary="s", proposed_action="a",
+                         confidence=1.0, flags=["waiting_list"])
+        decision, reason = evaluate_policy(policy, t)
+        assert decision == "ask"
+        assert "waiting" in reason
+
 
 class TestRecorder:
     def _mk(self, tmp_path):

@@ -10,7 +10,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Any
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class Intent(str, Enum):
@@ -71,7 +71,14 @@ class TriageResult(BaseModel):
     summary: str = Field(..., description="one sentence: what the sender wants")
     proposed_action: str = Field(..., description="what the agent proposes to do")
     details: dict[str, Any] = Field(default_factory=dict, description="extracted facts: address, team, child name, amounts...")
+    flags: list[str] = Field(default_factory=list, description="special-condition tags: medical, waiting_list, refund, duplicate, legal ...")
     confidence: float = Field(0.0, ge=0.0, le=1.0)
+
+    @field_validator("flags", mode="before")
+    @classmethod
+    def _flags_none_to_list(cls, v):
+        """LLMs sometimes emit null for optional lists — normalize to []."""
+        return v if isinstance(v, list) else ([] if v is None else [v])
 
 
 class Decision(BaseModel):
