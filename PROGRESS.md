@@ -167,3 +167,24 @@
 **Next**
 - Phase 3 video recording (fresh session, per storyboard) & Kosi's registrations (Devpost, AWS Builder ID, optional credits). Phase 4 submission together.
 
+## Session 2026-08-23 (8) — ask_if conditions live (policy escalation engine)
+
+**Done**
+- `TriageResult.flags`: special-condition tags extracted by the triage agent (medical, waiting_list, refund, duplicate, legal, ...).
+- `evaluate_policy` now evaluates `ask_if`: an auto intent escalates to ask when a triage flag matches a policy condition (word/phrase matching). Escalation reason names the flag AND the matched condition.
+- Corpus mail 10 (Yusuf, asthma inhaler): E2E-proven — signup+medical flag → queued with "normally auto, but flag 'medical' matches ask_if condition".
+- 3 new unit tests (escalation on medical/waiting_list, stay-auto without flags) → 19 total.
+- Robustness: LLMs emit `flags: null` → pydantic before-validator normalizes; eval had dropped to 78% from parse errors, now 100% again (9/9).
+- Tried SDK's newer `structured_output_model` constructor path — produced worse classifications (hardship follow-up read as question again); reverted to `Agent.structured_output(model, prompt)` which is deprecated-but-reliable with GLM. Documented here; revisit if SDK fixes.
+- Pushed to GitHub (private).
+
+**Learned**
+- Deprecated API ≠ worse API: the constructor path lost the system-prompt emphasis for GLM. Eval harness caught the regression within one run — its whole purpose.
+- Null-tolerance in pydantic models is mandatory for LLM output.
+
+**Blocked / decisions needed**
+- none
+
+**Next**
+- Nothing left in Phase 2 scope. Remaining: video (fresh session), Kosi registrations, Phase 4 together (Sep 12).
+
