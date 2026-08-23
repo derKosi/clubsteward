@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClubKeeper Console</title>
+<style>
+  :root { --ink:#0f172a; --mut:#64748b; --bg:#f1f5f9; --card:#fff; --brand:#0f766e; --warn:#b45309; --ok:#15803d; --bad:#b91c1c; }
+  * { box-sizing:border-box; margin:0; padding:0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  body { background:var(--bg); color:var(--ink); }
+  .top { background:var(--ink); color:#fff; padding:12px 20px; display:flex; align-items:center; gap:16px; }
+  .top .logo { font-weight:800; } .top .logo span { color:#5eead4; }
+  .top a { color:#cbd5e1; text-decoration:none; font-size:13.5px; }
+  .wrap { max-width:1080px; margin:0 auto; padding:20px 24px 60px; }
+  .bar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px; }
+  .chip { background:var(--card); border:1px solid #e2e8f0; border-radius:999px; padding:8px 14px; font-size:13.5px; font-weight:600; cursor:pointer; color:var(--mut); }
+  .chip.on { color:#fff; border-color:transparent; }
+  .row { display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
+  .card { background:var(--card); border:1px solid #e2e8f0; border-radius:16px; padding:18px; margin-bottom:14px; }
+  .card h3 { font-size:15px; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+  .kpi { display:flex; gap:10px; margin-bottom:14px; }
+  .kpi .b { flex:1; background:var(--card); border:1px solid #e2e8f0; border-radius:14px; padding:12px; text-align:center; }
+  .kpi b { font-size:22px; display:block; } .kpi span { color:var(--mut); font-size:12px; }
+  button { border:none; border-radius:10px; padding:10px 14px; font-weight:700; cursor:pointer; font-size:13.5px; }
+  .btn-run { background:var(--brand); color:#fff; }
+  .btn-app { background:var(--ok); color:#fff; } .btn-deny { background:#fee2e2; color:var(--bad); }
+  .btn-edit { background:#fef3c7; color:var(--warn); }
+  .btn-up { background:var(--ink); color:#fff; }
+  .dec { border:1px solid #e2e8f0; border-radius:14px; padding:16px; margin-bottom:12px; background:#fff; }
+  .dec h4 { font-size:15px; margin-bottom:4px; }
+  .dec .meta { color:var(--mut); font-size:12.5px; margin-bottom:8px; }
+  .dec .why { background:#fffbeb; border-left:3px solid var(--warn); padding:8px 10px; font-size:13px; margin:8px 0; border-radius:0 8px 8px 0; }
+  .dec .body { background:#f8fafc; padding:10px; font-size:12.5px; white-space:pre-wrap; max-height:140px; overflow:auto; border-radius:8px; color:#334155; }
+  .dec .acts { display:flex; gap:8px; margin-top:10px; }
+  .draft { border-bottom:1px solid #eef2f7; padding:10px 0; font-size:13px; }
+  .draft b { display:block; } .draft span { color:var(--mut); }
+  .draft p { margin-top:4px; color:#334155; font-size:12.5px; white-space:pre-wrap; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  th { text-align:left; color:var(--mut); font-weight:600; padding:6px 8px; border-bottom:1px solid #e2e8f0; }
+  td { padding:6px 8px; border-bottom:1px solid #f1f5f9; }
+  .log { font-family:ui-monospace,Menlo,monospace; font-size:11.5px; color:#475569; white-space:pre-wrap; max-height:220px; overflow:auto; background:#0f172a; color:#cbd5e1; padding:12px; border-radius:10px; }
+  .flag { background:#ede9fe; color:#6d28d9; border-radius:6px; padding:1px 7px; font-size:11px; font-weight:700; margin-left:6px; }
+  .spin { animation:sp 1s linear infinite; display:inline-block; } @keyframes sp { to { transform:rotate(360deg);} }
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="logo">Club<span>Keeper</span> · Console</div>
+  <a href="/">← product page</a>
+</div>
+<div class="wrap">
+  <div class="bar" id="clubs"></div>
+
+  <div class="kpi" id="kpis">
+    <div class="b"><b>—</b><span>inbox</span></div>
+    <div class="b"><b>—</b><span>pending decisions</span></div>
+    <div class="b"><b>—</b><span>drafts ready</span></div>
+    <div class="b" style="display:flex; flex-direction:column; gap:6px; justify-content:center;">
+      <button class="btn-run" id="runBtn">🌙 Run night</button>
+      <label class="btn-up" style="text-align:center; cursor:pointer;">📥 Drop .eml
+        <input type="file" accept=".eml" multiple id="upFiles" style="display:none">
+      </label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div>
+      <div class="card">
+        <h3>⚖️ Decisions for you <span id="decCount"></span></h3>
+        <div id="decisions"><p style="color:var(--mut);font-size:13px">No pending decisions.</p></div>
+      </div>
+      <div class="card">
+        <h3>🌙 Night run log</h3>
+        <div class="log" id="runlog">— run the night to see the agent work —</div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>📤 Outbox drafts (review before sending)</h3>
+        <div id="drafts"></div>
+      </div>
+      <div class="card">
+        <h3>👥 Member register</h3>
+        <div style="overflow:auto"><table id="reg"></table></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let CLUB = null, clubs = [];
+const $ = id => document.getElementById(id);
+
+async function loadClubs(){
+  clubs = await (await fetch('/api/clubs')).json();
+  $('clubs').innerHTML = clubs.map(c =>
+    `<div class="chip" data-id="${c.id}" style="${c.id===CLUB?`background:${c.color};`:''}" onclick="pick('${c.id}')">${c.name}</div>`).join('');
+}
+function pick(id){ CLUB = id; loadClubs(); loadState(); loadDecisions(); }
+
+async function loadState(){
+  if(!CLUB) return;
+  const s = await (await fetch(`/api/clubs/${CLUB}/state`)).json();
+  $('kpis').children[0].querySelector('b').textContent = s.inbox.length;
+  $('kpis').children[1].querySelector('b').textContent = s.decisions_pending;
+  $('kpis').children[2].querySelector('b').textContent = s.drafts.length;
+  $('drafts').innerHTML = s.drafts.length ? s.drafts.map(d=>
+    `<div class="draft"><b>${d.file.replace(/^draft_/,'').replace(/\.eml$/,'')}</b><span>to ${d.to}</span><p>${d.body.slice(0,220)}…</p></div>`).join('')
+    : '<p style="color:var(--mut);font-size:13px">No drafts yet.</p>';
+  const reg = s.register;
+  if(reg.length){
+    const cols = Object.keys(reg[0]);
+    $('reg').innerHTML = `<tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr>` +
+      reg.map(r=>`<tr>${cols.map(c=>`<td>${r[c]||''}</td>`).join('')}</tr>`).join('');
+  }
+}
+
+async function loadDecisions(){
+  if(!CLUB) return;
+  const ds = await (await fetch(`/api/clubs/${CLUB}/decisions`)).json();
+  $('decCount').textContent = ds.length ? `(${ds.length})` : '';
+  $('decisions').innerHTML = ds.length ? ds.map(d=>`
+    <div class="dec">
+      <h4>${d.subject}${(d.flags||[]).map(f=>`<span class="flag">${f}</span>`).join('')}</h4>
+      <div class="meta">from ${d.from} · intent <b>${d.intent}</b> · confidence ${d.confidence}</div>
+      <div class="meta">💡 ${d.summary}</div>
+      <div class="why">Escalated: ${d.policy_reason}</div>
+      <div class="body">${d.mail_body.slice(0,600)}</div>
+      <div class="acts">
+        <button class="btn-app" onclick="act('${d.id}','approve')">✓ Approve</button>
+        <button class="btn-edit" onclick="act('${d.id}','edit', prompt('Instructions for the agent:')||'')">✎ Approve + instruct</button>
+        <button class="btn-deny" onclick="act('${d.id}','deny')">✕ Deny</button>
+      </div>
+    </div>`).join('') : '<p style="color:var(--mut);font-size:13px">No pending decisions.</p>';
+}
+
+async function act(id, action, instructions=''){
+  await fetch(`/api/clubs/${CLUB}/decisions/${id}/${action}`, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({instructions})});
+  loadState(); loadDecisions();
+}
+
+$('runBtn').onclick = async ()=>{
+  if(!CLUB) return;
+  $('runBtn').disabled = true; $('runBtn').innerHTML = '<span class="spin">◌</span> running…';
+  await fetch(`/api/clubs/${CLUB}/run`, {method:'POST'});
+  const poll = setInterval(async ()=>{
+    const st = await (await fetch(`/api/clubs/${CLUB}/run/status`)).json();
+    if(st.log && st.log.length) $('runlog').textContent = st.log.join('\n');
+    if(!st.running){ clearInterval(poll); $('runBtn').disabled=false; $('runBtn').textContent='🌙 Run night'; loadState(); loadDecisions(); }
+  }, 2000);
+};
+
+$('upFiles').onchange = async (e)=>{
+  for(const f of e.target.files){
+    const fd = new FormData(); fd.append('file', f);
+    await fetch(`/api/clubs/${CLUB}/inbox`, {method:'POST', body: fd});
+  }
+  e.target.value=''; loadState();
+};
+
+(async ()=>{ await loadClubs(); if(!CLUB && clubs.length) pick(clubs[0].id); })();
+</script>
+</body>
+</html>

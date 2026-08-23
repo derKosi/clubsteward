@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "tool-761a5bab28c946eeb5f905003142b98d",
+          "status": "success",
+          "content": [
+            {
+              "text": "DRAFT SAVED draft_Email_updated_for_the_Park_family.eml"
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "7021fc82-0df6-4ef5-bc53-65040c5fd421"
+  },
+  "message_id": 6,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:40:25.613511+00:00",
+  "updated_at": "2026-08-23T13:40:25.613516+00:00"
+}

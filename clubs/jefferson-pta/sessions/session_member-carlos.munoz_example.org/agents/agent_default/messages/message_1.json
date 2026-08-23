@@ -1,0 +1,39 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "Let me analyze this case:\n\n1. Carlos Muñoz is requesting a hardship waiver for the $25 field trip fund for his child Mateo.\n2. The human secretary has approved covering the full $25 from the PTA hardship budget.\n3. The reply should be confidential - no payment details mentioned.\n4. The email is in English, so I should reply in English (the member's language).\n\nLet me first look up Carlos in the register, then update his fee status, draft a reply, and log the activity."
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "tool-c858dd1840fd4ad482dd3dc1dfd13de9",
+          "name": "register_lookup",
+          "input": {
+            "query": "carlos.munoz@example.org"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 586,
+        "outputTokens": 48,
+        "totalTokens": 634
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 2217
+      }
+    },
+    "tracking_id": "1035067b-26a5-4c48-bde4-94d69e6cf087"
+  },
+  "message_id": 1,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:42:44.204657+00:00",
+  "updated_at": "2026-08-23T13:42:44.204667+00:00"
+}

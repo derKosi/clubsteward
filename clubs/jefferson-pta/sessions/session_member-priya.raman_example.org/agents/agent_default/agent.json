@@ -1,0 +1,25 @@
+{
+  "agent_id": "default",
+  "state": {
+    "clubkeeper:case": {
+      "autonomy": "auto",
+      "intent": "question",
+      "mail_file": "01-volunteer-bake.eml"
+    }
+  },
+  "conversation_manager_state": {
+    "__name__": "SlidingWindowConversationManager",
+    "removed_message_count": 0,
+    "model_call_count": 0
+  },
+  "_internal_state": {
+    "interrupt_state": {
+      "interrupts": {},
+      "context": {},
+      "activated": false
+    },
+    "model_state": {}
+  },
+  "created_at": "2026-08-23T13:39:34.193613+00:00",
+  "updated_at": "2026-08-23T13:39:51.981791+00:00"
+}

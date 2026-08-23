@@ -1,0 +1,6 @@
+member_id,first_name,last_name,email,birth_year,team,fee_status,joined,notes
+M001,Renate,Kirsch,renate.kirsch@example.de,1958,Senioren,paid,2020-01-01,
+M002,Paul,Achtern,paul.achtern@example.de,1979,Feste,paid,2021-06-01,Festwirt-Bänke
+M003,Silke,Marchand,silke.marchand@example.de,1983,Feste,paid,2022-03-01,
+M004,Heinz,Osterkamp,heinz.osterkamp@example.de,1965,Senioren,invoice_sent,2026-01-15,Rechnung 2026
+M005,Nuray,Demir,nuray.demir@example.de,1990,Familie,invoice_sent,2026-05-01,Rechnung 2026

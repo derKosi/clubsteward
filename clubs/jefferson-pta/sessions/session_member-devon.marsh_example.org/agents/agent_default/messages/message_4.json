@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "tool-c7022e3dc89343b59c41d0f7c2bd35f6",
+          "status": "success",
+          "content": [
+            {
+              "text": "DRAFT SAVED draft_Re__Next_PTA_meeting_-_and_can_grandparents_attend_.eml"
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "8e3b7039-6627-460a-9bbd-9ae4d886a623"
+  },
+  "message_id": 4,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:42:04.253002+00:00",
+  "updated_at": "2026-08-23T13:42:04.253007+00:00"
+}

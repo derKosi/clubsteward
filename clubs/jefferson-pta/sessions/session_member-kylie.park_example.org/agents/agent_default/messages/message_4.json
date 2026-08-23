@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "tool-5075799df3a14caba1ec0986181d6756",
+          "status": "success",
+          "content": [
+            {
+              "text": "UPDATED kylie.park@example.org: {'email': 'kyu.park.new@example.org'}"
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "c22fd155-a46b-4acd-a7e8-077f91e692d5"
+  },
+  "message_id": 4,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:40:19.549522+00:00",
+  "updated_at": "2026-08-23T13:40:19.549527+00:00"
+}

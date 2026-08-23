@@ -1,0 +1,41 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "The email has been updated. Now I need to draft a reply to the old email (kylie.park@example.org) confirming the change, and then log the activity."
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "tool-761a5bab28c946eeb5f905003142b98d",
+          "name": "save_draft",
+          "input": {
+            "to": "kylie.park@example.org",
+            "subject": "Email updated for the Park family",
+            "body": "Hi Kyu,\n\nAll done — Kylie's contact email has been updated to kyu.park.new@example.org. From now on, all PTA communications will go to the new address.\n\nThanks for letting us know!\n\nWarm regards,\nMaria Chen\nPTA President, Jefferson Elementary\n(This reply was drafted by ClubKeeper, the PTA's agent — approved by a human)"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 695,
+        "outputTokens": 152,
+        "totalTokens": 847
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1265
+      }
+    },
+    "tracking_id": "3c3ac660-f893-4bfd-9559-02df56fdc936"
+  },
+  "message_id": 5,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:40:25.610794+00:00",
+  "updated_at": "2026-08-23T13:40:25.610804+00:00"
+}

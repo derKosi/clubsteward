@@ -13,14 +13,38 @@ from strands import tool
 
 from .config import Config
 from .models import REGISTER_FIELDS, load_register, save_register
+from .store import load_register_sqlite, save_register_sqlite, log_activity_sqlite
+
+
+def _load_rows(cfg):
+    return load_register_sqlite(cfg.data_dir) if _use_sqlite(cfg) else load_register(cfg.register_path)
+
+
+def _save_rows(cfg, rows):
+    if _use_sqlite(cfg):
+        save_register_sqlite(cfg.data_dir, rows)
+    else:
+        _save_rows(cfg, rows)
 
 # Config is injected per run (module-level default avoids global mutable state at import time)
 _cfg: Config | None = None
 
 
+def _use_sqlite(cfg: Config) -> bool:
+    import os
+    if os.environ.get("CLUBKEEPER_STORAGE", "").lower() == "sqlite":
+        return True
+    flag = cfg.data_dir / "storage.flag"
+    return flag.exists() and flag.read_text(encoding="utf-8").strip().lower() == "sqlite"
+
+
 def set_config(cfg: Config) -> None:
     global _cfg
     _cfg = cfg
+    if cfg.data_dir.name != "data":  # club mode: bootstrap sqlite if flagged
+        from . import store
+        if _use_sqlite(cfg):
+            store.init_db(cfg.data_dir)
 
 
 def _require_cfg() -> Config:
@@ -33,7 +57,7 @@ def _require_cfg() -> Config:
 def register_lookup(query: Annotated[str, "member email or name to look up"]) -> str:
     """Look up a member in the club register by email or name. Returns the matching rows."""
     cfg = _require_cfg()
-    rows = load_register(cfg.register_path)
+    rows = _load_rows(cfg)
     q = query.strip().lower()
     hits = [r for r in rows if q in r.get("email", "").lower() or q in (r.get("first_name", "") + " " + r.get("last_name", "")).lower()]
     if not hits:
@@ -48,7 +72,7 @@ def register_update(
 ) -> str:
     """Update fields of an existing member in the register (by email)."""
     cfg = _require_cfg()
-    rows = load_register(cfg.register_path)
+    rows = _load_rows(cfg)
     changes: dict[str, str] = {}
     for pair in updates.split(","):
         k, _, v = pair.partition("=")
@@ -58,7 +82,7 @@ def register_update(
     for r in rows:
         if r.get("email", "").lower() == email.lower():
             r.update(changes)
-            save_register(cfg.register_path, rows)
+            _save_rows(cfg, rows)
             return f"UPDATED {email}: {changes}"
     return f"ERROR member not found: {email}"
 
@@ -74,7 +98,7 @@ def register_add(
 ) -> str:
     """Add a new member to the register."""
     cfg = _require_cfg()
-    rows = load_register(cfg.register_path)
+    rows = _load_rows(cfg)
     if any(r.get("email", "").lower() == email.lower() for r in rows):
         return f"ERROR member already exists: {email}"
     member_id = f"M{len(rows) + 1:03d}"
@@ -89,7 +113,7 @@ def register_add(
         "joined": "2026-08-23",
         "notes": notes,
     })
-    save_register(cfg.register_path, rows)
+    _save_rows(cfg, rows)
     return f"ADDED {member_id} {first_name} {last_name} ({team})"
 
 
@@ -116,6 +140,9 @@ def save_draft(
 def log_activity(event: Annotated[str, "one-line activity log entry"]) -> str:
     """Append a line to the club activity log (what the agent did and why)."""
     cfg = _require_cfg()
-    with cfg.log_path.open("a", encoding="utf-8") as f:
-        f.write(event + "\n")
+    if _use_sqlite(cfg):
+        log_activity_sqlite(cfg.data_dir, event)
+    else:
+        with cfg.log_path.open("a", encoding="utf-8") as f:
+            f.write(event + "\n")
     return "LOGGED"

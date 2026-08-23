@@ -1,0 +1,15 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "text": "Process this case for the club automatically.\n\nCLUB FACTS (authoritative — NEVER invent or change amounts; if a fee is not listed, say you will confirm):\n  club: Jefferson Elementary PTA\n  season: School year 2026/27\n  tone: warm, inclusive, brief — everyone is welcome here\n  fees:\n  membership_fee: 12.0\n  field_trip_fund: 25.0\n  hardship_waiver_max: 37.0\n  signature (use EXACTLY this signature):\nMaria Chen\nPTA President, Jefferson Elementary\n(This reply was drafted by ClubKeeper, the PTA's agent — approved by a human)\n\nMAIL from Priya Raman <priya.raman@example.org> subject 'Volunteering for the fall bake sale':\nHi Maria,\n\nI'd love to help with the bake sale on the 24th. I can bring two batches of\nsamosas (always a hit) and help at the table until noon. Do I need to sign\nup somewhere official, and is there a nut-free table this year?\n\nThanks!\nPriya (Aditi's mom, Grade 2)\n\nTRIAGE: intent=question, summary=Parent Priya Raman (Aditi's mom, Grade 2) offers to volunteer for the fall bake sale on Oct 24th (samosas + table help until noon) and asks about official sign-up and whether there will be a nut-free table.\nDETAILS: {'child_name': 'Aditi', 'grade': 'Grade 2', 'event': 'Fall Bake Sale', 'event_date': 'the 24th', 'volunteer_offer': 'Two batches of samosas + help at table until noon', 'nut_free_inquiry': True}\nProposed action: Confirm volunteer spot and sign-up process; check with organizers about nut-free table arrangements for the bake sale and relay back.\n\nReply in the language of the member's mail (this club's default: German if unsure). Use the tools to update the register and draft a reply to priya.raman@example.org. Finish with a log entry."
+      }
+    ],
+    "tracking_id": "1e4c3c27-6b65-4ac8-97b9-b995c8bec0a5"
+  },
+  "message_id": 0,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:39:34.194615+00:00",
+  "updated_at": "2026-08-23T13:39:34.194619+00:00"
+}

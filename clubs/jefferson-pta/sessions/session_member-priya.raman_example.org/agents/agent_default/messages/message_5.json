@@ -1,0 +1,39 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "Good, draft saved. Now log the activity."
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "tool-7698e45f33ee4561a2c1564b12cf2065",
+          "name": "log_activity",
+          "input": {
+            "event": "Priya Raman (Aditi's mom, Grade 2) offered to volunteer for fall bake sale (Oct 24) with samosas + table help. Not found in register — no update needed. Drafted reply confirming her spot, noting she'll be added to the official sign-up, and promising to follow up on the nut-free table question."
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 888,
+        "outputTokens": 115,
+        "totalTokens": 1003
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1617
+      }
+    },
+    "tracking_id": "51bae972-02ae-479e-aec2-d26dda9328a2"
+  },
+  "message_id": 5,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:39:51.979181+00:00",
+  "updated_at": "2026-08-23T13:39:51.979191+00:00"
+}

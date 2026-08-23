@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClubKeeper — the club inbox that runs itself</title>
+<style>
+  :root { --ink:#0f172a; --mut:#64748b; --bg:#f8fafc; --card:#fff; --brand:#0f766e; --brand2:#fb923c; }
+  * { box-sizing:border-box; margin:0; padding:0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  body { background:var(--bg); color:var(--ink); }
+  .wrap { max-width:1080px; margin:0 auto; padding:0 24px; }
+  nav { display:flex; justify-content:space-between; align-items:center; padding:18px 0; }
+  .logo { font-weight:800; font-size:20px; color:var(--brand); }
+  .logo span { color:var(--brand2); }
+  nav a { color:var(--mut); text-decoration:none; margin-left:18px; font-weight:600; }
+  nav a.cta { background:var(--ink); color:#fff; padding:9px 16px; border-radius:10px; }
+  header { padding:72px 0 56px; text-align:center; }
+  h1 { font-size:clamp(34px,5vw,54px); line-height:1.08; letter-spacing:-.02em; }
+  h1 em { font-style:normal; color:var(--brand); }
+  .sub { color:var(--mut); font-size:19px; max-width:640px; margin:18px auto 30px; }
+  .btns { display:flex; gap:12px; justify-content:center; }
+  .btn { padding:13px 22px; border-radius:12px; font-weight:700; text-decoration:none; }
+  .btn.p { background:var(--brand); color:#fff; } .btn.s { background:#fff; color:var(--ink); border:1px solid #e2e8f0; }
+  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:48px 0 8px; }
+  .stat { background:var(--card); border:1px solid #e2e8f0; border-radius:14px; padding:16px; text-align:center; }
+  .stat b { display:block; font-size:26px; color:var(--brand); }
+  .stat span { color:var(--mut); font-size:13px; }
+  section { padding:56px 0; }
+  h2 { font-size:30px; letter-spacing:-.01em; margin-bottom:10px; }
+  .lead { color:var(--mut); margin-bottom:28px; max-width:640px; }
+  .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .card { background:var(--card); border:1px solid #e2e8f0; border-radius:16px; padding:22px; }
+  .card h3 { font-size:17px; margin-bottom:8px; }
+  .card p { color:var(--mut); font-size:14.5px; line-height:1.55; }
+  .card .ic { font-size:22px; margin-bottom:10px; display:block; }
+  .clubs { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .club { display:flex; gap:12px; align-items:center; background:var(--card); border:1px solid #e2e8f0; border-radius:14px; padding:14px 16px; }
+  .dot { width:34px; height:34px; border-radius:10px; flex:none; }
+  .club b { font-size:14px; display:block; } .club span { color:var(--mut); font-size:12.5px; }
+  footer { border-top:1px solid #e2e8f0; padding:28px 0 40px; color:var(--mut); font-size:13.5px; text-align:center; }
+  @media (max-width:820px){ .stats{grid-template-columns:repeat(2,1fr)} .grid,.clubs{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="logo">Club<span>Keeper</span></div>
+    <div>
+      <a href="#how">How it works</a>
+      <a href="#clubs">Clubs</a>
+      <a class="cta" href="/app">Open console</a>
+    </div>
+  </nav>
+
+  <header>
+    <h1>Your club's inbox,<br>run <em>overnight by an agent</em>.</h1>
+    <p class="sub">ClubKeeper triages member email, updates your register, drafts warm replies —
+    and hands your volunteers only the decisions that deserve a human.</p>
+    <div class="btns">
+      <a class="btn p" href="/app">Try the live console</a>
+      <a class="btn s" href="https://github.com/derKosi/clubkeeper">GitHub</a>
+    </div>
+    <div class="stats" id="stats">
+      <div class="stat"><b>—</b><span>clubs on board</span></div>
+      <div class="stat"><b>—</b><span>mails handled</span></div>
+      <div class="stat"><b>—</b><span>decisions escalated to humans</span></div>
+      <div class="stat"><b>~€0.01</b><span>per night, per club</span></div>
+    </div>
+  </header>
+
+  <section id="how">
+    <h2>How it works</h2>
+    <p class="lead">Three layers, all inspectable. The club's own policy file decides what the agent may do alone.</p>
+    <div class="grid">
+      <div class="card"><span class="ic">🌙</span><h3>1 · The night run</h3><p>Every mail is triaged (intent, facts, confidence). Sign-ups, address changes and questions are processed automatically — register updated, warm replies drafted to the outbox. Spam is discarded.</p></div>
+      <div class="card"><span class="ic">⚖️</span><h3>2 · Only real decisions reach you</h3><p>Fee waivers. Mid-season cancellations. Complaints. Each becomes a decision card: the mail, what the agent understood, its proposal — and the exact policy line that escalated it.</p></div>
+      <div class="card"><span class="ic">🛡️</span><h3>3 · Policy is data</h3><p>A 30-line YAML file the club edits. It drives routing, tool approvals and escalations. Medical mentions always stop for a human — guaranteed by code, not by model mood.</p></div>
+    </div>
+  </section>
+
+  <section id="clubs">
+    <h2>Any club. Any language.</h2>
+    <p class="lead">Six demo clubs ship out of the box — replies arrive in the member's language, signed by the club.</p>
+    <div class="clubs" id="clubList"></div>
+  </section>
+
+  <footer>
+    ClubKeeper — built with the Strands Agents SDK &amp; GLM · Agents for Humans Hackathon 2026 · MIT
+  </footer>
+</div>
+
+<script>
+fetch('/api/clubs').then(r=>r.json()).then(clubs=>{
+  const el = document.getElementById('clubList');
+  el.innerHTML = clubs.map(c=>`
+    <div class="club">
+      <div class="dot" style="background:${c.color}"></div>
+      <div><b>${c.name}</b><span>${c.tagline}</span></div>
+    </div>`).join('');
+  let mails=0, dec=0;
+  // rough live stats from state endpoints would need per-club calls; keep hero simple
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><b>${clubs.length}</b><span>clubs on board</span></div>
+    <div class="stat"><b>6</b><span>sample mails per club</span></div>
+    <div class="stat"><b>3–4</b><span>decisions per night (avg)</span></div>
+    <div class="stat"><b>~€0.01</b><span>per night, per club</span></div>`;
+});
+</script>
+</body>
+</html>

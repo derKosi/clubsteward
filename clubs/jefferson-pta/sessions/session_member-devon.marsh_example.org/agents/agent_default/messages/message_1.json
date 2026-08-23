@@ -1,0 +1,39 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "The member is asking about the next PTA meeting date and whether grandparents can attend. I need to check if Devon Marsh is in the register first, then draft a reply. Let me look them up.\n\nHowever, I don't have information about the next PTA meeting date in the club facts provided. I should look up the member first, and then draft a reply addressing both questions. For the meeting date, I'll need to say I'll confirm or provide what I know.\n\nLet me look up Devon Marsh first."
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "tool-bb3643dc467640878d17395d7fc4304b",
+          "name": "register_lookup",
+          "input": {
+            "query": "devon.marsh@example.org"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 473,
+        "outputTokens": 47,
+        "totalTokens": 520
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1437
+      }
+    },
+    "tracking_id": "cf760a1c-9ba1-4c56-b0e8-ed04459e2284"
+  },
+  "message_id": 1,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:41:56.986654+00:00",
+  "updated_at": "2026-08-23T13:41:56.986663+00:00"
+}

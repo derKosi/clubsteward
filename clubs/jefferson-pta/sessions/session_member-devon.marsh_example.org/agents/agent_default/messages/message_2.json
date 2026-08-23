@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "tool-bb3643dc467640878d17395d7fc4304b",
+          "status": "success",
+          "content": [
+            {
+              "text": "member_id=M002, first_name=Devon, last_name=Marsh, email=devon.marsh@example.org, birth_year=2015, team=Grade 4, fee_status=paid, joined=2024-09-01, notes=bake sale lead"
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "0d40cc8e-2118-44d2-9174-ec6518e2b9a3"
+  },
+  "message_id": 2,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:41:56.989079+00:00",
+  "updated_at": "2026-08-23T13:41:56.989084+00:00"
+}

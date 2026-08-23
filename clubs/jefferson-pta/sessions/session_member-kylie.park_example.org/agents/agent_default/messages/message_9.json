@@ -1,0 +1,33 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "Done. All steps completed successfully."
+          }
+        }
+      },
+      {
+        "text": "Updated the Park family's email from `kylie.park@example.org` → `kyu.park.new@example.org` and sent a confirmation draft to the old address (so they receive it before the switch takes full effect). Activity logged."
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 922,
+        "outputTokens": 49,
+        "totalTokens": 971
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1423
+      }
+    },
+    "tracking_id": "d9fd1447-fa83-4e57-b896-22ebb3d448ba"
+  },
+  "message_id": 9,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:40:32.357259+00:00",
+  "updated_at": "2026-08-23T13:40:32.357270+00:00"
+}

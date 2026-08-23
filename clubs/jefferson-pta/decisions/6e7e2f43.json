@@ -1,0 +1,26 @@
+{
+  "id": "6e7e2f43",
+  "mail_file": "04-complaint-bookfair.eml",
+  "from_name": "Beth Anand",
+  "from_email": "beth.anand@example.org",
+  "subject": "Book fair prices - some kids left in tears",
+  "triage": {
+    "intent": "complaint",
+    "member_email": null,
+    "member_name": null,
+    "summary": "A parent complains that the book fair's high minimum price ($9) excluded several children, causing two to leave in tears, and asks for a more inclusive approach to fundraising.",
+    "proposed_action": "Forward to the PTA/board leadership and the book fair organizer to review pricing and consider inclusive options (e.g., lower-priced items, voucher system, donation fund) so no child is singled out.",
+    "details": {
+      "event": "book fair",
+      "complaint_topic": "pricing too high, children unable to participate",
+      "lowest_price_mentioned": "$9",
+      "affected_group": "children (Grade 4)",
+      "sender_role": "Grade 4 parent"
+    },
+    "flags": [],
+    "confidence": 0.95
+  },
+  "policy_reason": "Policy: intent 'complaint' requires human decision (conflicts need a human touch)",
+  "status": "pending",
+  "created_at": "2026-08-23T13:41:49+00:00"
+}

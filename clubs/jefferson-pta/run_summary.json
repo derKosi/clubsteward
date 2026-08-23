@@ -1,0 +1,71 @@
+{
+  "started_at": "2026-08-23T13:39:21+00:00",
+  "finished_at": "2026-08-23T13:42:16+00:00",
+  "mails_total": 6,
+  "auto": 3,
+  "ask": 2,
+  "rejected": 1,
+  "total_tokens": 10729,
+  "steps": [
+    {
+      "mail_file": "01-volunteer-bake.eml",
+      "intent": "question",
+      "route": "auto",
+      "triage_tokens": 0,
+      "act_tokens": 3621,
+      "act_latency_ms": 0,
+      "tool_calls": 3,
+      "notes": ""
+    },
+    {
+      "mail_file": "02-hardship-fieldtrip.eml",
+      "intent": "hardship_waiver",
+      "route": "ask",
+      "triage_tokens": 0,
+      "act_tokens": 0,
+      "act_latency_ms": 0,
+      "tool_calls": 0,
+      "notes": ""
+    },
+    {
+      "mail_file": "03-address-change.eml",
+      "intent": "address_change",
+      "route": "auto",
+      "triage_tokens": 0,
+      "act_tokens": 4011,
+      "act_latency_ms": 0,
+      "tool_calls": 4,
+      "notes": ""
+    },
+    {
+      "mail_file": "04-complaint-bookfair.eml",
+      "intent": "complaint",
+      "route": "ask",
+      "triage_tokens": 0,
+      "act_tokens": 0,
+      "act_latency_ms": 0,
+      "tool_calls": 0,
+      "notes": ""
+    },
+    {
+      "mail_file": "05-question-meeting.eml",
+      "intent": "question",
+      "route": "auto",
+      "triage_tokens": 0,
+      "act_tokens": 3097,
+      "act_latency_ms": 0,
+      "tool_calls": 3,
+      "notes": ""
+    },
+    {
+      "mail_file": "06-spam.eml",
+      "intent": "spam",
+      "route": "reject",
+      "triage_tokens": 0,
+      "act_tokens": 0,
+      "act_latency_ms": 0,
+      "tool_calls": 0,
+      "notes": ""
+    }
+  ]
+}

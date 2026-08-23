@@ -1,0 +1,39 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "Let me process this case step by step:\n\n1. First, look up the member using the old email to verify the record exists\n2. Update the email to the new one\n3. Draft a reply to the old email address\n4. Log the activity\n\nThe member's mail is in English, so I'll reply in English.\n\nLet me start by looking up the member."
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "tool-b14a884c3dba44fd94e975295248bca9",
+          "name": "register_lookup",
+          "input": {
+            "query": "kylie.park@example.org"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 534,
+        "outputTokens": 47,
+        "totalTokens": 581
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1499
+      }
+    },
+    "tracking_id": "cd4bac52-6097-419e-8f9d-21782d611ca3"
+  },
+  "message_id": 1,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:40:15.601664+00:00",
+  "updated_at": "2026-08-23T13:40:15.601673+00:00"
+}

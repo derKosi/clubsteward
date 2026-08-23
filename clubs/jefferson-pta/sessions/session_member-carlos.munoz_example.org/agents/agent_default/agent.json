@@ -1,0 +1,26 @@
+{
+  "agent_id": "default",
+  "state": {
+    "clubkeeper:case": {
+      "autonomy": "auto_preapproved",
+      "intent": "hardship_waiver",
+      "decision_id": "4b3592f8",
+      "mail_file": "02-hardship-fieldtrip.eml"
+    }
+  },
+  "conversation_manager_state": {
+    "__name__": "SlidingWindowConversationManager",
+    "removed_message_count": 0,
+    "model_call_count": 0
+  },
+  "_internal_state": {
+    "interrupt_state": {
+      "interrupts": {},
+      "context": {},
+      "activated": false
+    },
+    "model_state": {}
+  },
+  "created_at": "2026-08-23T13:42:38.384210+00:00",
+  "updated_at": "2026-08-23T13:42:55.727491+00:00"
+}

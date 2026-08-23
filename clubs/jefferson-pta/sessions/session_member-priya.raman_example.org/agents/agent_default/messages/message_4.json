@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "tool-19a94a9ff9e6455699f920384ff188f6",
+          "status": "success",
+          "content": [
+            {
+              "text": "DRAFT SAVED draft_Re__Volunteering_for_the_fall_bake_sale.eml"
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "28ac7184-bda6-4cb7-b55e-cce3ed70ebb7"
+  },
+  "message_id": 4,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:39:48.353858+00:00",
+  "updated_at": "2026-08-23T13:39:48.353865+00:00"
+}
