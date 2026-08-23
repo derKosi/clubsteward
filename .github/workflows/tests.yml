@@ -1,0 +1,21 @@
+name: tests
+
+# Not on every main push — tests run on pull requests and version tags only.
+on:
+  pull_request:
+  push:
+    tags: ["v*"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - run: uv sync
+      - run: uv run pytest tests/ -q
+      - run: uv run python scripts/reset_demo.py
+      - run: bash -n demo/run_demo.sh
+      - run: bash -n scripts/run_web.sh
