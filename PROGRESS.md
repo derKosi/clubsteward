@@ -109,3 +109,23 @@
 **Next**
 - Decide CLI polish for video (colored decision cards), demo GIF for README, optional: replay mode without API key (judges without Z.ai key), then Phase 3 video recording prep.
 
+## Session 2026-08-23 (4) — Replay mode (no API key) + recorder tests
+
+**Done**
+- `clubkeeper/recorder.py`: RunRecorder captures per-step transcript lines, file moves, and artifact diffs (drafts/decisions/register/log) of a REAL run.
+- `scripts/record_session.py/.sh`: records pipeline + auto-approved decisions into `demo/recording/session.json` (committed).
+- `clubkeeper/replay.py`: replays the recording without any API key — step-by-step transcript, applies artifacts, moves files; every output bracketed by `[RECORDED SESSION — not a live LLM call]`. `--speed=N` flag.
+- Fixed: decide-step effects must be captured AFTER execution (begin/end split); final snapshot must be retaken after decide executions (was restoring cleared decision queue).
+- Verified end-to-end on a FRESH CLONE with `env -u ZAI_API_KEY`: replay ends with 0 pending decisions, 5 drafts, 9 processed, register updated.
+- README: "No API key?" replay section. Tests: 16 (recorder effect capture added).
+
+**Learned**
+- Replay = recorded effects + transcript, not video: cheap, inspectable, honest (label requirement from mission brief: replays clearly marked — done via badge lines).
+- Diff-based recording automatically stays small: only changed artifacts per step.
+
+**Blocked / decisions needed**
+- none
+
+**Next**
+- Decide CLI polish (colored cards) for the video, demo GIF, run_demo.sh replay fallback, Phase-3 video recording.
+
