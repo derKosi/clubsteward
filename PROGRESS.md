@@ -21,4 +21,26 @@
 - none
 
 **Next**
-- Phase 1: three concepts + scoring matrix + `DECISION.md`
+- Phase 1: three concepts + scoring matrix + `DECISION.md` ← done this session, see below
+
+## Session 2026-08-23 — Phase 1: Concept Decision
+
+**Done**
+- Originality research (web): subscription-audit agents and generic nonprofit triage agents already exist in OSS; volunteer-club secretary agent = open niche.
+- Three concepts worked out (all on shared architecture: local inbox → batch agent → decision queue → outbox + ledger):
+  - A) Deadline Guardian (Everyday) — contract renewal/cancellation deadlines
+  - B) Concept Cashflow Chaser (Professional) — freelancer dunning
+  - C) **ClubKeeper (Good Neighbor) — RECOMMENDED**: club secretary inbox agent with policy-as-data decision layer
+- Scoring matrix (demo, feasibility, impact, originality, Strands depth): A 19 · B 21.5 · C 24.5
+- `DECISION.md` written with full reasoning + fallback (B shares the architecture)
+
+**Learned**
+- The shared substrate makes the concept switchable until ~Sep 1 at near-zero cost.
+- HITL custom-classifier + policy-as-data is both the creative centerpiece AND Strands-depth showcase.
+
+**Blocked / decisions needed**
+- Kosi's veto on concept C (default: we build C). Veto window: while Phase 2 < 3 days old (until ~Aug 26, 12:00).
+
+**Next**
+- Phase 2 build kickoff (architecture skeleton, demo corpus, pipeline skeleton) — starts on Kosi's go
+
