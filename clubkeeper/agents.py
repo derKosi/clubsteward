@@ -90,6 +90,29 @@ def triage_one(triage_agent: Agent, mail: MailItem) -> TriageResult:
     return triage_agent.structured_output(TriageResult, prompt)
 
 
+def triage_tokens(triage_agent: Agent) -> int:
+    """Best-effort total tokens used by the triage agent so far (cumulative)."""
+    try:
+        usage = triage_agent.event_loop_metrics.accumulated_usage  # dict
+        return int(usage.get("totalTokens", 0)) if isinstance(usage, dict) else 0
+    except Exception:
+        return 0
+
+
+class TriageTokenTracker:
+    """Tracks per-mail token deltas from the triage agent's cumulative counter."""
+
+    def __init__(self, triage_agent: Agent):
+        self._agent = triage_agent
+        self._last = 0
+
+    def delta(self) -> int:
+        total = triage_tokens(self._agent)
+        d = max(0, total - self._last)
+        self._last = total
+        return d
+
+
 def evaluate_policy(policy: ClubPolicy, triage: TriageResult) -> tuple[str, str]:
     """Return (decision, reason). decision in {auto, ask, reject}."""
     rule = policy.rule_for(triage.intent.value)

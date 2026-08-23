@@ -11,9 +11,10 @@ import sys
 import uuid
 from pathlib import Path
 
-from .agents import ClubKeeper, evaluate_policy, triage_one
+from .agents import ClubKeeper, TriageTokenTracker, evaluate_policy, triage_one
 from .config import Config
 from .interventions import set_case
+from .metrics import new_summary, record_act, record_triage, save as save_summary, cost_estimate
 from .models import Decision, MailItem
 from .policy import ClubPolicy
 from .tools import set_config
@@ -39,6 +40,8 @@ def run(max_mails: int | None = None) -> int:
         return 0
 
     print(f"Processing {len(mails)} mail(s) with model {cfg.model_id} ...")
+    summary = new_summary()
+    tracker = TriageTokenTracker(ck.triage_agent)
     processed, asked = 0, 0
     for path in mails:
         mail = MailItem.parse(path)
@@ -49,6 +52,7 @@ def run(max_mails: int | None = None) -> int:
             print(f"  TRIAGE FAILED: {e}")
             continue
         decision, reason = evaluate_policy(policy, triage)
+        record_triage(summary, path.name, triage.intent.value, decision, None, triage_tokens=tracker.delta())
         print(f"  intent={triage.intent.value} confidence={triage.confidence:.2f} → {decision.upper()}")
         if decision == "reject":
             shutil.move(str(path), cfg.processed_dir / path.name)
@@ -78,12 +82,16 @@ def run(max_mails: int | None = None) -> int:
             "mail_file": path.name,
         })
         result = agent(act_prompt(mail, triage))
+        record_act(summary, path.name, result, agent.messages)
         print(f"  act: {str(result)[:140]}")
         shutil.move(str(path), cfg.processed_dir / path.name)
         processed += 1
 
     print(f"\nDone: {processed} auto-processed, {asked} queued for human decision.")
     print(f"Outbox drafts: {len(list(cfg.outbox_dir.glob('*.eml')))} | Decisions pending: {len(list(cfg.decisions_dir.glob('*.json')))}")
+    save_summary(summary, cfg.data_dir / "run_summary.json")
+    print(f"Run summary: {summary.mails_total} mails · {summary.auto} auto / {summary.ask} ask / {summary.rejected} reject · "
+          f"{summary.total_tokens} tokens (~€{cost_estimate(summary.total_tokens)})")
     return 0
 
 

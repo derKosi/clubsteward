@@ -82,6 +82,16 @@ agent state and the club's policy: read-only tools always run free, writes run f
 when the policy says `auto` or a human has approved the case — otherwise the tool call
 is escalated. Fail-closed for unknown tools.
 
+**Member memory:** each member gets a persistent agent session
+(`FileSessionManager`, `demo/data/sessions/`). When Kwame's mother writes again a week
+later, the agent remembers the instalment plan it proposed and answers consistently —
+try mail 09 in the corpus.
+
+**Run transparency:** every run writes `demo/data/run_summary.json` — mails, routes,
+tokens, latency, tool calls per step, and a cost estimate (~€0.01–0.03 per night for a
+small club on GLM-class models). Volunteers can see exactly what the agent did, how long
+it took, and what it cost.
+
 ## Quickstart
 
 ```bash

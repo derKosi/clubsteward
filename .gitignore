@@ -29,5 +29,6 @@ demo/data/processed/
 demo/data/sessions/
 demo/data/register.csv
 demo/data/activity.log
+demo/data/run_summary.json
 *.log
 .traces/
