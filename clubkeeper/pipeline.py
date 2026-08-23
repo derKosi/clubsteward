@@ -71,12 +71,13 @@ def run(max_mails: int | None = None) -> int:
             mail_text = mail.body  # act later, after human answers
             continue
         # auto path: run act agent (HITL classifier approves writes via policy)
-        set_case(ck.act_agent, {
+        agent = ck.act_agent_for(mail.from_email)
+        set_case(agent, {
             "autonomy": "auto",
             "intent": triage.intent.value,
             "mail_file": path.name,
         })
-        result = ck.act_agent(act_prompt(mail, triage))
+        result = agent(act_prompt(mail, triage))
         print(f"  act: {str(result)[:140]}")
         shutil.move(str(path), cfg.processed_dir / path.name)
         processed += 1

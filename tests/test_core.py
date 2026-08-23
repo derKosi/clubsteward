@@ -101,7 +101,7 @@ class TestMailParsing:
 
     def test_parse_all_corpus(self):
         mails = [MailItem.parse(p) for p in sorted(DEMO.glob("*.eml"))]
-        assert len(mails) == 8
+        assert len(mails) >= 8  # 8 base corpus + optional follow-up scenario
 
 
 class TestEvaluatePolicy:
@@ -114,3 +114,32 @@ class TestEvaluatePolicy:
         assert evaluate_policy(policy, t_auto)[0] == "auto"
         assert evaluate_policy(policy, t_ask)[0] == "ask"
         assert evaluate_policy(policy, t_spam)[0] == "reject"
+
+
+class TestSessionRouting:
+    def test_act_agent_for_is_stable_per_member(self, tmp_path):
+        """Same member email → same agent instance (persistent session) within one run."""
+        from clubkeeper.agents import ClubKeeper
+        from clubkeeper.config import Config
+
+        cfg = Config(api_key="test", base_url="http://localhost", model_id="m", data_dir=tmp_path)
+        pol = ClubPolicy(club_name="X", season="s", rules=[])
+        ck = ClubKeeper(cfg, pol)
+        a1 = ck.act_agent_for("miriam@example.com")
+        a2 = ck.act_agent_for("miriam@example.com")
+        b = ck.act_agent_for("other@example.com")
+        assert a1 is a2
+        assert a1 is not b
+
+    def test_session_files_created_shape(self, tmp_path):
+        """Session dirs use a sanitized member key under data_dir/sessions."""
+        from clubkeeper.agents import ClubKeeper
+        from clubkeeper.config import Config
+
+        cfg = Config(api_key="test", base_url="http://localhost", model_id="m", data_dir=tmp_path)
+        pol = ClubPolicy(club_name="X", season="s", rules=[])
+        ck = ClubKeeper(cfg, pol)
+        ck.act_agent_for("weird/address@example.com")
+        sessions = list((tmp_path / "sessions").iterdir())
+        assert len(sessions) == 1
+        assert "weird" in sessions[0].name and "@" not in sessions[0].name

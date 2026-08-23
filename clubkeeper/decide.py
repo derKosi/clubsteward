@@ -77,7 +77,8 @@ def approve(d: Decision, ck: ClubKeeper, extra: str = "") -> None:
     mail_path = Config.load().decisions_dir / d.mail_file
     mail = MailItem.parse(mail_path)
     # Human decided → write pre-approved; the audit trail carries the decision id
-    set_case(ck.act_agent, {
+    agent = ck.act_agent_for(mail.from_email)
+    set_case(agent, {
         "autonomy": "auto_preapproved",
         "intent": d.triage.intent.value,
         "decision_id": d.id,
@@ -91,7 +92,7 @@ def approve(d: Decision, ck: ClubKeeper, extra: str = "") -> None:
         f"Proposed action: {d.triage.proposed_action}\n\n"
         f"Execute now with the tools (register update, draft reply, log entry)."
     )
-    result = ck.act_agent(prompt)
+    result = agent(prompt)
     print(str(result)[:200])
 
 

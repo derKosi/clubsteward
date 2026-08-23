@@ -22,6 +22,12 @@ build/
 # Demo runtime artifacts (regenerated, may contain personal data)
 demo/data/inbox/*
 !demo/data/inbox/.gitkeep
-demo/out/
+demo/data/outbox/
+demo/data/decisions/*
+!demo/data/decisions/.gitkeep
+demo/data/processed/
+demo/data/sessions/
+demo/data/register.csv
+demo/data/activity.log
 *.log
 .traces/
