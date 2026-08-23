@@ -9,8 +9,9 @@ Stand: 23.08.2026 · Agent-seitige Arbeit: fertig · Alles Weitere braucht Kosi 
 - [ ] Optional: $50 AWS-Credits-Formular (bis 11.09., 12:00 PT; first-come-first-served)
       → https://forms.gle/6sjzKiX6bKUMA5NEA — Text zum Copy-Pasten: docs/devpost-credits-helper.md
       (Track: Good Neighbor Agents angeben, sonst wird abgelehnt!)
-- [ ] Optional: `gh auth refresh -s workflow` — danach Agent das CI-File pushen lassen
-      (liegt bereit in .github/workflows/tests.yml, lokal untracked)
+- [x] `gh auth refresh -s workflow,project` — erledigt 23.08., CI-Workflows
+      (tests.yml + release.yml) gepusht (Commit 075c378), GH Project-Board angelegt:
+      https://github.com/users/derKosi/projects/5
 
 ## Freigabe fällig
 
