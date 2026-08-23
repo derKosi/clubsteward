@@ -1,0 +1,8 @@
+[project]
+name = "agents-for-humans"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.12"
+dependencies = [
+    "strands-agents[litellm]>=1.53.0",
+]
