@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "tool-5fe956d10b764dad9a58544043702c2d",
+          "status": "success",
+          "content": [
+            {
+              "text": "UPDATED berta.beuel@example.de: {}"
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "cf23a1f8-7eb3-4421-b643-e1fb916e1acb"
+  },
+  "message_id": 4,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:11:59.188260+00:00",
+  "updated_at": "2026-08-23T13:11:59.188266+00:00"
+}

@@ -1,0 +1,39 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "The member wants to update their address. Let me first look up Berta Beuel in the register to confirm her membership and get her email for updating."
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "tool-3592bc44d2b046de85a82001e12f2c6e",
+          "name": "register_lookup",
+          "input": {
+            "query": "berta.beuel@example.de"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 524,
+        "outputTokens": 51,
+        "totalTokens": 575
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1130
+      }
+    },
+    "tracking_id": "47fdfd9e-b3ef-48ed-948a-c4daf1453c33"
+  },
+  "message_id": 1,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:11:54.642785+00:00",
+  "updated_at": "2026-08-23T13:11:54.642795+00:00"
+}

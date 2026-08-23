@@ -1,0 +1,40 @@
+# ClubKeeper-Policy — hier regelt der Vorstand, was der Agent allein darf.
+club_name: SV Grünwald 1912 e.V.
+season: "Saison 2026/27"
+fees:
+  jahresbeitrag: 96.0
+  geschwisterrabatt: 0.25
+  hardship_waiver_max: 96.0
+tone: freundlich, herzlich, kurz — auf Deutsch
+reply_signature: |
+  Sarah Verwald
+  Geschäftsstelle, SV Grünwald 1912 e.V.
+  (Entwurf erstellt von ClubKeeper, dem Vereins-Agenten — vom Menschen freigegeben)
+rules:
+  - intent: signup
+    decision: auto
+    note: komplette Anmeldungen sind Routine
+    ask_if:
+      - "medical notes that require coach coordination"
+      - "waiting list needed (team full)"
+  - intent: address_change
+    decision: auto
+    note: reine Datenpflege
+  - intent: cancellation
+    decision: ask
+    note: mitten in der Saison — Trainerplanung und Erstattung
+  - intent: hardship_waiver
+    decision: ask
+    note: Geld + Menschlichkeit entscheidet immer ein Mensch
+  - intent: question
+    decision: auto
+    note: Auskünfte sind Routine
+  - intent: complaint
+    decision: ask
+    note: Konflikte brauchen ein menschliches Wort
+  - intent: spam
+    decision: reject
+    note: Wegwerfen, niemanden belästigen
+  - intent: unknown
+    decision: ask
+    note: nie raten

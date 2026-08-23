@@ -1,0 +1,39 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "Let me analyze this case:\n\n1. Sabine Künzig wants to sign up her daughter Milla (born 2016) for the Kindergarde.\n2. She asks about a sibling discount (Geschwisterbeitrag) since her son Timo is already a member.\n3. I need to look up Timo's membership to verify the sibling exists and check what fee he pays.\n\nLet me first look up Timo to verify the sibling membership."
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "tool-297832549dae41068a8e796e197afdb6",
+          "name": "register_lookup",
+          "input": {
+            "query": "timo.kuenzig@example.de"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 674,
+        "outputTokens": 47,
+        "totalTokens": 721
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1468
+      }
+    },
+    "tracking_id": "e1becb15-f6c1-404c-8464-6681fbaa02cf"
+  },
+  "message_id": 1,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:11:11.117740+00:00",
+  "updated_at": "2026-08-23T13:11:11.117750+00:00"
+}

@@ -1,0 +1,39 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "Good. Now let me log the activity."
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "tool-04aa9737388b44cea8d94490cf366902",
+          "name": "log_activity",
+          "input": {
+            "event": "Neuaufnahme-Anfrage Milla Künzig (Jg. 2016, Kindergarde) von Mutter Sabine. Geschwister-Timo (timo.kuenzig@example.de) nicht im Register gefunden — Rückfrage zu Timos Mitgliedschaft und Milla-Kontaktdaten im Entwurf an sabine.kuenzig@example.de; noch keine Registereintragung."
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 1046,
+        "outputTokens": 125,
+        "totalTokens": 1171
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1363
+      }
+    },
+    "tracking_id": "f5570493-26a1-46af-8a21-f7c0a8879d91"
+  },
+  "message_id": 7,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:11:37.599879+00:00",
+  "updated_at": "2026-08-23T13:11:37.599887+00:00"
+}

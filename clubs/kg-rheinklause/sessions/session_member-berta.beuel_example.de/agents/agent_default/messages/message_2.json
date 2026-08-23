@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "tool-3592bc44d2b046de85a82001e12f2c6e",
+          "status": "success",
+          "content": [
+            {
+              "text": "member_id=M001, first_name=Berta, last_name=Beuel, email=berta.beuel@example.de, birth_year=1968, team=Garde, fee_status=paid, joined=2023-11-11, notes="
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "87379784-79ac-4828-aa24-2840eafc4152"
+  },
+  "message_id": 2,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:11:54.644977+00:00",
+  "updated_at": "2026-08-23T13:11:54.644983+00:00"
+}

@@ -1,0 +1,71 @@
+{
+  "started_at": "2026-08-23T13:10:59+00:00",
+  "finished_at": "2026-08-23T13:13:24+00:00",
+  "mails_total": 6,
+  "auto": 3,
+  "ask": 2,
+  "rejected": 1,
+  "total_tokens": 14151,
+  "steps": [
+    {
+      "mail_file": "01-beitritt-garde.eml",
+      "intent": "signup",
+      "route": "auto",
+      "triage_tokens": 0,
+      "act_tokens": 5094,
+      "act_latency_ms": 0,
+      "tool_calls": 4,
+      "notes": ""
+    },
+    {
+      "mail_file": "02-adressaenderung.eml",
+      "intent": "address_change",
+      "route": "auto",
+      "triage_tokens": 0,
+      "act_tokens": 5711,
+      "act_latency_ms": 0,
+      "tool_calls": 5,
+      "notes": ""
+    },
+    {
+      "mail_file": "03-beitrag-armut.eml",
+      "intent": "hardship_waiver",
+      "route": "ask",
+      "triage_tokens": 0,
+      "act_tokens": 0,
+      "act_latency_ms": 0,
+      "tool_calls": 0,
+      "notes": ""
+    },
+    {
+      "mail_file": "04-sitzungstermine.eml",
+      "intent": "question",
+      "route": "auto",
+      "triage_tokens": 0,
+      "act_tokens": 3346,
+      "act_latency_ms": 0,
+      "tool_calls": 3,
+      "notes": ""
+    },
+    {
+      "mail_file": "05-beschwerde-musik.eml",
+      "intent": "complaint",
+      "route": "ask",
+      "triage_tokens": 0,
+      "act_tokens": 0,
+      "act_latency_ms": 0,
+      "tool_calls": 0,
+      "notes": ""
+    },
+    {
+      "mail_file": "06-spam.eml",
+      "intent": "spam",
+      "route": "reject",
+      "triage_tokens": 0,
+      "act_tokens": 0,
+      "act_latency_ms": 0,
+      "tool_calls": 0,
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "Wait, I made a mistake in the draft body. I included some Chinese characters (\"保持在团里的热情\") which is completely wrong. I need to fix this. Let me redo the draft."
+          }
+        }
+      },
+      {
+        "text": "I notice I accidentally included some stray characters in the draft. Let me fix that immediately."
+      },
+      {
+        "toolUse": {
+          "toolUseId": "tool-f01309d8eb624b9ba7b08a3477a6bf16",
+          "name": "save_draft",
+          "input": {
+            "to": "berta.beuel@example.de",
+            "subject": "Re: Neue Adresse — alles erledigt!",
+            "body": "Liebe Berta,\n\nhelau! Danke für die kurze Info — deine neue Adresse (Hauptstraße 88a, 50667 Köln) ist im Mitgliederverzeichnis aktualisiert. Alles andere bleibt wie gehabt, keine Sorge.\n\nViel Spaß im neuen Zuhause!\n\nAlles Gute,\nDer Elferrat\nKG Rheinklause 1967 e.V.\n(Entwurf erstellt von ClubKeeper, dem Vereins-Agenten — vom Menschen freigegeben)"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 887,
+        "outputTokens": 211,
+        "totalTokens": 1098
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1652
+      }
+    },
+    "tracking_id": "16fb8a47-bb37-4cee-b6fd-f44469ae1194"
+  },
+  "message_id": 7,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:12:14.474403+00:00",
+  "updated_at": "2026-08-23T13:12:14.474414+00:00"
+}

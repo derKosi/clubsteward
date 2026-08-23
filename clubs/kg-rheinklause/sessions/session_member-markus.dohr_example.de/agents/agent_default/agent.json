@@ -1,0 +1,26 @@
+{
+  "agent_id": "default",
+  "state": {
+    "clubkeeper:case": {
+      "autonomy": "auto_preapproved",
+      "intent": "hardship_waiver",
+      "decision_id": "bd9bfb42",
+      "mail_file": "03-beitrag-armut.eml"
+    }
+  },
+  "conversation_manager_state": {
+    "__name__": "SlidingWindowConversationManager",
+    "removed_message_count": 0,
+    "model_call_count": 0
+  },
+  "_internal_state": {
+    "interrupt_state": {
+      "interrupts": {},
+      "context": {},
+      "activated": false
+    },
+    "model_state": {}
+  },
+  "created_at": "2026-08-23T13:14:26.576931+00:00",
+  "updated_at": "2026-08-23T13:14:46.500975+00:00"
+}

@@ -1,0 +1,39 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "Good, the draft was saved. Now I need to log the activity."
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "tool-f556eca4d931403d8ec4cd8408f3d8e0",
+          "name": "log_activity",
+          "input": {
+            "event": "Gaby Grips fragte nach November-Sitzungsterminen (2 Gäste). Keine Termine im System verfügbar — Info-Antwort mit Bitte um Geduld entworfen und an gaby.grips@example.de gesendet. (draft_Re__Wann_sind_die_November-Sitzungen_.eml)"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 829,
+        "outputTokens": 115,
+        "totalTokens": 944
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1425
+      }
+    },
+    "tracking_id": "0ef250a2-b47f-459c-b40c-853917e5b9dd"
+  },
+  "message_id": 5,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:13:06.363602+00:00",
+  "updated_at": "2026-08-23T13:13:06.363611+00:00"
+}

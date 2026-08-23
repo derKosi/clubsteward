@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "tool-04aa9737388b44cea8d94490cf366902",
+          "status": "success",
+          "content": [
+            {
+              "text": "LOGGED"
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "b2482acb-8986-4760-9181-6895c5a56f1c"
+  },
+  "message_id": 8,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:11:37.602000+00:00",
+  "updated_at": "2026-08-23T13:11:37.602005+00:00"
+}

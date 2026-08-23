@@ -1,0 +1,33 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "Done. The member wasn't found in the register, but no register update was needed anyway - this is a complaint that just needs a response and forwarding to the technical team."
+          }
+        }
+      },
+      {
+        "text": "**Fall abgeschlossen.** Klaus Männchens ist nicht im Vereinsregister eingetragen (keine Mitgliedsdaten nötig für diese Beschwerde). \n\nFolgendes wurde erledigt:\n- **Antwortentwurf** gespeichert an klaus.maennchens@example.de: herzliche Danksagung für die Meldung, Entschuldigung für die wiederholte Lautstärke, Zusicherung dass die Beschwerde an das Technikteam weitergeleitet wird.\n- **Aktivitätslog** eingetragen mit Zusammenfassung des Vorgangs."
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 1034,
+        "outputTokens": 136,
+        "totalTokens": 1170
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1387
+      }
+    },
+    "tracking_id": "45b86138-4975-44f5-a5b6-0062a3764faf"
+  },
+  "message_id": 7,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:14:26.572136+00:00",
+  "updated_at": "2026-08-23T13:14:26.572146+00:00"
+}

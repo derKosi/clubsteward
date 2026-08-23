@@ -21,8 +21,11 @@ from .recorder import RunRecorder
 from .tools import set_config
 
 
-def run(max_mails: int | None = None, recorder: RunRecorder | None = None) -> int:
-    cfg = Config.load()
+def run(max_mails: int | None = None, recorder: RunRecorder | None = None, club: str | None = None) -> int:
+    cfg = Config.load(club)
+    brand = cfg.brand
+    if brand.name and cfg.club_id != "demo":
+        print(f"=== {brand.name} — {brand.tagline} ===" if brand.tagline else f"=== {brand.name} ===")
     if not cfg.api_key:
         print("ERROR: ZAI_API_KEY not set (see .env.example)")
         return 2
@@ -90,7 +93,7 @@ def run(max_mails: int | None = None, recorder: RunRecorder | None = None) -> in
             "intent": triage.intent.value,
             "mail_file": path.name,
         })
-        result = agent(act_prompt(mail, triage))
+        result = agent(act_prompt(mail, triage, policy))
         record_act(summary, path.name, result, agent.messages)
         line3 = f"  act: {str(result)[:140]}"
         print(line3)
@@ -111,13 +114,25 @@ def run(max_mails: int | None = None, recorder: RunRecorder | None = None) -> in
     return 0
 
 
-def act_prompt(mail: MailItem, triage) -> str:
+def act_prompt(mail: MailItem, triage, policy: ClubPolicy | None = None) -> str:
+    fees = ""
+    sig = ""
+    if policy is not None:
+        fees = "\n".join(f"  {k}: {v}" for k, v in policy.fees.items())
+        sig = policy.reply_signature.strip()
     return (
         f"Process this case for the club automatically.\n\n"
+        f"CLUB FACTS (authoritative — NEVER invent or change amounts; if a fee is not listed, say you will confirm):\n"
+        f"  club: {policy.club_name if policy else '-'}\n"
+        f"  season: {policy.season if policy else '-'}\n"
+        f"  tone: {policy.tone if policy else '-'}\n"
+        f"  fees:\n{fees if fees else '    (none listed)'}\n"
+        f"  signature (use EXACTLY this signature):\n{sig}\n\n"
         f"MAIL from {mail.from_name} <{mail.from_email}> subject '{mail.subject}':\n{mail.body[:2000]}\n\n"
         f"TRIAGE: intent={triage.intent.value}, summary={triage.summary}\n"
         f"DETAILS: {triage.details}\n"
         f"Proposed action: {triage.proposed_action}\n\n"
+        f"Reply in the language of the member's mail (this club's default: German if unsure). "
         f"Use the tools to update the register and draft a reply to {mail.from_email}. Finish with a log entry."
     )
 

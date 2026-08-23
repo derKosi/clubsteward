@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "tool-cfbf08735a83459f9050fe6e2b8627f6",
+          "status": "success",
+          "content": [
+            {
+              "text": "DRAFT SAVED draft_Re__Wann_sind_die_November-Sitzungen_.eml"
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "b5896e91-8605-40a6-8a05-440d8f8b3478"
+  },
+  "message_id": 4,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:13:00.913680+00:00",
+  "updated_at": "2026-08-23T13:13:00.913685+00:00"
+}

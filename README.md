@@ -144,6 +144,29 @@ This escalation engine is data: the triage agent extracts lowercase flags
 (`medical`, `waiting_list`, `refund`, ...), and the policy's `ask_if` lines decide
 which flags interrupt a human. Volunteers tune autonomy by editing YAML.
 
+## Multiple clubs, white-labeled
+
+ClubKeeper is multi-club by design — three German example clubs ship in `clubs/`:
+
+```bash
+uv run python -m clubkeeper.club list                    # KG Rheinklause · SV Grünwald · OG Lindenthal
+uv run python -m clubkeeper.club run kg-rheinklause      # nightly run for the Karnevalsverein (German mails!)
+uv run python -m clubkeeper.club decide kg-rheinklause   # decision queue, German policy reasons
+uv run python -m clubkeeper.club status kg-rheinklause   # branded overview
+```
+
+Each club is a folder: `policy.yaml` (rules + fees + tone + signature), `brand.yaml`
+(name, tagline, colors, locale), `corpus/` (sample mails + register). The agent replies
+in the member's language (German clubs → German drafts), signs with the club's own
+signature, and never invents fees — amounts come from the policy file.
+
+Create your own club in one command:
+
+```bash
+uv run python -m clubkeeper.club new mein-verein --name "Mein Verein e.V." \
+    --tagline "Gemeinsam stark" --color "#15803d"
+```
+
 ## Design decisions
 
 - **Local files, not integrations.** A club secretary can't set up OAuth. Folders in,

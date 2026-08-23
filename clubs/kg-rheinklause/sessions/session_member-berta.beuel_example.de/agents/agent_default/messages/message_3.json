@@ -1,0 +1,40 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "Found Berta Beuel. Now I need to update her address. The register_update function takes key=value pairs. I'll use \"address=Hauptstraße 88a, 50667 Köln\" as the update."
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "tool-5fe956d10b764dad9a58544043702c2d",
+          "name": "register_update",
+          "input": {
+            "email": "berta.beuel@example.de",
+            "updates": "address=Hauptstraße 88a, 50667 Köln"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 616,
+        "outputTokens": 66,
+        "totalTokens": 682
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1263
+      }
+    },
+    "tracking_id": "37343f58-6fcf-49e8-be76-c1a4a6161334"
+  },
+  "message_id": 3,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:11:59.185659+00:00",
+  "updated_at": "2026-08-23T13:11:59.185669+00:00"
+}

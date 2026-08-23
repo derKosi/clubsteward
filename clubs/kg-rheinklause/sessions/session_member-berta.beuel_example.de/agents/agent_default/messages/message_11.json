@@ -1,0 +1,33 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "Everything is done. The address has been updated, a clean draft reply has been saved, and the activity has been logged."
+          }
+        }
+      },
+      {
+        "text": "**Erledigt!** Hier ist was passiert ist:\n\n1. **Nachgeschlagen:** Berta Beuel (M001, Garde, Beitrag bezahlt) gefunden.\n2. **Aktualisiert:** Adresse im Register auf **Hauptstraße 88a, 50667 Köln** geändert.\n3. **Antwort entworfen:** Kurze Bestätigung an berta.beuel@example.de — herzlich und rheinisch-jovial.\n4. **Protokolliert:** Aktivitätslog-Eintrag erstellt."
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 1172,
+        "outputTokens": 121,
+        "totalTokens": 1293
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1522
+      }
+    },
+    "tracking_id": "c538b971-be16-4845-a9e1-cdf6715abbea"
+  },
+  "message_id": 11,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:12:24.683620+00:00",
+  "updated_at": "2026-08-23T13:12:24.683629+00:00"
+}

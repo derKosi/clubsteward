@@ -51,8 +51,11 @@ def show(d: Decision) -> None:
     print(f"{C_TITLE}└{'─' * 58}{R}")
 
 
-def run(assume: str | None = None) -> int:
-    cfg = Config.load()
+def run(assume: str | None = None, club: str | None = None) -> int:
+    cfg = Config.load(club)
+    brand = cfg.brand
+    if brand.name and cfg.club_id != "demo":
+        print(f"{C_TITLE}=== {brand.name} — Entscheidungen ==={R}" if brand.tagline else f"{C_TITLE}=== {brand.name} ==={R}")
     if not cfg.api_key:
         print(f"{C_RED}ERROR: ZAI_API_KEY not set{R}")
         return 2
@@ -74,12 +77,12 @@ def run(assume: str | None = None) -> int:
         else:
             answer = input(f"{C_BOLD}Approve? [y]es / [e]dit (give instructions) / [n]o: {R}").strip().lower()
         if answer in ("y", "yes"):
-            approve(d, ck)
+            approve(d, ck, club=club)
             _cleanup(cfg, d, pj)
             print(f"{C_GREEN}→ {d.id} approved & executed.{R}")
         elif answer in ("e", "edit"):
             instr = input("Extra instructions for the agent: ")
-            approve(d, ck, extra=instr)
+            approve(d, ck, extra=instr, club=club)
             _cleanup(cfg, d, pj)
             print(f"{C_GREEN}→ {d.id} executed with your instructions.{R}")
         else:
@@ -97,8 +100,8 @@ def _cleanup(cfg, d: Decision, pj) -> None:
         shutil.move(str(mail), cfg.processed_dir / d.mail_file)
 
 
-def approve(d: Decision, ck: ClubKeeper, extra: str = "") -> None:
-    mail_path = Config.load().decisions_dir / d.mail_file
+def approve(d: Decision, ck: ClubKeeper, extra: str = "", club: str | None = None) -> None:
+    mail_path = Config.load(club).decisions_dir / d.mail_file
     mail = MailItem.parse(mail_path)
     # Human decided → write pre-approved; the audit trail carries the decision id
     agent = ck.act_agent_for(mail.from_email)
@@ -108,9 +111,16 @@ def approve(d: Decision, ck: ClubKeeper, extra: str = "") -> None:
         "decision_id": d.id,
         "mail_file": d.mail_file,
     })
+    pol = ck.policy
+    fees = "\n".join(f"  {k}: {v}" for k, v in pol.fees.items()) if pol else "(none)"
+    sig = pol.reply_signature.strip() if pol else ""
     prompt = (
         f"The human club secretary has APPROVED this case with the following judgment.\n"
         f"Human note: {extra or 'approved as proposed'}\n\n"
+        f"CLUB FACTS (authoritative — NEVER invent amounts; reply in the member's language, German default):\n"
+        f"  club: {pol.club_name if pol else '-'} | tone: {pol.tone if pol else '-'}\n"
+        f"  fees:\n{fees}\n"
+        f"  signature (use EXACTLY):\n{sig}\n\n"
         f"MAIL from {mail.from_name} <{mail.from_email}> subject '{mail.subject}':\n{mail.body[:2000]}\n\n"
         f"TRIAGE: intent={d.triage.intent.value}, summary={d.triage.summary}\nDETAILS: {d.triage.details}\n"
         f"Proposed action: {d.triage.proposed_action}\n\n"

@@ -1,0 +1,39 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "The member wasn't found by email. Let me try looking up by name."
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "tool-c59ae12c879f48438d943ce830e5cf61",
+          "name": "register_lookup",
+          "input": {
+            "query": "Markus Dohr"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 650,
+        "outputTokens": 46,
+        "totalTokens": 696
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1155
+      }
+    },
+    "tracking_id": "a63166e9-8830-4713-b244-29d38a86e823"
+  },
+  "message_id": 3,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:14:32.421518+00:00",
+  "updated_at": "2026-08-23T13:14:32.421528+00:00"
+}

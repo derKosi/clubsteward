@@ -1,0 +1,38 @@
+# ClubKeeper-Policy — hier regelt der Vorstand, was der Agent allein darf.
+club_name: KG Rheinklause 1967 e.V.
+season: "Session 2026/27"
+fees:
+  jahresbeitrag: 60.0
+  gardemitglied: 30.0
+  hardness_waiver_max: 60.0
+tone: herzlich, rheinisch-jovial, knapp — auf Deutsch
+reply_signature: |
+  Der Elferrat
+  KG Rheinklause 1967 e.V.
+  (Entwurf erstellt von ClubKeeper, dem Vereins-Agenten — vom Menschen freigegeben)
+rules:
+  - intent: signup
+    decision: auto
+    note: komplette Beitritte sind Routine
+    ask_if: []
+  - intent: address_change
+    decision: auto
+    note: reine Datenpflege
+  - intent: cancellation
+    decision: ask
+    note: mitten in der Session — der Vorstand will mitreden
+  - intent: hardship_waiver
+    decision: ask
+    note: Geld + Menschlichkeit entscheidet immer ein Mensch
+  - intent: question
+    decision: auto
+    note: Auskünfte sind Routine
+  - intent: complaint
+    decision: ask
+    note: Streit braucht ein menschliches Wort
+  - intent: spam
+    decision: reject
+    note: Wegwerfen, niemanden belästigen
+  - intent: unknown
+    decision: ask
+    note: nie raten

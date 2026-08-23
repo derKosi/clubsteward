@@ -1,0 +1,39 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "The lookup for Timo didn't return results. Let me also check by name."
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "tool-21b3e8d665a14ea082e3e1c08b4b648b",
+          "name": "register_lookup",
+          "input": {
+            "query": "Timo Künzig"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 713,
+        "outputTokens": 52,
+        "totalTokens": 765
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 1222
+      }
+    },
+    "tracking_id": "d83edc62-d087-4cd8-af9f-4bf801c0873d"
+  },
+  "message_id": 3,
+  "redact_message": null,
+  "created_at": "2026-08-23T13:11:13.744833+00:00",
+  "updated_at": "2026-08-23T13:11:13.744842+00:00"
+}

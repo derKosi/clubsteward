@@ -1,0 +1,38 @@
+# ClubKeeper-Policy — hier regelt der Vorstand, was der Agent allein darf.
+club_name: OG Lindenthal e.V.
+season: "Jahr 2026"
+fees:
+  jahresbeitrag: 36.0
+  familienbeitrag: 60.0
+  hardness_waiver_max: 36.0
+tone: nachbarschaftlich-warm, auf Deutsch, knapp
+reply_signature: |
+  Der Vorstand
+  OG Lindenthal e.V.
+  (Entwurf erstellt von ClubKeeper, dem Vereins-Agenten — vom Menschen freigegeben)
+rules:
+  - intent: signup
+    decision: auto
+    note: Beitritte sind Routine
+    ask_if: []
+  - intent: address_change
+    decision: auto
+    note: reine Datenpflege
+  - intent: cancellation
+    decision: ask
+    note: Austritt will der Vorstand persönlich begleiten
+  - intent: hardship_waiver
+    decision: ask
+    note: Geld + Menschlichkeit entscheidet immer ein Mensch
+  - intent: question
+    decision: auto
+    note: Auskünfte sind Routine
+  - intent: complaint
+    decision: ask
+    note: Nachbarschaftskonflikte brauchen Vermittlung
+  - intent: spam
+    decision: reject
+    note: Wegwerfen, niemanden belästigen
+  - intent: unknown
+    decision: ask
+    note: nie raten
