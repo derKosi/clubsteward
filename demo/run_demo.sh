@@ -1,23 +1,31 @@
 #!/usr/bin/env bash
-# End-to-end demo: reset → overnight pipeline → human decisions → show results.
-# Runs the REAL agent with a REAL LLM call (needs ZAI_API_KEY, see .env.example).
-# Runtime: ~2–4 minutes. No cloud, no accounts, everything stays in demo/data/.
+# End-to-end demo: reset → overnight pipeline → human decisions → morning report.
+#
+# With ZAI_API_KEY set: runs the REAL agent with REAL LLM calls (~2–4 min).
+# Without a key:       falls back to the recorded session replay (clearly labeled).
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-echo "== ClubKeeper demo — reset sandbox =="
+echo "== ClubKeeper demo =="
 uv run python scripts/reset_demo.py
 
-echo
-echo "== Nightly batch run (triage → policy → act | queue) =="
-uv run python -m clubkeeper.pipeline
+if [ -n "${ZAI_API_KEY:-}" ] || [ -n "${GLM_API_KEY:-}" ]; then
+    echo
+    echo "== Nightly batch run (live LLM: triage → policy → act | queue) =="
+    uv run python -m clubkeeper.pipeline
 
-echo
-echo "== Human decisions (auto-approve mode for scripted demo) =="
-if [ "${1:-}" = "--interactive" ]; then
-    uv run python -m clubkeeper.decide
+    echo
+    echo "== Human decisions =="
+    if [ "${1:-}" = "--interactive" ]; then
+        uv run python -m clubkeeper.decide
+    else
+        echo "(auto-approve mode for scripted demo — use --interactive for the real experience)"
+        uv run python -m clubkeeper.decide y
+    fi
 else
-    uv run python -m clubkeeper.decide y
+    echo
+    echo "== No ZAI_API_KEY set → replaying recorded session (labeled, no LLM calls) =="
+    uv run python -m clubkeeper.replay
 fi
 
 echo
@@ -27,6 +35,6 @@ ls demo/data/outbox/*.eml 2>/dev/null | sed 's/^/  /' || echo "  (none)"
 echo "--- register (updated) ---"
 column -t -s, demo/data/register.csv 2>/dev/null || cat demo/data/register.csv
 echo "--- activity log ---"
-cat demo/data/activity.log 2>/dev/null | sed 's/^/  /'
+sed 's/^/  /' demo/data/activity.log 2>/dev/null || true
 echo
 echo "Demo complete. Drafts are in demo/data/outbox — review before 'sending'."

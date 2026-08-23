@@ -1,6 +1,7 @@
 """Human decision loop: work through pending decisions in demo/data/decisions.
 
-Run: uv run python -m clubkeeper.decide
+Run: uv run python -m clubkeeper.decide          (interactive)
+     uv run python -m clubkeeper.decide y        (approve all — scripted demos)
 """
 
 from __future__ import annotations
@@ -8,7 +9,6 @@ from __future__ import annotations
 import json
 import shutil
 import sys
-from pathlib import Path
 
 from .agents import ClubKeeper, triage_one
 from .config import Config
@@ -17,27 +17,44 @@ from .models import Decision, MailItem
 from .policy import ClubPolicy
 from .tools import set_config
 
+# ANSI colors (plain fallback if not a tty)
+if sys.stdout.isatty():
+    C_TITLE = "\033[1;96m"   # cyan bold
+    C_DIM = "\033[2m"        # dim
+    C_YELLOW = "\033[93m"
+    C_GREEN = "\033[92m"
+    C_RED = "\033[91m"
+    C_BOLD = "\033[1m"
+    R = "\033[0m"            # reset
+else:
+    C_TITLE = C_DIM = C_YELLOW = C_GREEN = C_RED = C_BOLD = R = ""
+
 
 def show(d: Decision) -> None:
-    print("=" * 60)
-    print(f"DECISION {d.id} — {d.subject}")
-    print(f"From: {d.from_name} <{d.from_email}>")
-    print(f"Intent: {d.triage.intent.value} | confidence {d.triage.confidence:.2f}")
-    print(f"Summary: {d.triage.summary}")
-    print(f"Details: {json.dumps(d.triage.details, ensure_ascii=False)}")
-    print(f"Proposed: {d.triage.proposed_action}")
-    print(f"Policy:   {d.policy_reason}")
+    print()
+    print(f"{C_TITLE}┌─ DECISION {d.id} " + "─" * max(0, 46 - len(d.id)) + f"{R}")
+    print(f"{C_BOLD}│ Subject:{R} {d.subject}")
+    print(f"{C_BOLD}│ From:{R}    {d.from_name} <{d.from_email}>")
+    print(f"{C_BOLD}│ Intent:{R}  {d.triage.intent.value}   {C_DIM}(confidence {d.triage.confidence:.2f}){R}")
+    print(f"{C_BOLD}│ Wants:{R}   {d.triage.summary}")
+    if d.triage.details:
+        details = json.dumps(d.triage.details, ensure_ascii=False)
+        print(f"{C_BOLD}│ Facts:{R}   {details[:200]}")
+    print(f"{C_BOLD}│ Agent proposes:{R} {d.triage.proposed_action[:200]}")
+    print(f"{C_YELLOW}│ Why you're asked:{R} {d.policy_reason}{R}")
     mail_path = Config.load().decisions_dir / d.mail_file
     if mail_path.exists():
-        print("-" * 60)
-        print(MailItem.parse(mail_path).body[:900])
-    print("=" * 60)
+        body = MailItem.parse(mail_path).body
+        print(f"{C_DIM}│ --- mail (excerpt) ---{R}")
+        for ln in body.splitlines()[:12]:
+            print(f"{C_DIM}│ {ln}{R}")
+    print(f"{C_TITLE}└{'─' * 58}{R}")
 
 
 def run(assume: str | None = None) -> int:
     cfg = Config.load()
     if not cfg.api_key:
-        print("ERROR: ZAI_API_KEY not set")
+        print(f"{C_RED}ERROR: ZAI_API_KEY not set{R}")
         return 2
     set_config(cfg)
     policy = ClubPolicy.load(cfg.data_dir / "policy.yaml")
@@ -47,6 +64,7 @@ def run(assume: str | None = None) -> int:
     if not pending:
         print("No pending decisions.")
         return 0
+    print(f"{C_BOLD}{len(pending)} decision(s) need a human.{R}")
 
     for pj in pending:
         d = Decision.model_validate_json(pj.read_text())
@@ -54,23 +72,29 @@ def run(assume: str | None = None) -> int:
         if assume:
             answer = assume
         else:
-            answer = input("Approve proposed action? [y]es / [e]dit instructions / [n]o: ").strip().lower()
+            answer = input(f"{C_BOLD}Approve? [y]es / [e]dit (give instructions) / [n]o: {R}").strip().lower()
         if answer in ("y", "yes"):
             approve(d, ck)
-            pj.unlink()
-            shutil.move(str(cfg.decisions_dir / d.mail_file), cfg.processed_dir / d.mail_file)
-            print(f"→ {d.id} approved & executed.")
+            _cleanup(cfg, d, pj)
+            print(f"{C_GREEN}→ {d.id} approved & executed.{R}")
         elif answer in ("e", "edit"):
             instr = input("Extra instructions for the agent: ")
             approve(d, ck, extra=instr)
-            pj.unlink()
-            shutil.move(str(cfg.decisions_dir / d.mail_file), cfg.processed_dir / d.mail_file)
-            print(f"→ {d.id} executed with instructions.")
+            _cleanup(cfg, d, pj)
+            print(f"{C_GREEN}→ {d.id} executed with your instructions.{R}")
         else:
             d.status = "denied"
             pj.write_text(d.model_dump_json(indent=2), encoding="utf-8")
-            print(f"→ {d.id} denied (kept as denied.json).")
+            print(f"{C_RED}→ {d.id} denied (kept as record).{R}")
+    print(f"\n{C_GREEN}Inbox zero. The club ran itself — you made the calls that mattered.{R}")
     return 0
+
+
+def _cleanup(cfg, d: Decision, pj) -> None:
+    pj.unlink()
+    mail = cfg.decisions_dir / d.mail_file
+    if mail.exists():
+        shutil.move(str(mail), cfg.processed_dir / d.mail_file)
 
 
 def approve(d: Decision, ck: ClubKeeper, extra: str = "") -> None:
@@ -93,7 +117,7 @@ def approve(d: Decision, ck: ClubKeeper, extra: str = "") -> None:
         f"Execute now with the tools (register update, draft reply, log entry)."
     )
     result = agent(prompt)
-    print(str(result)[:200])
+    print(f"{C_DIM}  agent: {str(result)[:160]}{R}")
 
 
 if __name__ == "__main__":
