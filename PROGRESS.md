@@ -129,3 +129,22 @@
 **Next**
 - Decide CLI polish (colored cards) for the video, demo GIF, run_demo.sh replay fallback, Phase-3 video recording.
 
+## Session 2026-08-23 (5) — CLI polish, replay fallback, demo GIF
+
+**Done**
+- decide.py rewritten: colored decision cards (title bar, subject/from/intent/wants/facts/proposal/why-asked + mail excerpt), colored approval/denial feedback, "Inbox zero" closing line. Non-tty falls back to plain text (CI-safe).
+- run_demo.sh: automatic replay fallback when no ZAI_API_KEY/GLM_API_KEY is set — judges get the full experience either way, recording clearly labeled.
+- Live-tested the colored CLI: 3 decisions approved, queue empty, closing line shown.
+- Demo GIF for README: asciinema recorded the replay (cast verified: all markers present), rendered with agg (monokai, 1.2x) → docs/demo.gif (691x490, ~860 KB), embedded in README with "recorded replay" caption.
+- Tooling installed: asciinema 2.4.0 (uv tool), agg 1.9.0 (/tmp/agg — move to ~/.local/bin for reuse).
+
+**Learned**
+- agg renders asciinema v2 casts directly; --speed at record time (replay --speed=6) keeps the GIF short.
+- GIF from 30 events ≈ 860 KB — fine for GitHub README.
+
+**Blocked / decisions needed**
+- none
+
+**Next**
+- Move agg binary to ~/.local/bin; optional: regenerate GIF with decide-CLI colors once; Phase 3 (video recording per storyboard) in a fresh session; Phase 4 with Kosi.
+
