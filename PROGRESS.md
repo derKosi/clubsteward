@@ -1,5 +1,7 @@
 # PROGRESS
 
+> **Zustand 23.08. (Ende):** Phase 0–3 abgeschlossen. Agent-seitig ist **alles fertig** bis auf Video (gemeinsame Session Anfang Sept.) und die Submission selbst (12.09., nur gemeinsam). Nächster Einstieg: `docs/TODO.md` + GH Project-Board (github.com/users/derKosi/projects/5). Repo ist **privat bis 12.09.**, dann public.
+
 ## Session 2026-08-23 — Phase 0: Setup & Recon
 
 **Done**
@@ -205,4 +207,41 @@
 
 **Next**
 - Nothing left in Phase 2 scope. Remaining: video (fresh session), Kosi registrations, Phase 4 together (Sep 12).
+
+## Session 2026-08-23 (10) — Multi-club white-label + SaaS stage 1
+
+**Done**
+- Multi-club white-label: `clubs/` (Karneval, Fussball, Ortsgemeinschaft — German corpora), club CLI (`list/new/run/decide/status/reset`), `brand.yaml`, policy facts in prompts (no invented fees), German replies (dd272cf).
+- International clubs: US Little League (EpiPen escalation), US PTA, Spanish vecinos (complaint fix via multilingual triage); `HOSTING.md` — SaaS stages, tenant isolation by design (48dc360).
+- SaaS stage 1: web console (FastAPI hero page + decision cards UI, E2E-proven via API), sqlite storage adapter, Dockerfile, email integration guide (drag&drop today, IMAP/SMTP adapter spec) (29db705).
+- `docs/TODO.md` submission checklist (Kosi tasks, video session, Sep 12 submission) (c120961).
+
+**Learned**
+- Policy-as-data extends cleanly to multi-tenant: same engine, per-club corpora + brand.yaml — zero engine changes.
+- FastAPI decision-cards UI E2E via API tests is enough for stage 1; no SPA needed (KISS).
+
+**Blocked / decisions needed**
+- none
+
+**Next**
+- Video session with Kosi (early Sep), then Phase 4.
+
+## Session 2026-08-23 (11) — Repo live: CI, Project-Board, Session-Abschluss
+
+**Done**
+- `gh auth refresh` durch (Scopes `workflow` + `project`) — der Commit `075c378` (CI: Tests nur PR+v*-Tags, Release nur v*-Tags) wurde gepusht; beide Workflows remote aktiv, kein per-Commit-Run (Kosis CI-Regel).
+- GH Project „ClubKeeper" #5 angelegt (github.com/users/derKosi/projects/5): 15 Draft-Items aus docs/TODO.md, board-only — keine Repo-Issues, damit beim Public-Schalten am 12.09. nichts Internes sichtbar wird. CI-Item auf Done.
+- `docs/TODO.md` aktualisiert (CI+Board erledigt), committet `90d4349`, gepusht. Branch synchron mit origin/main.
+- PROGRESS.md Session (10) nachgetragen (Clubs + SaaS stage 1 — in der vorherigen Session nicht geloggt).
+
+**Learned**
+- gh project CLI: `item-edit` braucht `--project-id` UND `--id`; Draft-Items tragen den Status top-level (`status`), nicht in `fieldValues`.
+
+**Blocked / decisions needed**
+- none — Projekt pausiert auf Kosis Wunsch bis zur Video-Session (~Anfang Sept.).
+
+**Next**
+- Kosis 20-Min-Block (Devpost + AWS Builder ID, optional Credits-Formular) — Links in TODO.md/Board.
+- Voiceover-Freigabe (docs/voiceover/).
+- Video-Session (frisch, nach Storyboard) → Submission 12.09. gemeinsam.
 
