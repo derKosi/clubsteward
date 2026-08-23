@@ -87,3 +87,25 @@
 **Next**
 - Session persistence (strands session_manager) for multi-day runs, multi-agent polish (agents-as-tools triage→act as true sub-agents), observability/traces, GIF for README, Phase 3 assets (video script, builder.aws draft posts).
 
+## Session 2026-08-23 (3) — Sessions, metrics, Phase-3 assets
+
+**Done**
+- Member memory: `act_agent_for()` gives every member a persistent Strands `FileSessionManager` session (demo/data/sessions/). Proven with corpus mail 09 (Miriam's follow-up): agent referenced the earlier instalment plan and handled brother Yaw consistently. Sessions carry across nightly runs.
+- Run metrics: `clubkeeper/metrics.py` — run_summary.json with per-mail route, triage/act tokens, tool calls, latency; cost estimate printed at end of pipeline (~€0.009 for 9 mails / 29.6k tokens on GLM). SDK detail: usage lives on `agent.event_loop_metrics.accumulated_usage` (dict), AgentResult carries `.metrics`.
+- TriageTokenTracker for per-mail deltas from the cumulative counter.
+- Investigated GraphBuilder orchestration; rejected with reasoning (structured triage data would have to round-trip through string node results — the plain two-agent pipeline + policy gate expresses the same topology more honestly). Documented as design decision.
+- Architecture diagram: docs/architecture.svg (mermaid-cli, no-emoji variant — renderer chokes on emojis/variation selectors) + architecture.mmd source. Content verified (all nodes/labels/arrows present).
+- Phase-3 assets drafted: docs/video-storyboard.md (4 min, problem→demo→memory beat→close), docs/builder-posts-drafts.md (3 angles), docs/devpost-credits-helper.md (copy-paste text for Kosi's registration + $50 credits form, Good Neighbor track).
+- REQUIREMENTS.md: architecture diagram + README checked off.
+- Fresh-clone gate: 14 tests pass, reset works, docs present.
+
+**Learned**
+- mermaid-cli on this VM needs `-p puppeteer-config.json` with `--no-sandbox`; run it from the repo dir (background cwd quirk wrote the first SVG into /tmp/afh-clone).
+- Emoji in mermaid labels break rendering here — use plain text labels.
+
+**Blocked / decisions needed**
+- none
+
+**Next**
+- Decide CLI polish for video (colored decision cards), demo GIF for README, optional: replay mode without API key (judges without Z.ai key), then Phase 3 video recording prep.
+
