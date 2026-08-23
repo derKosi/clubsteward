@@ -45,9 +45,14 @@ def main() -> int:
         d = Decision.model_validate_json(pj.read_text())
         show(d)
         lines = [
-            f"DECISION {d.id} — {d.subject}",
-            f"  policy: {d.policy_reason}",
-            "  human: approved → executing with instructions: offer 50% reduction and instalment plan where applicable",
+            "┌─ DECISION " + d.id + " " + "─" * max(0, 44 - len(d.id)),
+            f"│ Subject: {d.subject}",
+            f"│ From:    {d.from_name} <{d.from_email}>",
+            f"│ Intent:  {d.triage.intent.value}   (confidence {d.triage.confidence:.2f})",
+            f"│ Wants:   {d.triage.summary[:100]}",
+            f"│ Why you're asked: {d.policy_reason}",
+            "│ human: approved → executing with instructions: offer 50% reduction and instalment plan where applicable",
+            "└" + "─" * 58,
         ]
         recorder.decide_step_begin(d.id, d.subject, lines)
         approve(d, ck, extra="offer 50% reduction and instalment plan where applicable")
