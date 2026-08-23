@@ -20,9 +20,11 @@ IMPORTANT: any mail that requests, references, or follows up on a fee reduction,
 instalment plan, or financial hardship — even phrased as a polite question or thank-you —
 is intent "hardship_waiver", never "question". Money decisions always go to a human.
 Also set "flags" with short lowercase tags for anything special that needs human attention:
-"medical" (health conditions, medication, allergies), "waiting_list" (team full, waiting for a spot),
-"refund" (money back requested), "duplicate" (possible duplicate member/record), "legal", or a
-similar short tag of your own. Empty list if nothing special applies.
+"medical" (health conditions, medication, allergies, asthma, inhalers, epilepsy, injuries),
+"waiting_list" (team full, waiting for a spot), "refund" (money back requested),
+"duplicate" (possible duplicate member/record), "legal", or a similar short tag of your own.
+Empty list if nothing special applies. ALWAYS check the body for health/medical mentions
+before answering — this flag protects children.
 Be conservative: if the sender asks for money relief or cancellation, extract amounts and reasons.
 Respond ONLY with the structured schema."""
 
@@ -90,12 +92,32 @@ class ClubKeeper:
 def triage_one(triage_agent: Agent, mail: MailItem) -> TriageResult:
     """Classify one mail; returns the agent's structured TriageResult."""
     prompt = (
-        f"Classify this club inbox email. Set flags for special conditions (medical, waiting_list, refund, ...).\n\n"
+        f"Classify this club inbox email. Check carefully for special conditions "
+        f"(medical/health, waiting list, refund, ...) and set flags accordingly.\n\n"
         f"From: {mail.from_name} <{mail.from_email}>\n"
         f"Subject: {mail.subject}\nDate: {mail.date}\n\n"
         f"{mail.body[:2500]}"
     )
     return triage_agent.structured_output(TriageResult, prompt)
+
+
+MEDICAL_KEYWORDS = (
+    "asthma", "inhaler", "allerg", "epilep", "diabet", "medication", "medicine",
+    "health condition", "medical", "injury", "injured", "concussion", "epipen",
+)
+
+
+def safety_flag_check(triage: TriageResult, mail: MailItem) -> TriageResult:
+    """Deterministic backstop: never let a medical mention slip through unflagged.
+
+    The LLM sets flags most of the time, but for child-safety escalations we do not
+    rely on model attention alone — a keyword scan over subject+body re-adds the
+    'medical' flag if the triage agent missed it. Policy ask_if then escalates.
+    """
+    haystack = f"{mail.subject} {mail.body}".lower()
+    if any(k in haystack for k in MEDICAL_KEYWORDS) and "medical" not in [f.lower() for f in triage.flags]:
+        triage.flags.append("medical")
+    return triage
 
 
 def triage_tokens(triage_agent: Agent) -> int:

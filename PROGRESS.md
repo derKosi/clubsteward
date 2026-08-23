@@ -167,6 +167,24 @@
 **Next**
 - Phase 3 video recording (fresh session, per storyboard) & Kosi's registrations (Devpost, AWS Builder ID, optional credits). Phase 4 submission together.
 
+## Session 2026-08-23 (9) — Medical backstop, eval corpus to 10, recording refreshed
+
+**Done**
+- Triage reliability hardening: richer flag instructions in system prompt + per-prompt reminder + **deterministic `safety_flag_check` backstop** (keyword scan re-adds `medical` flag if the LLM misses it — child-safety escalations never depend on model attention alone).
+- Unit tests for the backstop (hit + no false positive) → 21 total.
+- Eval corpus extended to 10 mails (medical signup included), EXPECTED map updated.
+- Recording re-captured: 10 pipeline steps, 5 decide cards incl. the medical escalation ("normally auto, but flag 'medical' matches ask_if condition"). GIF regenerated with the escalation beat (2.2 MB).
+- README decisions table + devpost draft + video storyboard updated with the escalation story.
+
+**Learned**
+- Non-determinism management: one 0.97-confidence triage run can still drop a flag. For safety-critical escalations: LLM proposes, deterministic code guarantees. That's the "belt and braces" pattern worth a builder.aws paragraph of its own.
+
+**Blocked / decisions needed**
+- none
+
+**Next**
+- Phase 2 + demo assets complete. Video (fresh session, with Kosi), registrations, Sep 12 submission.
+
 ## Session 2026-08-23 (8) — ask_if conditions live (policy escalation engine)
 
 **Done**

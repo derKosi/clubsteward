@@ -19,6 +19,9 @@ ClubKeeper runs the club's inbox overnight, unattended:
 - **Queues only real judgment calls** for the secretary: hardship waivers, mid-season
   cancellations, complaints — each presented as a decision card with the original mail,
   extracted facts, and the exact policy rule that triggered the escalation
+- **Escalates on conditions, not just intents**: a plain sign-up runs automatically,
+  but the same sign-up mentioning an asthma inhaler gets flagged (`medical`) and
+  escalated by the club's own `ask_if` policy rule — autonomy tuning is pure data
 - **Discards spam** silently
 - **Remembers members**: persistent per-member sessions mean the agent recalls last
   week's instalment plan when a family writes again

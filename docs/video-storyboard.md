@@ -25,6 +25,9 @@ Screen recording + voiceover (no camera needed, officially allowed). English.
 2. `uv run python -m clubkeeper.pipeline` — show live output:
    - "signup → AUTO", "address change → AUTO", "question → AUTO"
    - "hardship waiver → QUEUED", "cancellation → QUEUED", "complaint → QUEUED"
+   - **the escalation beat**: "signup + medical flag → QUEUED (ask_if matched)" —
+     "the same sign-up that ran automatically a second ago now stops for a human,
+     because the club's policy says medical notes need coach coordination"
    - "spam → DISCARDED"
    - run summary line: tokens, cost (~€0.01)
    - VO during: "No human touched any of this. The agent read the policy file —

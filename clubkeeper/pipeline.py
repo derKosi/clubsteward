@@ -11,7 +11,7 @@ import sys
 import uuid
 from pathlib import Path
 
-from .agents import ClubKeeper, TriageTokenTracker, evaluate_policy, triage_one
+from .agents import ClubKeeper, TriageTokenTracker, evaluate_policy, safety_flag_check, triage_one
 from .config import Config
 from .interventions import set_case
 from .metrics import new_summary, record_act, record_triage, save as save_summary, cost_estimate
@@ -54,6 +54,7 @@ def run(max_mails: int | None = None, recorder: RunRecorder | None = None) -> in
         except Exception as e:
             print(f"  TRIAGE FAILED: {e}")
             continue
+        triage = safety_flag_check(triage, mail)
         decision, reason = evaluate_policy(policy, triage)
         record_triage(summary, path.name, triage.intent.value, decision, None, triage_tokens=tracker.delta())
         line1 = f"  intent={triage.intent.value} confidence={triage.confidence:.2f} → {decision.upper()}"

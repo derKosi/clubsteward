@@ -34,6 +34,7 @@ EXPECTED = {
     "07-complaint-training.eml": "complaint",
     "08-spam-prize.eml": "spam",
     "09-hardship-followup.eml": "hardship_waiver",
+    "10-signup-medical.eml": "signup",
 }
 
 

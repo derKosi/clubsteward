@@ -141,6 +141,24 @@ class TestEvaluatePolicy:
         assert "waiting" in reason
 
 
+class TestSafetyFlagCheck:
+    def test_backstop_adds_medical_flag(self):
+        from clubkeeper.agents import safety_flag_check
+
+        t = TriageResult(intent=Intent.SIGNUP, summary="s", proposed_action="a", confidence=1.0, flags=[])
+        mail = MailItem.parse(DEMO / "10-signup-medical.eml")
+        t2 = safety_flag_check(t, mail)
+        assert "medical" in t2.flags
+
+    def test_backstop_no_false_positive(self):
+        from clubkeeper.agents import safety_flag_check
+
+        t = TriageResult(intent=Intent.QUESTION, summary="s", proposed_action="a", confidence=1.0, flags=[])
+        mail = MailItem.parse(DEMO / "05-question-fixtures.eml")
+        t2 = safety_flag_check(t, mail)
+        assert "medical" not in t2.flags
+
+
 class TestRecorder:
     def _mk(self, tmp_path):
         from clubkeeper.recorder import RunRecorder, _snapshot

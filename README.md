@@ -135,9 +135,14 @@ No cloud, no accounts, no network beyond the LLM API call. Everything else is lo
 | "Hard times — can the fee be waived?" (single mother, reduced hours) | hardship_waiver | Money + empathy — policy says always ask |
 | "Cancelling Noah's membership" (mid-season, fees paid) | cancellation | Team planning + refund judgment |
 | "Third cancelled training in a row!" (angry neighbour) | complaint | Conflicts need a human touch |
+| "Signing up Yusuf — asthma, carries an inhaler" | signup **+ flag `medical`** | Normally auto, but the policy's `ask_if` condition ("medical notes that require coach coordination") escalates it |
 
-And things it never asks about: sign-ups, address changes, fixture questions —
+And things it never asks about: plain sign-ups, address changes, fixture questions —
 and it silently discards the "YOU WON 5000 EUR" spam.
+
+This escalation engine is data: the triage agent extracts lowercase flags
+(`medical`, `waiting_list`, `refund`, ...), and the policy's `ask_if` lines decide
+which flags interrupt a human. Volunteers tune autonomy by editing YAML.
 
 ## Design decisions
 
