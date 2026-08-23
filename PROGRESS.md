@@ -64,3 +64,26 @@
 **Next**
 - demo/run_demo.sh (<3 min end-to-end), README with architecture + GIF, tests (unit for policy/tools), Strands depth upgrades: HumanInTheLoop intervention w/ custom classifier replacing manual policy eval, session persistence, multi-agent orchestration polish.
 
+## Session 2026-08-23 (2) — Strands HITL integration + tests + demo script
+
+**Done**
+- Read the SDK's actual `strands.vended_interventions.hitl` implementation; integrated it properly:
+  - `clubkeeper/interventions.py`: custom `policy_classifier` (HumanInTheLoopClassifier contract) — read tools free; write tools free only under policy `auto` or human `auto_preapproved`; fail-closed otherwise. `ask="stdio"` for interactive mode; trust enabled.
+  - Pipeline sets case context (`clubkeeper:case`) in agent state per mail; decide CLI marks approved cases `auto_preapproved` (decision id in audit trail).
+  - Act agent now constructed with `interventions=[make_hitl(...)]` — the club YAML literally drives the SDK approval gate.
+- Unit tests `tests/test_core.py`: 12 tests, all green (policy loading, evaluate_policy, classifier matrix incl. fail-closed, .eml parsing). No LLM needed.
+- `demo/run_demo.sh` — one-command end-to-end (reset → pipeline → decide → morning report), `--interactive` flag for live HITL prompts.
+- Full E2E re-run with new architecture: 5 auto / 3 queued / spam rejected → decide approved all 3 → 7 drafts, 7 log entries. EXIT 0.
+- Fresh-clone gate: clone → uv sync → 12 tests pass → reset → run_demo syntax OK.
+- README rewritten: problem, what it does, policy-as-data, mermaid architecture, quickstart, decisions table, design decisions.
+
+**Learned**
+- SDK HITL: `allowed_tools` + `classifier` + `ask="stdio"` + `enable_trust` — classifier contract `(event) -> ClassifierResult`; precedence: negated > trusted > wildcard > allowed > classifier > default-ask.
+- Pyright strictness on protocol params: accept `**kwargs` in classifier signature.
+
+**Blocked / decisions needed**
+- none
+
+**Next**
+- Session persistence (strands session_manager) for multi-day runs, multi-agent polish (agents-as-tools triage→act as true sub-agents), observability/traces, GIF for README, Phase 3 assets (video script, builder.aws draft posts).
+
