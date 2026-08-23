@@ -7,36 +7,36 @@ Official rules take precedence over anything else. Deviations: none found so far
 
 - [x] Submission period: Aug 10, 2026 (9:00 PT) – **Sep 14, 2026 (17:00 PT)** — internal target: Sep 12
 - [ ] Judging: Sep 15 – Oct 8, 2026; Winners ~Oct 14, 2026
-- [ ] AWS credits ($50) request form by Sep 11, 12:00 PT — OPTIONAL, only if we ever want AWS (we build cloud-free)
+- [ ] AWS credits ($50) request form by Sep 11, 12:00 PT — OPTIONAL (we build cloud-free; form text ready in docs/devpost-credits-helper.md)
 
 ## Hard submission requirements (from "What to Submit" + Rules §4)
 
-- [ ] Text description (English): what it does, who it's for, how it works
-- [ ] PUBLIC repo URL (GitHub/GitLab/Bitbucket) usable by judges for free until judging ends (Oct 8)
-- [ ] Repo contains: all source code, assets, setup instructions
-- [ ] Open-source license file MIT or Apache-2.0 in repo
-- [ ] License visible in repo "About" section (GitHub side panel — Kosi does this at go-live)
-- [x] README (problem, demo, quickstart, architecture, decisions table)
-- [x] Architecture diagram (docs/architecture.svg + mermaid in README)
-- [ ] Demo video ≤ 5 minutes, public on YouTube or Vimeo
-- [ ] Video demonstrates the working project (end-to-end, no fake demos)
-- [ ] AWS Builder ID provided at submission (Kosi creates, Phase 4)
-- [ ] Track selected: exactly ONE of Everyday / Professional / Good Neighbor
-- [ ] All materials in English
-- [ ] Project newly created during submission period (Aug 10 – Sep 14); any pre-existing code disclosed
-- [ ] Project runs on juror's machine from README instructions without costs or secrets (our own constraint, matches "free for judges")
+- [x] Text description (English) — DRAFT READY: docs/devpost-submission-draft.md (paste at submission)
+- [x] PUBLIC repo URL — repo exists PRIVATE (github.com/derKosi/clubkeeper), flip to public at submission
+- [x] Repo contains all source code, assets, setup instructions — fresh-clone gate passing (tests + replay, no key needed)
+- [x] Open-source license file MIT — LICENSE present, GitHub detects it
+- [ ] License visible in repo "About" section — Kosi at go-live (add topic "mit" + description)
+- [x] README (problem, demo GIF, quickstart, architecture, decisions table, design decisions)
+- [x] Architecture diagram — docs/architecture.svg + mermaid in README
+- [ ] Demo video ≤ 5 minutes, public on YouTube or Vimeo — STORYBOARD + VO SCRIPT READY (docs/video-storyboard.md, docs/voiceover-script.md); record early Sep
+- [ ] Video demonstrates the working project end-to-end — run live demo per storyboard
+- [ ] AWS Builder ID provided at submission — Kosi creates (profile.aws.amazon.com, free)
+- [x] Track selected: Good Neighbor Agents (single track)
+- [x] All materials in English (code, docs, corpus, drafts)
+- [x] Project newly created during submission period (repo started Aug 23, 2026; no pre-existing code)
+- [x] Runs on juror's machine from README, no costs, no secret required (replay mode works keyless; live mode needs free Z.ai key)
 
 ## Scoring criteria (Section 6; weights unpublished — serve all)
 
-- [ ] Technological Implementation — skillful/deep Strands use; live demo link and/or AgentCore deployment strengthen score (optional)
-- [ ] Design — complete, coherent product experience (CLI ok if the experience is right)
-- [ ] Potential Impact — credible, specific use case for a real audience
-- [ ] Creativity & Originality — non-obvious use of Strands
-- [ ] Presentation — video shows end-to-end + pitch (problem, audience, why it matters)
+- [x] Technological Implementation — HITL intervention w/ custom policy classifier, structured output, per-member sessions, tools, metrics, eval harness; replay for judges (live demo link optional, AgentCore optional)
+- [x] Design — complete CLI product loop: overnight run → decision cards → outbox + audit; fail-closed everywhere
+- [x] Potential Impact — volunteer club secretaries worldwide (specific, credible, story in README)
+- [x] Creativity & Originality — policy-as-data IS the runtime approval classifier; ask_if flag escalation; deterministic safety backstop
+- [ ] Presentation — video pending (script ready)
 
 ## Bonus
 
-- [ ] builder.aws.com blog post(s), public, "Agents for Humans" in title (hashtag requirement removed 8/12) — positively impacts score; multiple posts allowed
+- [ ] builder.aws.com blog post(s), "Agents for Humans" in title — FULL POST READY: docs/builder-post-policy-layer.md (publish ~Sep 8–10; 2 more angles outlined in docs/builder-posts-drafts.md)
 
 ## Eligibility (verified)
 
@@ -46,6 +46,17 @@ Official rules take precedence over anything else. Deviations: none found so far
 
 ## Our internal guardrails (from mission brief)
 
-- [ ] No cloud costs, no accounts needed for build; no scraping of login-walled sites
-- [ ] Secrets never committed (.env ignored; demo runs without any API key if optional LLM-free replay mode used)
+- [x] No cloud costs, no accounts needed for build; no scraping of login-walled sites
+- [x] Secrets never committed (secret scan of full history clean; .env ignored; key in sops outside repo)
+- [x] No fake demos: replay clearly labeled [RECORDED SESSION]; video will show live run
 - [ ] Submission itself only WITH Kosi (Phase 4, Sep 12)
+
+## Open TODOs (owner: Kosi unless noted)
+
+1. Devpost account + hackathon registration (agentsforhumans.devpost.com)
+2. AWS Builder ID (profile.aws.amazon.com)
+3. Optional: $50 credits form (by Sep 11, text ready)
+4. Optional: `gh auth refresh -s workflow` then I push CI workflow (file ready locally)
+5. Video recording session with agent (early Sep) + upload YouTube/Vimeo
+6. Publish builder.aws post (agent finalizes with real run numbers)
+7. Sep 12: repo public + About/license + Devpost submission (together)
