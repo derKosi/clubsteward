@@ -1,5 +1,3 @@
-# Devpost Submission Text (draft — Kosi pastes at submission, Phase 4)
-
 ## Inspiration
 
 Community clubs run on burned-out volunteers. The club secretary of every sports club,
