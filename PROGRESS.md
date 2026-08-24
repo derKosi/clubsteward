@@ -245,3 +245,18 @@
 - Voiceover-Freigabe (docs/voiceover/).
 - Video-Session (frisch, nach Storyboard) → Submission 12.09. gemeinsam.
 
+## Session 2026-08-24 (12) — Kosi-Block: Registrierungen, Devpost, Rename → ClubSteward, Repo public
+
+**Done**
+- Kosi: Devpost + Hackathon registriert, AWS Builder ID angelegt, $50-Credits-Formular abgeschickt (Good Neighbor).
+- Devpost-Formular gemeinsam ausgefüllt: Name/Pitch/Story/Built-with/Additional-info; paste-Datei docs/devpost-paste.md (Stories in gepflegtem EN, Markdown-clean). Architektur-Diagramm (Pflichtfeld!) gebaut: scripts/gen_architecture.py → docs/architecture.svg/.png (geometrisch validiert, 0 Overlaps).
+- Namens-Check nachgeholt: "ClubKeeper" kollidiert (clubkeeperapp.com, clubkeeper.app, clubkeeper.org). Kosi entschied: Rename VOR public. **ClubSteward** verifiziert frei (GitHub 0 Repos, PyPI, Devpost-Slug, Web, .io/.dev) → Rename durchgeführt: 97 Dateien, Paket clubsteward/, Session-State-Keys clubsteward:case, EMLs. 21/21 Tests grün, Replay verifiziert.
+- GitHub: Repo umbenannt zu github.com/derKosi/clubsteward, PUBLIC, MIT erkannt, Description gesetzt. Board #5 → "ClubSteward". Fresh-Clone-Gate auf dem öffentlichen Repo: clone → uv sync → 21 Tests → Replay ohne API-Key, alles grün.
+- Voiceover: alle 8 Segmente + Preview + Master (3:26) mit ClubSteward neu gerendert. ABER: Kosi fiel auf — TTS lief auf de-DE-Stimme (Config-Fehler). Behoben: tts.edge.voice = en-US-AriaNeural; neue Preview-Note gerendert. **Segmente+Master warten auf Kosis Stimm-Freigabe, dann Re-Render.**
+- Eval live re-gerannt: 10/10 = 100%, avg conf 0.97 (Report aktualisiert); Draft-Texte 9→10-Mail-Corpus korrigiert.
+- Architektur-PNG + Demo-GIF nach Rename regeneriert.
+
+**Offen / Next**
+- Kosi hört 00-preview-note.mp3 (Aria) → Freigabe oder Alternativ-Stimme (Guy/Jenny/Sonia).
+- Devpost-Formular: Story neu pasten (ClubSteward-Header + 10-mail), Architecture-PNG neu hochladen (Version 20:07), Repo-URL ist drin.
+- Video-Session Anfang Sept (ComfyUI auf Kosis GPU lokal, VM liefert Skripte/Assets), Blog 8.–10.09., Submission 12.09.
