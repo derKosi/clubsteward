@@ -260,3 +260,13 @@
 - Kosi hört 00-preview-note.mp3 (Aria) → Freigabe oder Alternativ-Stimme (Guy/Jenny/Sonia).
 - Devpost-Formular: Story neu pasten (ClubSteward-Header + 10-mail), Architecture-PNG neu hochladen (Version 20:07), Repo-URL ist drin.
 - Video-Session Anfang Sept (ComfyUI auf Kosis GPU lokal, VM liefert Skripte/Assets), Blog 8.–10.09., Submission 12.09.
+
+## Session 2026-08-24 (12b) — Open-Core/Lizenz-Check (autonom, 15-min-Block)
+
+**Done**
+- Zweigleisigkeits-Check auf Kosis Frage: verifiziert Sole-Autor (43 Commits, nur Kosi),
+  Hackathon-Lizenzpflicht (MIT/Apache bis Judging-Ende), Architektur = bereits Open Core
+  by construction (Tenant=Ordner, SaaS=dünne Orchestrierung → clubsteward-cloud privat).
+- Urteil: Repo NICHT zurückziehen (Qualitätsgates grün, 0 Forks), AGPL empfohlen: NEIN
+  (MIT-Core + Closed-Cloud statt Copyleft — Vereinsmarkt kauft Vertrauen/On-Prem).
+- Entscheidungsvorlage 15.09.: ~/steward-open-core-memo.md (bewusst außerhalb des Repos).
