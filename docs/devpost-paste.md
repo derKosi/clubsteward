@@ -39,7 +39,7 @@ ClubSteward runs the club's inbox overnight, unattended:
   lookups happen before writes, drafts never send.
 - **GLM (Z.ai)** via LiteLLM's OpenAI-compatible provider — no cloud, no AWS bill;
   runs on any laptop.
-- **Eval harness**: a labeled 9-mail corpus regression-tests triage accuracy (caught a
+- **Eval harness**: a labeled 10-mail corpus regression-tests triage accuracy (caught a
   real bug: hardship follow-ups misread as questions — prompt fix took it to 100%).
 - **Replay mode**: judges without an API key can replay a recorded real session,
   clearly labeled as recorded.
