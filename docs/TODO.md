@@ -4,9 +4,9 @@ Stand: 23.08.2026 · Agent-seitige Arbeit: fertig · Alles Weitere braucht Kosi 
 
 ## Kosi allein (ca. 20 min)
 
-- [ ] Devpost-Account + Hackathon-Registrierung → https://agentsforhumans.devpost.com/
-- [ ] AWS Builder ID (gratis, kein AWS-Account nötig) → https://profile.aws.amazon.com/
-- [ ] Optional: $50 AWS-Credits-Formular (bis 11.09., 12:00 PT; first-come-first-served)
+- [x] Devpost-Account + Hackathon-Registrierung → https://agentsforhumans.devpost.com/ (erledigt 24.08.)
+- [x] AWS Builder ID (gratis, kein AWS-Account nötig) → https://profile.aws.amazon.com/ (erledigt 24.08.)
+- [x] Optional: $50 AWS-Credits-Formular (bis 11.09., 12:00 PT; first-come-first-served)
       → https://forms.gle/6sjzKiX6bKUMA5NEA — Text zum Copy-Pasten: docs/devpost-credits-helper.md
       (Track: Good Neighbor Agents angeben, sonst wird abgelehnt!)
 - [x] `gh auth refresh -s workflow,project` — erledigt 23.08., CI-Workflows
