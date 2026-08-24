@@ -35,6 +35,9 @@ Stand: 23.08.2026 · Agent-seitige Arbeit: fertig · Alles Weitere braucht Kosi 
 
 ## Gemeinsame Session: Submission (12.09. — Puffer bis 14.09., 17:00 PT)
 
+- [x] Architecture diagram (form-required): docs/architecture.png (3360×2000) ·
+      Quellen: docs/architecture.svg + scripts/gen_architecture.py (erledigt 24.08.)
+
 - [ ] Repo public schalten: github.com/derKosi/clubkeeper
 - [ ] Repo-"About": Beschreibung + MIT-Lizenz sichtbar (GitHub erkennt LICENSE-Datei schon)
 - [ ] Final-Check mit Agent: Fresh-Clone-Gate, Secret-Scan, README-Quickstart
