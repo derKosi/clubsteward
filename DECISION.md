@@ -28,7 +28,7 @@ No cloud, no APIs behind logins, no scraping, no costs. Jurors run it from READM
 - **Feasibility to Sep 7:** very good (structured data easier than PDF).
 - **Demo dramaturgie:** 12 invoices, 3 overdue → agent quietly reminds, catches a "we paid already" contradiction, asks ONE escalation question, outbox fills. Ending: aging report before/after.
 
-## Concept C — "ClubKeeper" (Track: Good Neighbor Agents) ← RECOMMENDED
+## Concept C — "ClubSteward" (Track: Good Neighbor Agents) ← RECOMMENDED
 
 - **Problem:** Community sports/hobby clubs (Vereine, leagues, PTAs, scout troops) run on a few burned-out volunteers. The club secretary drowns in member emails: sign-ups, cancellations, address changes, fee hardship requests — repetitive, but each needs judgment and a kind, correct reply.
 - **Audience:** volunteer club committees worldwide (in DE alone ~570k Vereine; US: leagues, PTAs, HOAs). The jury *knows* someone like this.
@@ -42,7 +42,7 @@ No cloud, no APIs behind logins, no scraping, no costs. Jurors run it from READM
 
 ## Scoring matrix (1–5, 5 = best for winning)
 
-| Criterion (weight for judging) | A Deadline Guardian | B Cashflow Chaser | C ClubKeeper |
+| Criterion (weight for judging) | A Deadline Guardian | B Cashflow Chaser | C ClubSteward |
 |---|---|---|---|
 | Demo impact on video            | 4 | 5 | 5 |
 | Feasibility by Sep 7            | 4 | 4.5 | 4.5 |
@@ -51,7 +51,7 @@ No cloud, no APIs behind logins, no scraping, no costs. Jurors run it from READM
 | Strands depth                   | 4 | 4.5 | **5** |
 | **Sum**                         | **19** | **21.5** | **24.5** |
 
-## Recommendation: C — ClubKeeper (Good Neighbor Agents)
+## Recommendation: C — ClubSteward (Good Neighbor Agents)
 
 Reasoning:
 1. **Originality:** subscription/dunning agents already exist in OSS and SaaS (verified via search: multiple subscription-audit agents, nonprofit triage agents). Nobody serves volunteer club secretaries — yet it's the purest expression of the hackathon theme: the agent *serves a group*, runs quietly, and surfaces only decisions deserving human warmth/judgment.
@@ -61,8 +61,8 @@ Reasoning:
 5. **Fallback option:** architecture is shared — if C stumbles, B is a reskin away (invoices instead of emails). That de-risks Phase 2.
 
 Risks / mitigations:
-- Name "ClubKeeper" needs a quick trademark/site check before repo goes public (working title only).
+- Name "ClubSteward" needs a quick trademark/site check before repo goes public (working title only).
 - Demo must be English (jury), while the story nods to German "Verein" culture (authentic, memorable).
 - Multi-player privacy: demo corpus is fully synthetic; no real member data anywhere.
 
-**Default:** Build ClubKeeper. Kosi has veto while Phase 2 runs < 3 days — see `PROGRESS.md` for the deadline.
+**Default:** Build ClubSteward. Kosi has veto while Phase 2 runs < 3 days — see `PROGRESS.md` for the deadline.

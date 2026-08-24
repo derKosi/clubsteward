@@ -1,4 +1,4 @@
-# ClubKeeper — Voiceover Script (word-for-word, EN)
+# ClubSteward — Voiceover Script (word-for-word, EN)
 
 Target: ~3:45 at natural pace. Timings match docs/video-storyboard.md.
 [PAUSE] = 1s beat. Screen cues in (parentheses) — do not read aloud.
@@ -16,11 +16,11 @@ Sign-ups. Address changes. Fixture questions.
 And once a month — a letter that needs a human heart,
 like a single parent asking for a fee waiver.
 
-## [0:25] INTRODUCING CLUBKEEPER (20s)
+## [0:25] INTRODUCING CLUBSTEWARD (20s)
 
 (Architecture diagram, 2 seconds, then terminal title)
 
-ClubKeeper is an agent that runs the club's inbox overnight. [PAUSE]
+ClubSteward is an agent that runs the club's inbox overnight. [PAUSE]
 It's built on the Strands Agents SDK,
 and it hands Sarah only the decisions that deserve her judgment.
 
@@ -78,7 +78,7 @@ Sarah made the five calls that mattered.
 (Second run with the follow-up mail)
 
 And when the same family writes again next week,
-ClubKeeper remembers the instalment plan it proposed —
+ClubSteward remembers the instalment plan it proposed —
 because every member has a persistent session. [PAUSE]
 Volunteers don't have to keep promises in their heads.
 
@@ -99,7 +99,7 @@ No cloud. No accounts. About one cent per night.
 Six hours a week back — for every Sarah, in every club. [PAUSE]
 That's an agent for humans. [PAUSE]
 
-ClubKeeper — built with Strands and GLM.
+ClubSteward — built with Strands and GLM.
 Link in the description.
 
 ---

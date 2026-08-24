@@ -13,7 +13,7 @@
 - Fields: Email, First/Last Name, Country of Residence, Devpost Username,
   and 2–3 sentences: track + what you'll build. Suggested text:
 
-> We're building for the Good Neighbor Agents track. ClubKeeper is an
+> We're building for the Good Neighbor Agents track. ClubSteward is an
 > open-source agent (Strands Agents SDK + GLM via LiteLLM) that runs a volunteer
 > sports club's member inbox overnight: it triages emails, updates the member
 > register, drafts warm replies, and queues only real judgment calls — fee
@@ -24,7 +24,7 @@
 
 (Shorter fallback, ~2 sentences:)
 
-> Good Neighbor Agents track: ClubKeeper, an open-source club-secretary agent on
+> Good Neighbor Agents track: ClubSteward, an open-source club-secretary agent on
 > the Strands Agents SDK that processes member email overnight, updates the
 > member register, drafts replies, and escalates only hardship/cancellation
 > decisions to a human via a YAML policy driving the SDK's Human-in-the-Loop

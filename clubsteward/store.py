@@ -1,8 +1,8 @@
 """SQLite storage adapter — same interface as the CSV register, per-club database.
 
 Enable per club via brand/config: set `storage: sqlite` in the club's mail.yaml
-(or CLUBKEEPER_STORAGE=sqlite env). Falls back to CSV when unset.
-The DB file lives inside the club folder (clubs/<id>/clubkeeper.db) so tenant
+(or CLUBSTEWARD_STORAGE=sqlite env). Falls back to CSV when unset.
+The DB file lives inside the club folder (clubs/<id>/clubsteward.db) so tenant
 isolation and "delete club = delete data" stay intact.
 """
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS runs (
 
 
 def db_path(data_dir: Path) -> Path:
-    return data_dir / "clubkeeper.db"
+    return data_dir / "clubsteward.db"
 
 
 def init_db(data_dir: Path) -> sqlite3.Connection:

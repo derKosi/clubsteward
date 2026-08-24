@@ -1,7 +1,7 @@
 {
   "agent_id": "default",
   "state": {
-    "clubkeeper:case": {
+    "clubsteward:case": {
       "autonomy": "auto",
       "intent": "address_change",
       "mail_file": "02-adressaenderung.eml"

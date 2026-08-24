@@ -10,7 +10,7 @@ Replace `<repo-url>` before publishing.
 When we started building for the Agents for Humans Hackathon, we kept circling one
 question: who is actually allowed to decide what an AI agent may do on its own?
 
-Our answer became the core of ClubKeeper, an open-source club-secretary agent for
+Our answer became the core of ClubSteward, an open-source club-secretary agent for
 volunteer sports clubs — and the answer is: **the club decides, in a file the club
 can edit.**
 
@@ -75,7 +75,7 @@ null` instead of an empty list (a pydantic validator now normalizes it).
 
 ## What the agent actually does
 
-Overnight, unattended, ClubKeeper processes the club inbox folder:
+Overnight, unattended, ClubSteward processes the club inbox folder:
 
 - **Triages** every mail (intent, facts, confidence, flags)
 - **Updates the member register** — sign-ups, address and email changes

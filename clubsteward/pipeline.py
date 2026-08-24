@@ -1,6 +1,6 @@
 """Batch pipeline: process every mail in the inbox through triage → policy → act/ask.
 
-Run: uv run python -m clubkeeper.pipeline
+Run: uv run python -m clubsteward.pipeline
 """
 
 from __future__ import annotations
@@ -11,7 +11,7 @@ import sys
 import uuid
 from pathlib import Path
 
-from .agents import ClubKeeper, TriageTokenTracker, evaluate_policy, safety_flag_check, triage_one
+from .agents import ClubSteward, TriageTokenTracker, evaluate_policy, safety_flag_check, triage_one
 from .config import Config
 from .interventions import set_case
 from .metrics import new_summary, record_act, record_triage, save as save_summary, cost_estimate
@@ -31,7 +31,7 @@ def run(max_mails: int | None = None, recorder: RunRecorder | None = None, club:
         return 2
     set_config(cfg)
     policy = ClubPolicy.load(cfg.data_dir / "policy.yaml")
-    ck = ClubKeeper(cfg, policy)
+    ck = ClubSteward(cfg, policy)
     if recorder:
         recorder.set_model(cfg.model_id)
 

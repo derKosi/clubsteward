@@ -1,12 +1,12 @@
-"""ClubKeeper club CLI — manage multiple clubs, white-labeled.
+"""ClubSteward club CLI — manage multiple clubs, white-labeled.
 
 Usage:
-  uv run python -m clubkeeper.club list
-  uv run python -m clubkeeper.club new <id> --name "Mein Verein e.V." [--tagline "..."] [--color "#15803d"]
-  uv run python -m clubkeeper.club run <id>          # nightly pipeline for that club
-  uv run python -m clubkeeper.club decide <id>       # decision queue for that club
-  uv run python -m clubkeeper.club status <id>       # inbox/outbox/decisions/register overview
-  uv run python -m clubkeeper.club reset <id>        # restore corpus into inbox
+  uv run python -m clubsteward.club list
+  uv run python -m clubsteward.club new <id> --name "Mein Verein e.V." [--tagline "..."] [--color "#15803d"]
+  uv run python -m clubsteward.club run <id>          # nightly pipeline for that club
+  uv run python -m clubsteward.club decide <id>       # decision queue for that club
+  uv run python -m clubsteward.club status <id>       # inbox/outbox/decisions/register overview
+  uv run python -m clubsteward.club reset <id>        # restore corpus into inbox
 """
 
 from __future__ import annotations
@@ -39,7 +39,7 @@ def load_brand(club_dir: Path) -> dict:
 def cmd_list(_args=None) -> int:
     dirs = club_dirs()
     if not dirs:
-        print("No clubs yet. Create one:  uv run python -m clubkeeper.club new <id> --name '...' ")
+        print("No clubs yet. Create one:  uv run python -m clubsteward.club new <id> --name '...' ")
         return 0
     print(f"{C_TITLE}Clubs ({len(dirs)}):{R}")
     for d in dirs:
@@ -93,7 +93,7 @@ def cmd_new(args) -> int:
     print(f"  dir:    {d}")
     print(f"  brand:  {args.name}" + (f" — {args.tagline}" if args.tagline else ""))
     print(f"  next:   put sample mails in {d}/corpus, edit {d}/policy.yaml")
-    print(f"  run:    uv run python -m clubkeeper.club run {club_id}")
+    print(f"  run:    uv run python -m clubsteward.club run {club_id}")
     return 0
 
 
@@ -152,7 +152,7 @@ def cmd_reset(args) -> int:
     return 0
 
 
-TEMPLATE_POLICY = """# ClubKeeper-Policy — hier regelt der Vorstand, was der Agent allein darf.
+TEMPLATE_POLICY = """# ClubSteward-Policy — hier regelt der Vorstand, was der Agent allein darf.
 club_name: {club_name}
 season: "2026"
 fees:
@@ -160,7 +160,7 @@ fees:
 tone: freundlich, herzlich, knapp — auf Deutsch
 reply_signature: |
   Der Vorstand, {club_name}
-  (Entwurf erstellt von ClubKeeper, dem Vereins-Agenten — vom Menschen freigegeben)
+  (Entwurf erstellt von ClubSteward, dem Vereins-Agenten — vom Menschen freigegeben)
 rules:
   - intent: signup
     decision: auto
@@ -194,7 +194,7 @@ TEMPLATE_REGISTER = """member_id,first_name,last_name,email,birth_year,team,fee_
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(prog="clubkeeper.club", description="Manage white-labeled clubs")
+    ap = argparse.ArgumentParser(prog="clubsteward.club", description="Manage white-labeled clubs")
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("list", help="list all clubs")
     n = sub.add_parser("new", help="create a club")

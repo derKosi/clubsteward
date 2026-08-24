@@ -1,6 +1,6 @@
-"""ClubKeeper web console + product page — FastAPI, no external deps.
+"""ClubSteward web console + product page — FastAPI, no external deps.
 
-Run:  uv run python -m clubkeeper.web   (http://localhost:8000)
+Run:  uv run python -m clubsteward.web   (http://localhost:8000)
 
 Pages
   /                     hero product page (live stats from the 6 clubs)
@@ -36,7 +36,7 @@ from .policy import ClubPolicy
 ROOT = Path(__file__).resolve().parent.parent
 WEB = ROOT / "webapp" / "static"
 
-app = FastAPI(title="ClubKeeper", version="0.1.0")
+app = FastAPI(title="ClubSteward", version="0.1.0")
 
 # ---- run lock: one pipeline run at a time (single-box SaaS stage 1) ----
 _run_lock = threading.Lock()
@@ -176,7 +176,7 @@ def api_decision_action(club_id: str, did: str, action: str, body: EditBody | No
     if not pj.exists():
         raise HTTPException(404, f"decision '{did}' not found")
     from .decide import approve
-    from .agents import ClubKeeper
+    from .agents import ClubSteward
     from .tools import set_config
     dec = Decision.model_validate_json(pj.read_text(encoding="utf-8"))
 
@@ -186,7 +186,7 @@ def api_decision_action(club_id: str, did: str, action: str, body: EditBody | No
         return {"result": "denied", "id": did}
 
     set_config(cfg)
-    ck = ClubKeeper(cfg, ClubPolicy.load(cfg.data_dir / "policy.yaml"))
+    ck = ClubSteward(cfg, ClubPolicy.load(cfg.data_dir / "policy.yaml"))
     approve(dec, ck, extra=(body.instructions if body else ""), club=club_id)
     pj.unlink()
     mail = cfg.decisions_dir / dec.mail_file

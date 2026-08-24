@@ -67,7 +67,7 @@ svg.append(f'<rect width="{W}" height="{H}" fill="{C["bg"]}"/>')
 svg.append(f'<rect width="{W}" height="{H}" fill="url(#grid)"/>')
 
 svg.append(f'<text x="60" y="50" font-family="{FONT}" font-size="16" fill="{C["text"]}" '
-           f'font-weight="bold">ClubKeeper — System Architecture</text>')
+           f'font-weight="bold">ClubSteward — System Architecture</text>')
 svg.append(f'<text x="60" y="70" font-family="{FONT}" font-size="9" fill="{C["sub"]}">'
            f'Local-first club-secretary agent · Strands Agents SDK · policy-as-data autonomy · fail-closed human-in-the-loop</text>')
 
@@ -136,7 +136,7 @@ for style, label, dash in legend:
     svg.append(f'<text x="{lx + 26}" y="{ly}" font-family="{FONT}" font-size="8" fill="{C["sub"]}">{esc(label)}</text>')
     lx += 26 + len(label) * 6 + 34
 svg.append(f'<text x="{W - 60}" y="{ly}" font-family="{FONT}" font-size="8" fill="{C["tiny"]}" '
-           f'text-anchor="end">ClubKeeper · Good Neighbor Agents · MIT</text>')
+           f'text-anchor="end">ClubSteward · Good Neighbor Agents · MIT</text>')
 
 svg.append("</svg>")
 

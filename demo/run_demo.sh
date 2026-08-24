@@ -6,26 +6,26 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-echo "== ClubKeeper demo =="
+echo "== ClubSteward demo =="
 uv run python scripts/reset_demo.py
 
 if [ -n "${ZAI_API_KEY:-}" ] || [ -n "${GLM_API_KEY:-}" ]; then
     echo
     echo "== Nightly batch run (live LLM: triage → policy → act | queue) =="
-    uv run python -m clubkeeper.pipeline
+    uv run python -m clubsteward.pipeline
 
     echo
     echo "== Human decisions =="
     if [ "${1:-}" = "--interactive" ]; then
-        uv run python -m clubkeeper.decide
+        uv run python -m clubsteward.decide
     else
         echo "(auto-approve mode for scripted demo — use --interactive for the real experience)"
-        uv run python -m clubkeeper.decide y
+        uv run python -m clubsteward.decide y
     fi
 else
     echo
     echo "== No ZAI_API_KEY set → replaying recorded session (labeled, no LLM calls) =="
-    uv run python -m clubkeeper.replay
+    uv run python -m clubsteward.replay
 fi
 
 echo

@@ -1,7 +1,7 @@
 {
   "agent_id": "default",
   "state": {
-    "clubkeeper:case": {
+    "clubsteward:case": {
       "autonomy": "auto_preapproved",
       "intent": "hardship_waiver",
       "decision_id": "bd9bfb42",

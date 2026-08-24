@@ -1,4 +1,4 @@
-# Hosting & SaaS Deployment — how ClubKeeper scales from laptop to product
+# Hosting & SaaS Deployment — how ClubSteward scales from laptop to product
 
 Status: architecture notes. The hackathon submission is the local single-node version
 (laptop, no cloud, ~€0.01/night) — everything below is the post-hackathon product path.
@@ -20,7 +20,7 @@ multi-tenancy layer you have to bolt on later.
 ## Deployment stages (each is small)
 
 ### Stage 0 — today (hackathon): local, folder-based
-- `uv run python -m clubkeeper.club run <id>` per club
+- `uv run python -m clubsteward.club run <id>` per club
 - cron/systemd timer for the nightly loop; a human runs `decide <id>` in the morning
 - Zero infra, zero cost. This is what the demo video shows.
 
@@ -28,7 +28,7 @@ multi-tenancy layer you have to bolt on later.
 One small server (VM or container), one FastAPI wrapper around the existing modules:
 
 ```
-POST /clubs/{id}/run          → clubkeeper.pipeline.run(club=id)
+POST /clubs/{id}/run          → clubsteward.pipeline.run(club=id)
 GET  /clubs/{id}/decisions    → reads decisions/*.json → JSON cards
 POST /clubs/{id}/decisions/{did}/approve|deny|edit → decide.approve(...)
 GET  /clubs/{id}/outbox       → drafts for review UI

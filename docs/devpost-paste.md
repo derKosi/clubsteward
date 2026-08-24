@@ -9,7 +9,7 @@ judgment.
 
 ## What it does
 
-ClubKeeper runs the club's inbox overnight, unattended:
+ClubSteward runs the club's inbox overnight, unattended:
 
 - **Triages** every inbound member email (structured extraction: intent, facts, confidence)
 - **Updates the member register** (CSV) — sign-ups, address/email changes, team moves
@@ -66,7 +66,7 @@ ClubKeeper runs the club's inbox overnight, unattended:
 Autonomy is a spectrum you can data-drive. For volunteer organizations, the policy file
 IS the product: governance that a non-programmer can read, edit, and trust.
 
-## What's next for ClubKeeper
+## What's next for ClubSteward
 
 - IMAP/SMTP adapters for real mailboxes (same pipeline, folder-based boundaries stay)
 - Multi-club hosting with per-club policy files

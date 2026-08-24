@@ -1,4 +1,4 @@
-"""Structured tools the ClubKeeper agents can call.
+"""Structured tools the ClubSteward agents can call.
 
 All tools operate on the demo sandbox (demo/data/**) only — no network, no real mail.
 """
@@ -32,7 +32,7 @@ _cfg: Config | None = None
 
 def _use_sqlite(cfg: Config) -> bool:
     import os
-    if os.environ.get("CLUBKEEPER_STORAGE", "").lower() == "sqlite":
+    if os.environ.get("CLUBSTEWARD_STORAGE", "").lower() == "sqlite":
         return True
     flag = cfg.data_dir / "storage.flag"
     return flag.exists() and flag.read_text(encoding="utf-8").strip().lower() == "sqlite"

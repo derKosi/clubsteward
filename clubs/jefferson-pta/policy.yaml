@@ -1,4 +1,4 @@
-# ClubKeeper policy — the PTA board edits this file, nobody edits code.
+# ClubSteward policy — the PTA board edits this file, nobody edits code.
 club_name: Jefferson Elementary PTA
 season: "School year 2026/27"
 fees:
@@ -9,7 +9,7 @@ tone: warm, inclusive, brief — everyone is welcome here
 reply_signature: |
   Maria Chen
   PTA President, Jefferson Elementary
-  (This reply was drafted by ClubKeeper, the PTA's agent — approved by a human)
+  (This reply was drafted by ClubSteward, the PTA's agent — approved by a human)
 rules:
   - intent: signup
     decision: auto

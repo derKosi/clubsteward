@@ -1,4 +1,4 @@
-"""Domain models for ClubKeeper."""
+"""Domain models for ClubSteward."""
 
 from __future__ import annotations
 

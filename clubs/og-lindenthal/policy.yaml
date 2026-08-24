@@ -1,4 +1,4 @@
-# ClubKeeper-Policy — hier regelt der Vorstand, was der Agent allein darf.
+# ClubSteward-Policy — hier regelt der Vorstand, was der Agent allein darf.
 club_name: OG Lindenthal e.V.
 season: "Jahr 2026"
 fees:
@@ -9,7 +9,7 @@ tone: nachbarschaftlich-warm, auf Deutsch, knapp
 reply_signature: |
   Der Vorstand
   OG Lindenthal e.V.
-  (Entwurf erstellt von ClubKeeper, dem Vereins-Agenten — vom Menschen freigegeben)
+  (Entwurf erstellt von ClubSteward, dem Vereins-Agenten — vom Menschen freigegeben)
 rules:
   - intent: signup
     decision: auto

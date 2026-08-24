@@ -1,4 +1,4 @@
-# ClubKeeper policy — the club's rules as data, editable by volunteers, not code.
+# ClubSteward policy — the club's rules as data, editable by volunteers, not code.
 club_name: Riverside Juniors FC
 season: "2026/27"
 fees:
@@ -9,7 +9,7 @@ tone: friendly, warm, concise club volunteer
 reply_signature: |
   Sarah Miller
   Club Secretary, Riverside Juniors FC
-  (This reply was drafted by ClubKeeper, the club's agent — approved by a human)
+  (This reply was drafted by ClubSteward, the club's agent — approved by a human)
 rules:
   - intent: signup
     decision: auto

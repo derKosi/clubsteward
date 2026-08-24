@@ -1,6 +1,6 @@
 # Email Integration — how a club connects its real mailbox
 
-ClubKeeper's boundary is deliberately boring: **mails in a folder, drafts in a folder.**
+ClubSteward's boundary is deliberately boring: **mails in a folder, drafts in a folder.**
 Everything else (IMAP/SMTP) is an adapter at the edge. Three ways to run it:
 
 ## Option A — Drag & drop (zero setup, works today)

@@ -1,4 +1,4 @@
-"""Runtime configuration for ClubKeeper."""
+"""Runtime configuration for ClubSteward."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from pydantic import BaseModel, Field
 class Brand(BaseModel):
     """White-label branding per club (colors, name, tagline)."""
 
-    name: str = "ClubKeeper"
+    name: str = "ClubSteward"
     tagline: str = ""
     locale: str = "en"
     colors: dict[str, str] = Field(default_factory=dict)
@@ -33,7 +33,7 @@ class Config(BaseModel):
         if club and club != "demo":
             data_dir = root / "clubs" / club
         else:
-            data_dir = Path(os.environ.get("CLUBKEEPER_DATA", "demo/data")).resolve()
+            data_dir = Path(os.environ.get("CLUBSTEWARD_DATA", "demo/data")).resolve()
         return cls(
             api_key=api_key,
             base_url=os.environ.get("ZAI_BASE_URL", "https://api.z.ai/api/coding/paas/v4"),

@@ -1,4 +1,4 @@
-# Política de ClubKeeper — la Junta edita este archivo, nadie toca código.
+# Política de ClubSteward — la Junta edita este archivo, nadie toca código.
 club_name: Asociación de Vecinos La Alameda
 season: "Año 2026"
 fees:
@@ -9,7 +9,7 @@ tone: cercano y sencillo, en español
 reply_signature: |
   La Junta Directiva
   Asociación de Vecinos La Alameda
-  (Redactado por ClubKeeper, el agente de la asociación — aprobado por una persona)
+  (Redactado por ClubSteward, el agente de la asociación — aprobado por una persona)
 rules:
   - intent: signup
     decision: auto

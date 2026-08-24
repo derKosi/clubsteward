@@ -1,4 +1,4 @@
-# ClubKeeper-Policy — hier regelt der Vorstand, was der Agent allein darf.
+# ClubSteward-Policy — hier regelt der Vorstand, was der Agent allein darf.
 club_name: KG Rheinklause 1967 e.V.
 season: "Session 2026/27"
 fees:
@@ -9,7 +9,7 @@ tone: herzlich, rheinisch-jovial, knapp — auf Deutsch
 reply_signature: |
   Der Elferrat
   KG Rheinklause 1967 e.V.
-  (Entwurf erstellt von ClubKeeper, dem Vereins-Agenten — vom Menschen freigegeben)
+  (Entwurf erstellt von ClubSteward, dem Vereins-Agenten — vom Menschen freigegeben)
 rules:
   - intent: signup
     decision: auto

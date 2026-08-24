@@ -1,4 +1,4 @@
-# ClubKeeper-Policy — hier regelt der Vorstand, was der Agent allein darf.
+# ClubSteward-Policy — hier regelt der Vorstand, was der Agent allein darf.
 club_name: SV Grünwald 1912 e.V.
 season: "Saison 2026/27"
 fees:
@@ -9,7 +9,7 @@ tone: freundlich, herzlich, kurz — auf Deutsch
 reply_signature: |
   Sarah Verwald
   Geschäftsstelle, SV Grünwald 1912 e.V.
-  (Entwurf erstellt von ClubKeeper, dem Vereins-Agenten — vom Menschen freigegeben)
+  (Entwurf erstellt von ClubSteward, dem Vereins-Agenten — vom Menschen freigegeben)
 rules:
   - intent: signup
     decision: auto

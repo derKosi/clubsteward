@@ -18,11 +18,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from clubkeeper.agents import ClubKeeper, triage_one  # noqa: E402
-from clubkeeper.config import Config  # noqa: E402
-from clubkeeper.models import MailItem  # noqa: E402
-from clubkeeper.policy import ClubPolicy  # noqa: E402
-from clubkeeper.tools import set_config  # noqa: E402
+from clubsteward.agents import ClubSteward, triage_one  # noqa: E402
+from clubsteward.config import Config  # noqa: E402
+from clubsteward.models import MailItem  # noqa: E402
+from clubsteward.policy import ClubPolicy  # noqa: E402
+from clubsteward.tools import set_config  # noqa: E402
 
 EXPECTED = {
     "01-signup-irena.eml": "signup",
@@ -46,7 +46,7 @@ def main() -> int:
     set_config(cfg)
     data_dir = ROOT / "demo" / "data"
     policy = ClubPolicy.load(data_dir / "policy.yaml")
-    ck = ClubKeeper(cfg, policy)
+    ck = ClubSteward(cfg, policy)
 
     corpus = ROOT / "demo" / "corpus"
     results = []

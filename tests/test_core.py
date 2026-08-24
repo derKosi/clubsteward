@@ -1,4 +1,4 @@
-"""Unit tests for ClubKeeper policy, models, and interventions (no LLM calls)."""
+"""Unit tests for ClubSteward policy, models, and interventions (no LLM calls)."""
 
 from __future__ import annotations
 
@@ -10,9 +10,9 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from clubkeeper.interventions import policy_classifier  # noqa: E402
-from clubkeeper.models import Intent, MailItem, TriageResult  # noqa: E402
-from clubkeeper.policy import ClubPolicy  # noqa: E402
+from clubsteward.interventions import policy_classifier  # noqa: E402
+from clubsteward.models import Intent, MailItem, TriageResult  # noqa: E402
+from clubsteward.policy import ClubPolicy  # noqa: E402
 
 DEMO = ROOT / "demo" / "corpus"
 
@@ -62,7 +62,7 @@ class TestPolicy:
 
 class TestClassifier:
     def _agent(self, autonomy):
-        return _Agent({"clubkeeper:case": {"autonomy": autonomy, "intent": "signup"}})
+        return _Agent({"clubsteward:case": {"autonomy": autonomy, "intent": "signup"}})
 
     def test_read_tools_always_free(self):
         for autonomy in ("auto", "ask", "auto_preapproved", None_marker := "unset"):
@@ -76,11 +76,11 @@ class TestClassifier:
         assert policy_classifier(ev).requires_human_in_the_loop is False
 
     def test_write_free_when_preapproved(self):
-        ev = _Event("save_draft", _Agent({"clubkeeper:case": {"autonomy": "auto_preapproved", "intent": "cancellation", "decision_id": "abc"}}))
+        ev = _Event("save_draft", _Agent({"clubsteward:case": {"autonomy": "auto_preapproved", "intent": "cancellation", "decision_id": "abc"}}))
         assert policy_classifier(ev).requires_human_in_the_loop is False
 
     def test_write_blocked_when_ask(self):
-        ev = _Event("register_update", _Agent({"clubkeeper:case": {"autonomy": "ask", "intent": "hardship_waiver"}}))
+        ev = _Event("register_update", _Agent({"clubsteward:case": {"autonomy": "ask", "intent": "hardship_waiver"}}))
         assert policy_classifier(ev).requires_human_in_the_loop is True
 
     def test_write_blocked_without_case(self):
@@ -88,7 +88,7 @@ class TestClassifier:
         assert policy_classifier(ev).requires_human_in_the_loop is True
 
     def test_unknown_tool_fails_closed(self):
-        ev = _Event("rm_rf", _Agent({"clubkeeper:case": {"autonomy": "auto", "intent": "signup"}}))
+        ev = _Event("rm_rf", _Agent({"clubsteward:case": {"autonomy": "auto", "intent": "signup"}}))
         assert policy_classifier(ev).requires_human_in_the_loop is True
 
 
@@ -106,7 +106,7 @@ class TestMailParsing:
 
 class TestEvaluatePolicy:
     def test_evaluate(self, policy):
-        from clubkeeper.agents import evaluate_policy
+        from clubsteward.agents import evaluate_policy
 
         t_auto = TriageResult(intent=Intent.SIGNUP, summary="s", proposed_action="a", confidence=1.0)
         t_ask = TriageResult(intent=Intent.HARDSHIP_WAIVER, summary="s", proposed_action="a", confidence=1.0)
@@ -116,7 +116,7 @@ class TestEvaluatePolicy:
         assert evaluate_policy(policy, t_spam)[0] == "reject"
 
     def test_ask_if_escalates_auto_on_flag(self, policy):
-        from clubkeeper.agents import evaluate_policy
+        from clubsteward.agents import evaluate_policy
 
         t = TriageResult(intent=Intent.SIGNUP, summary="s", proposed_action="a",
                          confidence=1.0, flags=["medical"])
@@ -125,14 +125,14 @@ class TestEvaluatePolicy:
         assert "medical" in reason
 
     def test_ask_if_no_flag_stays_auto(self, policy):
-        from clubkeeper.agents import evaluate_policy
+        from clubsteward.agents import evaluate_policy
 
         t = TriageResult(intent=Intent.SIGNUP, summary="s", proposed_action="a",
                          confidence=1.0, flags=[])
         assert evaluate_policy(policy, t)[0] == "auto"
 
     def test_ask_if_waiting_list_escalates(self, policy):
-        from clubkeeper.agents import evaluate_policy
+        from clubsteward.agents import evaluate_policy
 
         t = TriageResult(intent=Intent.SIGNUP, summary="s", proposed_action="a",
                          confidence=1.0, flags=["waiting_list"])
@@ -143,7 +143,7 @@ class TestEvaluatePolicy:
 
 class TestSafetyFlagCheck:
     def test_backstop_adds_medical_flag(self):
-        from clubkeeper.agents import safety_flag_check
+        from clubsteward.agents import safety_flag_check
 
         t = TriageResult(intent=Intent.SIGNUP, summary="s", proposed_action="a", confidence=1.0, flags=[])
         mail = MailItem.parse(DEMO / "10-signup-medical.eml")
@@ -151,7 +151,7 @@ class TestSafetyFlagCheck:
         assert "medical" in t2.flags
 
     def test_backstop_no_false_positive(self):
-        from clubkeeper.agents import safety_flag_check
+        from clubsteward.agents import safety_flag_check
 
         t = TriageResult(intent=Intent.QUESTION, summary="s", proposed_action="a", confidence=1.0, flags=[])
         mail = MailItem.parse(DEMO / "05-question-fixtures.eml")
@@ -161,7 +161,7 @@ class TestSafetyFlagCheck:
 
 class TestRecorder:
     def _mk(self, tmp_path):
-        from clubkeeper.recorder import RunRecorder, _snapshot
+        from clubsteward.recorder import RunRecorder, _snapshot
         for sub in ("outbox", "decisions"):
             (tmp_path / sub).mkdir(parents=True, exist_ok=True)
         (tmp_path / "register.csv").write_text("member_id\n", encoding="utf-8")
@@ -194,12 +194,12 @@ class TestRecorder:
 class TestSessionRouting:
     def test_act_agent_for_is_stable_per_member(self, tmp_path):
         """Same member email → same agent instance (persistent session) within one run."""
-        from clubkeeper.agents import ClubKeeper
-        from clubkeeper.config import Config
+        from clubsteward.agents import ClubSteward
+        from clubsteward.config import Config
 
         cfg = Config(api_key="test", base_url="http://localhost", model_id="m", data_dir=tmp_path)
         pol = ClubPolicy(club_name="X", season="s", rules=[])
-        ck = ClubKeeper(cfg, pol)
+        ck = ClubSteward(cfg, pol)
         a1 = ck.act_agent_for("miriam@example.com")
         a2 = ck.act_agent_for("miriam@example.com")
         b = ck.act_agent_for("other@example.com")
@@ -208,12 +208,12 @@ class TestSessionRouting:
 
     def test_session_files_created_shape(self, tmp_path):
         """Session dirs use a sanitized member key under data_dir/sessions."""
-        from clubkeeper.agents import ClubKeeper
-        from clubkeeper.config import Config
+        from clubsteward.agents import ClubSteward
+        from clubsteward.config import Config
 
         cfg = Config(api_key="test", base_url="http://localhost", model_id="m", data_dir=tmp_path)
         pol = ClubPolicy(club_name="X", season="s", rules=[])
-        ck = ClubKeeper(cfg, pol)
+        ck = ClubSteward(cfg, pol)
         ck.act_agent_for("weird/address@example.com")
         sessions = list((tmp_path / "sessions").iterdir())
         assert len(sessions) == 1

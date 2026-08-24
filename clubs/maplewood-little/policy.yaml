@@ -1,4 +1,4 @@
-# ClubKeeper policy — the league board edits this file, nobody edits code.
+# ClubSteward policy — the league board edits this file, nobody edits code.
 club_name: Maplewood Little League
 season: "Spring 2026"
 fees:
@@ -10,7 +10,7 @@ tone: friendly, upbeat, concise — small-town league warmth
 reply_signature: |
   Coach Dana
   Player Agent, Maplewood Little League
-  (This reply was drafted by ClubKeeper, the league's agent — approved by a human)
+  (This reply was drafted by ClubSteward, the league's agent — approved by a human)
 rules:
   - intent: signup
     decision: auto

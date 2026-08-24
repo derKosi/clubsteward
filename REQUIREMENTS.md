@@ -12,7 +12,7 @@ Official rules take precedence over anything else. Deviations: none found so far
 ## Hard submission requirements (from "What to Submit" + Rules §4)
 
 - [x] Text description (English) — DRAFT READY: docs/devpost-submission-draft.md (paste at submission)
-- [x] PUBLIC repo URL — repo exists PRIVATE (github.com/derKosi/clubkeeper), flip to public at submission
+- [x] PUBLIC repo URL — repo exists PRIVATE (github.com/derKosi/clubsteward), flip to public at submission
 - [x] Repo contains all source code, assets, setup instructions — fresh-clone gate passing (tests + replay, no key needed)
 - [x] Open-source license file MIT — LICENSE present, GitHub detects it
 - [ ] License visible in repo "About" section — Kosi at go-live (add topic "mit" + description)

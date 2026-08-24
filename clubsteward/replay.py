@@ -1,6 +1,6 @@
-"""Replay a recorded ClubKeeper session — no LLM, no API key needed.
+"""Replay a recorded ClubSteward session — no LLM, no API key needed.
 
-Run: uv run python -m clubkeeper.replay [path/to/session.json]
+Run: uv run python -m clubsteward.replay [path/to/session.json]
 Default recording: demo/recording/session.json (created by scripts/record_session.py)
 
 The replay prints the recorded transcript step by step and applies the recorded

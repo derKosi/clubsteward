@@ -1,7 +1,7 @@
 """Human decision loop: work through pending decisions in demo/data/decisions.
 
-Run: uv run python -m clubkeeper.decide          (interactive)
-     uv run python -m clubkeeper.decide y        (approve all — scripted demos)
+Run: uv run python -m clubsteward.decide          (interactive)
+     uv run python -m clubsteward.decide y        (approve all — scripted demos)
 """
 
 from __future__ import annotations
@@ -10,7 +10,7 @@ import json
 import shutil
 import sys
 
-from .agents import ClubKeeper, triage_one
+from .agents import ClubSteward, triage_one
 from .config import Config
 from .interventions import set_case
 from .models import Decision, MailItem
@@ -61,7 +61,7 @@ def run(assume: str | None = None, club: str | None = None) -> int:
         return 2
     set_config(cfg)
     policy = ClubPolicy.load(cfg.data_dir / "policy.yaml")
-    ck = ClubKeeper(cfg, policy)
+    ck = ClubSteward(cfg, policy)
 
     pending = sorted(cfg.decisions_dir.glob("*.json"))
     if not pending:
@@ -100,7 +100,7 @@ def _cleanup(cfg, d: Decision, pj) -> None:
         shutil.move(str(mail), cfg.processed_dir / d.mail_file)
 
 
-def approve(d: Decision, ck: ClubKeeper, extra: str = "", club: str | None = None) -> None:
+def approve(d: Decision, ck: ClubSteward, extra: str = "", club: str | None = None) -> None:
     mail_path = Config.load(club).decisions_dir / d.mail_file
     mail = MailItem.parse(mail_path)
     # Human decided → write pre-approved; the audit trail carries the decision id

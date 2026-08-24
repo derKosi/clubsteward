@@ -1,4 +1,4 @@
-# ClubKeeper
+# ClubSteward
 
 **The club-secretary agent that runs your volunteer club's inbox overnight — and only wakes you for decisions that deserve a human.**
 
@@ -15,9 +15,9 @@ sign-ups, address changes, cancellations, fee questions, hardship requests. Almo
 it is repetitive — but some of it (a single parent asking for a fee waiver) deserves real
 human warmth and judgment.
 
-## What ClubKeeper does
+## What ClubSteward does
 
-![ClubKeeper demo](docs/demo.gif)
+![ClubSteward demo](docs/demo.gif)
 
 *(Recorded replay of a real session — live runs need a Z.ai API key, see Quickstart.)*
 
@@ -99,24 +99,24 @@ it took, and what it cost.
 ## Quickstart
 
 ```bash
-git clone <repo-url> && cd clubkeeper
+git clone <repo-url> && cd clubsteward
 uv sync
 cp .env.example .env          # add your Z.ai API key (https://z.ai)
 export $(grep -v '^#' .env | xargs)
 
 # 1. nightly batch run (the "overnight" part)
 uv run python scripts/reset_demo.py     # pristine demo inbox: 8 mails
-uv run python -m clubkeeper.pipeline
+uv run python -m clubsteward.pipeline
 
 # 2. the human part — work the decision queue
-uv run python -m clubkeeper.decide      # approve / edit / deny per case
+uv run python -m clubsteward.decide      # approve / edit / deny per case
 ```
 
 **No API key? Watch the recorded session instead:**
 
 ```bash
 uv sync && uv run python scripts/reset_demo.py
-uv run python -m clubkeeper.replay      # replays a real recorded run, clearly labeled
+uv run python -m clubsteward.replay      # replays a real recorded run, clearly labeled
 ```
 
 The replay prints the recorded transcript step by step and reproduces every artifact
@@ -146,13 +146,13 @@ which flags interrupt a human. Volunteers tune autonomy by editing YAML.
 
 ## Multiple clubs, white-labeled
 
-ClubKeeper is multi-club by design — three German example clubs ship in `clubs/`:
+ClubSteward is multi-club by design — three German example clubs ship in `clubs/`:
 
 ```bash
-uv run python -m clubkeeper.club list                    # KG Rheinklause · SV Grünwald · OG Lindenthal
-uv run python -m clubkeeper.club run kg-rheinklause      # nightly run for the Karnevalsverein (German mails!)
-uv run python -m clubkeeper.club decide kg-rheinklause   # decision queue, German policy reasons
-uv run python -m clubkeeper.club status kg-rheinklause   # branded overview
+uv run python -m clubsteward.club list                    # KG Rheinklause · SV Grünwald · OG Lindenthal
+uv run python -m clubsteward.club run kg-rheinklause      # nightly run for the Karnevalsverein (German mails!)
+uv run python -m clubsteward.club decide kg-rheinklause   # decision queue, German policy reasons
+uv run python -m clubsteward.club status kg-rheinklause   # branded overview
 ```
 
 Each club is a folder: `policy.yaml` (rules + fees + tone + signature), `brand.yaml`
@@ -163,7 +163,7 @@ signature, and never invents fees — amounts come from the policy file.
 Create your own club in one command:
 
 ```bash
-uv run python -m clubkeeper.club new mein-verein --name "Mein Verein e.V." \
+uv run python -m clubsteward.club new mein-verein --name "Mein Verein e.V." \
     --tagline "Gemeinsam stark" --color "#15803d"
 ```
 
@@ -180,7 +180,7 @@ uv run python -m clubkeeper.club new mein-verein --name "Mein Verein e.V." \
 ## Repo layout
 
 ```
-clubkeeper/          the agent package
+clubsteward/          the agent package
   agents.py          triage + act agents (Strands)
   interventions.py   policy-driven HumanInTheLoop classifier
   pipeline.py        overnight batch run

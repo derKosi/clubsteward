@@ -16,7 +16,7 @@
           "input": {
             "to": "kylie.park@example.org",
             "subject": "Email updated for the Park family",
-            "body": "Hi Kyu,\n\nAll done — Kylie's contact email has been updated to kyu.park.new@example.org. From now on, all PTA communications will go to the new address.\n\nThanks for letting us know!\n\nWarm regards,\nMaria Chen\nPTA President, Jefferson Elementary\n(This reply was drafted by ClubKeeper, the PTA's agent — approved by a human)"
+            "body": "Hi Kyu,\n\nAll done — Kylie's contact email has been updated to kyu.park.new@example.org. From now on, all PTA communications will go to the new address.\n\nThanks for letting us know!\n\nWarm regards,\nMaria Chen\nPTA President, Jefferson Elementary\n(This reply was drafted by ClubSteward, the PTA's agent — approved by a human)"
           }
         }
       }

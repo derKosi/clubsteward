@@ -6,7 +6,7 @@ The act agent runs with the SDK's `HumanInTheLoop` intervention. Our custom
 classifier consults
 
 1. the tool category (read-only tools always run free), and
-2. the CURRENT CASE context stored in `agent.state` (`clubkeeper:case`),
+2. the CURRENT CASE context stored in `agent.state` (`clubsteward:case`),
    set by the pipeline / decide CLI before each invocation:
 
    autonomy="auto"              → policy says this intent is routine → writes proceed
@@ -31,7 +31,7 @@ from strands.vended_interventions.hitl.classifier import (
 READ_TOOLS = {"register_lookup", "log_activity"}
 WRITE_TOOLS = {"register_update", "register_add", "save_draft"}
 
-CASE_STATE_KEY = "clubkeeper:case"
+CASE_STATE_KEY = "clubsteward:case"
 
 
 def set_case(agent: Any, case: dict[str, Any]) -> None:

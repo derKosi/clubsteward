@@ -1,4 +1,4 @@
-# ClubKeeper — Demo Video Storyboard (≤ 5 min, target 3:30)
+# ClubSteward — Demo Video Storyboard (≤ 5 min, target 3:30)
 
 Structure per hackathon judging: Problem → Audience → Live demo (end-to-end) → Why it matters.
 Screen recording + voiceover (no camera needed, officially allowed). English.
@@ -13,19 +13,19 @@ Screen recording + voiceover (no camera needed, officially allowed). English.
   Address changes. Fee questions. And once a month — a letter that needs a human heart,
   not a template."
 
-## 0:25–0:45 — INTRODUCING CLUBKEEPER (title card + architecture flash)
+## 0:25–0:45 — INTRODUCING CLUBSTEWARD (title card + architecture flash)
 
 - Visual: architecture.svg (2s), then `club list` showing SIX clubs — German carnival club,
   football club, neighborhood org, US Little League, US PTA, Spanish vecinos association
   (name + tagline + colors each) — ~15 seconds total.
-- VO: "ClubKeeper is an agent built with the Strands Agents SDK. It runs at night,
+- VO: "ClubSteward is an agent built with the Strands Agents SDK. It runs at night,
   does the repetitive 80%, and hands volunteers only the decisions that deserve
   their judgment. Any club. Any language."
 
 ## 0:45–2:45 — LIVE DEMO (real terminal, sped up 2x where idle)
 
 1. `uv run python scripts/reset_demo.py` — "Nine emails arrive overnight."
-2. `uv run python -m clubkeeper.pipeline` — show live output:
+2. `uv run python -m clubsteward.pipeline` — show live output:
    - "signup → AUTO", "address change → AUTO", "question → AUTO"
    - "hardship waiver → QUEUED", "cancellation → QUEUED", "complaint → QUEUED"
    - **the escalation beat**: "signup + medical flag → QUEUED (ask_if matched)" —
@@ -37,7 +37,7 @@ Screen recording + voiceover (no camera needed, officially allowed). English.
      a YAML the club edits — updated the member register, and drafted replies."
 3. Show `demo/data/outbox/` — open the welcome draft (Irena) — VO: "Notice: it asked
    Daniel to confirm his son's record instead of guessing a sibling discount."
-4. `uv run python -m clubkeeper.decide` — the three decision cards:
+4. `uv run python -m clubsteward.decide` — the three decision cards:
    - hardship (Kwame's mother) → show mail + policy reason → approve with instruction
      "offer 50% reduction + instalments"
    - cancellation (Noah) → approve

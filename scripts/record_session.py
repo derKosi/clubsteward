@@ -1,8 +1,8 @@
-"""Record a full ClubKeeper session (pipeline + auto-approved decisions) to demo/recording/session.json.
+"""Record a full ClubSteward session (pipeline + auto-approved decisions) to demo/recording/session.json.
 
 Run: uv run python scripts/record_session.py   (needs ZAI_API_KEY)
 
-The recording powers the no-API-key replay mode for judges: uv run python -m clubkeeper.replay
+The recording powers the no-API-key replay mode for judges: uv run python -m clubsteward.replay
 """
 
 from __future__ import annotations
@@ -13,14 +13,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from clubkeeper.agents import ClubKeeper  # noqa: E402
-from clubkeeper.config import Config  # noqa: E402
-from clubkeeper.decide import approve, show  # noqa: E402
-from clubkeeper.models import Decision  # noqa: E402
-from clubkeeper.pipeline import run as run_pipeline  # noqa: E402
-from clubkeeper.policy import ClubPolicy  # noqa: E402
-from clubkeeper.recorder import RunRecorder  # noqa: E402
-from clubkeeper.tools import set_config  # noqa: E402
+from clubsteward.agents import ClubSteward  # noqa: E402
+from clubsteward.config import Config  # noqa: E402
+from clubsteward.decide import approve, show  # noqa: E402
+from clubsteward.models import Decision  # noqa: E402
+from clubsteward.pipeline import run as run_pipeline  # noqa: E402
+from clubsteward.policy import ClubPolicy  # noqa: E402
+from clubsteward.recorder import RunRecorder  # noqa: E402
+from clubsteward.tools import set_config  # noqa: E402
 
 
 def main() -> int:
@@ -40,7 +40,7 @@ def main() -> int:
 
     print("\n=== Recording decisions (auto-approve) ===")
     set_config(cfg)
-    ck = ClubKeeper(cfg, ClubPolicy.load(cfg.data_dir / "policy.yaml"))
+    ck = ClubSteward(cfg, ClubPolicy.load(cfg.data_dir / "policy.yaml"))
     for pj in sorted(cfg.decisions_dir.glob("*.json")):
         d = Decision.model_validate_json(pj.read_text())
         show(d)
@@ -73,7 +73,7 @@ def main() -> int:
     ])
     recorder.save(out)
     print(f"\nRecording saved: {out}")
-    print("Replay it (no API key needed):  uv run python -m clubkeeper.replay")
+    print("Replay it (no API key needed):  uv run python -m clubsteward.replay")
     return 0
 
 

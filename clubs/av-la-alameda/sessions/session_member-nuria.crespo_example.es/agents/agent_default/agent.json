@@ -1,7 +1,7 @@
 {
   "agent_id": "default",
   "state": {
-    "clubkeeper:case": {
+    "clubsteward:case": {
       "autonomy": "auto",
       "intent": "signup",
       "mail_file": "01-alta-socia.eml"

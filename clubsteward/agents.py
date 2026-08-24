@@ -1,4 +1,4 @@
-"""ClubKeeper agents: triage (understand) and act (execute) on a Strands agent loop."""
+"""ClubSteward agents: triage (understand) and act (execute) on a Strands agent loop."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ from .tools import log_activity, register_add, register_lookup, register_update,
 
 from strands.session import FileSessionManager
 
-TRIAGE_SYSTEM = """You are the triage brain of ClubKeeper, an agent that helps a volunteer run
+TRIAGE_SYSTEM = """You are the triage brain of ClubSteward, an agent that helps a volunteer run
 a local community club's inbox (sports club, PTA, carnival club, neighborhood association).
 Emails may arrive in ANY language (English, German, Spanish, ...) — classify by meaning, not language.
 Use intent "spam" for scam/phishing/lottery/ad mail that has nothing to do with the club.
@@ -31,7 +31,7 @@ before answering — this flag protects children.
 Be conservative: if the sender asks for money relief or cancellation, extract amounts and reasons.
 Respond ONLY with the structured schema."""
 
-ACT_SYSTEM = """You are the executor of ClubKeeper, a club-secretary agent. You receive one triaged
+ACT_SYSTEM = """You are the executor of ClubSteward, a club-secretary agent. You receive one triaged
 case at a time. Use the tools to update the member register, draft replies, and log activity.
 You may have conversation history with this member from previous nights — use it to stay
 consistent (e.g. reference an instalment plan you offered before) but never contradict new facts.
@@ -50,7 +50,7 @@ def make_model(cfg: Config):
     )
 
 
-class ClubKeeper:
+class ClubSteward:
     def __init__(self, cfg: Config, policy: ClubPolicy, interactive: bool = False):
         self.cfg = cfg
         self.policy = policy
