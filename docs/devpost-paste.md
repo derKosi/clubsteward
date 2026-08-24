@@ -74,4 +74,4 @@ IS the product: governance that a non-programmer can read, edit, and trust.
 
 ## Built with
 
-python, strands-agents-sdk, litellm, glm-4.x/glm-5 (z.ai), pydantic, uv, asciinema
+python, strands-agents-sdk, litellm, glm-5-turbo (z.ai), pydantic, uv, asciinema
