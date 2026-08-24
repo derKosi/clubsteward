@@ -38,7 +38,7 @@ Stand: 23.08.2026 · Agent-seitige Arbeit: fertig · Alles Weitere braucht Kosi 
 - [x] Architecture diagram (form-required): docs/architecture.png (3360×2000) ·
       Quellen: docs/architecture.svg + scripts/gen_architecture.py (erledigt 24.08.)
 
-- [ ] Repo public schalten: github.com/derKosi/clubsteward
+- [x] Repo public: **github.com/derKosi/clubsteward** (Rename 24.08., Name verifiziert frei; MIT erkannt, Description gesetzt)
 - [ ] Repo-"About": Beschreibung + MIT-Lizenz sichtbar (GitHub erkennt LICENSE-Datei schon)
 - [ ] Final-Check mit Agent: Fresh-Clone-Gate, Secret-Scan, README-Quickstart
 - [ ] Devpost-Projekt anlegen: Text aus docs/devpost-submission-draft.md einfügen
