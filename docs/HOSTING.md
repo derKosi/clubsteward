@@ -53,6 +53,27 @@ GET  /clubs/{id}/outbox       → drafts for review UI
   frontends — our HITL flow already produces exactly the interrupt payloads a
   web card needs
 
+### Stage 1.5 — tenant-native processing & club knowledge (roadmap, deliberately not scoped)
+
+Where real deployments need data residency or club-specific knowledge, the
+direction is "process in the tenant that owns the data" — each item only when a
+specific club asks for it:
+
+- **M365 / Graph ingestion**: fetch via Microsoft Graph application permissions
+  scoped to the club's own shared mailbox (per-club admin consent), replies stay
+  send-as-draft. Mail and drafts never touch our infrastructure; we only schedule.
+- **AWS-native LLM option**: Bedrock (region-locked, tenant-owned) instead of a
+  third-party endpoint; club documents stay in the club's own S3 bucket.
+- **RAG-lite over club documents**: Satzung, fee rules, FAQ as a small local
+  retrieval index so drafts quote the club's own rules — extends policy-as-data
+  from "rules in YAML" to "rules + documents". Local-first by design (an
+  embedded index keeps the keyless juror replay intact); enterprise RAG only on
+  demand.
+
+Post-competition priority, driven by real club demand: RAG-lite over club
+documents first (cheap, local, no infra), tenant-native ingestion (M365/Bedrock)
+second — heavier lift (permissions, consent flows), clear enterprise path.
+
 ### Stage 2 — multi-box (when it's actually needed)
 - Worker queue (SQS/Redis) instead of in-process runs; one job per club per night
 - Object storage (S3-compatible) replaces the folder per club — the Config layer

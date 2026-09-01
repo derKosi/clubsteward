@@ -167,6 +167,25 @@ uv run python -m clubsteward.club new mein-verein --name "Mein Verein e.V." \
     --tagline "Gemeinsam stark" --color "#15803d"
 ```
 
+## Data handling: what stays on the machine
+
+Trust here is a mechanism, not a promise:
+
+- **Local by construction** — mails, member register, decision queues, drafts and
+  session transcripts live in the club's own folder. No cloud storage, no telemetry,
+  and no outbound email: replies are *drafts* that a human reviews and sends.
+- **The one thing that leaves the machine** — mail *text* is sent to the LLM API
+  for triage and drafting. That is the entire data boundary, and it is the same
+  boundary as "a volunteer pastes an email into a chatbot" — except everything
+  else stays local and every action is logged.
+- **Bring your own endpoint** — `ZAI_BASE_URL` / `ZAI_MODEL` accept any
+  OpenAI-compatible endpoint, including a self-hosted model. Point them at a
+  club-local server and mail text never leaves the club's machine at all.
+- **Bring your own key** — in the shipped (local) deployment each club runs with
+  its own API key. There is no shared platform and no key proxied through us.
+- **Right to erasure & export** — deleting a member row plus their session folder
+  erases that person; a club folder zips into a full export.
+
 ## Design decisions
 
 - **Local files, not integrations.** A club secretary can't set up OAuth. Folders in,
