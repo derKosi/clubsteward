@@ -166,15 +166,13 @@ def evaluate_policy(policy: ClubPolicy, triage: TriageResult) -> tuple[str, str]
     if rule.decision == "ask":
         return "ask", f"Policy: intent '{rule.intent}' requires human decision ({rule.note})"
 
-    # decision == "auto": check ask_if conditions against extracted flags
+    # decision == "auto": check ask_if conditions against extracted flags.
+    # ask_if entries are explicit flag names (e.g. "medical", "waiting_list");
+    # matching is exact after normalization (lowercase, underscores -> spaces).
     if rule.ask_if:
-        triage_flags = {f.lower().strip() for f in triage.flags}
+        triage_flags = {" ".join(f.lower().strip().replace("_", " ").split()) for f in triage.flags}
         for cond in rule.ask_if:
-            key = cond.lower().strip()
-            # conditions are free text ("waiting list needed (team full)", "medical notes ...")
-            # → match if any flag word appears in the condition text
-            cond_words = {w.strip("()") for w in key.split() if len(w) > 3}
-            if triage_flags and (triage_flags & cond_words or any(f.replace("_", " ") in key for f in triage_flags)):
-                matched = next(f for f in triage_flags if f.replace("_", " ") in key or f in cond_words)
-                return "ask", f"Policy escalation: '{rule.intent}' is normally auto, but flag '{matched}' matches ask_if condition ({cond[:60]}...)"
+            key = " ".join(cond.lower().strip().replace("_", " ").split())
+            if key in triage_flags:
+                return "ask", f"Policy escalation: '{rule.intent}' is normally auto, but flag '{key}' matches ask_if"
     return "auto", f"Policy: intent '{rule.intent}' is auto-approved ({rule.note})"

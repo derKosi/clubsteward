@@ -141,6 +141,35 @@ class TestEvaluatePolicy:
         assert "waiting" in reason
 
 
+    def test_ask_if_no_false_positive_on_unrelated_flags(self, policy):
+        """A flag that is NOT in ask_if must not escalate — word-level
+        intersection used to match prose accidentally."""
+        from clubsteward.agents import evaluate_policy
+
+        t = TriageResult(intent=Intent.SIGNUP, summary="s", proposed_action="a",
+                         confidence=1.0, flags=["legal"])
+        assert evaluate_policy(policy, t)[0] == "auto"
+
+    def test_ask_if_matches_underscore_and_space_forms(self, policy):
+        from clubsteward.agents import evaluate_policy
+
+        t = TriageResult(intent=Intent.SIGNUP, summary="s", proposed_action="a",
+                         confidence=1.0, flags=["waiting list"])
+        decision, _ = evaluate_policy(policy, t)
+        assert decision == "ask"
+
+    def test_ask_if_rejects_prose_entries(self):
+        """Prose in ask_if would silently never match under exact flag
+        equivalence — the policy loader must refuse it."""
+        from pydantic import ValidationError
+
+        from clubsteward.policy import PolicyRule
+
+        with pytest.raises(ValidationError):
+            PolicyRule(intent="signup", decision="auto",
+                       ask_if=["medical notes that require coach coordination"])
+
+
 class TestSafetyFlagCheck:
     def test_backstop_adds_medical_flag(self):
         from clubsteward.agents import safety_flag_check

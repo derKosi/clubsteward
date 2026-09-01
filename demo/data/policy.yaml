@@ -15,8 +15,8 @@ rules:
     decision: auto
     note: complete signups are routine; incomplete ones fall through via ask_if
     ask_if:
-      - "waiting list needed (team full)"
-      - "medical notes that require coach coordination"
+      - waiting_list
+      - medical
   - intent: address_change
     decision: auto
     note: routine data hygiene

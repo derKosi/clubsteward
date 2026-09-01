@@ -15,8 +15,8 @@ rules:
     decision: auto
     note: komplette Anmeldungen sind Routine
     ask_if:
-      - "medical notes that require coach coordination"
-      - "waiting list needed (team full)"
+      - medical
+      - waiting_list
   - intent: address_change
     decision: auto
     note: reine Datenpflege

@@ -16,8 +16,8 @@ rules:
     decision: auto
     note: complete registrations are routine
     ask_if:
-      - "medical notes that require coach coordination"
-      - "waiting list needed (division full)"
+      - medical
+      - waiting_list
   - intent: address_change
     decision: auto
     note: routine data hygiene

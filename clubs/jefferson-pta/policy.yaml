@@ -15,7 +15,7 @@ rules:
     decision: auto
     note: membership signups are routine
     ask_if:
-      - "medical notes that require coordination"
+      - medical
   - intent: address_change
     decision: auto
     note: routine data hygiene
