@@ -5,15 +5,18 @@ All tools operate on the demo sandbox (demo/data/**) only — no network, no rea
 
 from __future__ import annotations
 
-import csv
-from pathlib import Path
-from typing import Annotated, Any
+from typing import Annotated
 
 from strands import tool
 
 from .config import Config
 from .models import REGISTER_FIELDS, load_register, save_register
-from .store import db_path, load_register_sqlite, save_register_sqlite, log_activity_sqlite
+from .store import (
+    db_path,
+    load_register_sqlite,
+    log_activity_sqlite,
+    save_register_sqlite,
+)
 
 
 def _load_rows(cfg):

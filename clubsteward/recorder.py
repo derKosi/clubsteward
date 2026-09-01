@@ -8,7 +8,7 @@ console transcript) — clearly labeled as a recorded session, never presented a
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -29,7 +29,7 @@ class RunRecorder:
         self._prev = _snapshot(data_dir)
         self._pending_decide: dict[str, Any] | None = None
         self.doc: dict[str, Any] = {
-            "recorded_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "recorded_at": datetime.now(UTC).isoformat(timespec="seconds"),
             "model": "",
             "pipeline_steps": [],
             "decide_steps": [],

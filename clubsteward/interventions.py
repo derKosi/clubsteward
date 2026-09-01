@@ -25,7 +25,6 @@ from typing import Any
 from strands.vended_interventions.hitl import HumanInTheLoop
 from strands.vended_interventions.hitl.classifier import (
     ClassifierResult,
-    HumanInTheLoopClassifier,
 )
 
 READ_TOOLS = {"register_lookup", "log_activity"}

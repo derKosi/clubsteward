@@ -68,7 +68,7 @@ def main() -> int:
     # the decide executions changed artifacts after that)
     n_drafts = len(list((cfg.data_dir / "outbox").glob("*.eml")))
     recorder.finish([
-        f"Done: all decisions executed by the human secretary.",
+        "Done: all decisions executed by the human secretary.",
         f"Outbox drafts: {n_drafts} | Decisions pending: {len(list(cfg.decisions_dir.glob('*.json')))}",
     ])
     recorder.save(out)

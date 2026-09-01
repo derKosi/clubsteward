@@ -26,7 +26,7 @@ class Config(BaseModel):
     max_mails_per_run: int = 20
 
     @classmethod
-    def load(cls, club: str | None = None) -> "Config":
+    def load(cls, club: str | None = None) -> Config:
         api_key = os.environ.get("ZAI_API_KEY", "")
         # club modes: 'demo' (default English demo) or a club id under clubs/<id>
         root = Path(__file__).resolve().parent.parent

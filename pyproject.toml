@@ -11,4 +11,17 @@ dependencies = [
 [dependency-groups]
 dev = [
     "pytest>=9.1.1",
+    "ruff>=0.16.5",
+]
+
+[tool.ruff]
+target-version = "py312"
+
+[tool.ruff.lint]
+# E4/E7/E9 = pycodestyle errors, F = pyflakes, I = import sorting,
+# B = bugbear, RUF = ruff-specific (noqa hygiene), UP = pyupgrade
+select = ["E4", "E7", "E9", "F", "I", "B", "RUF", "UP"]
+ignore = [
+    "B008",   # function-call-in-default-arg is the FastAPI Depends() idiom
+    "UP042",  # str+Enum -> StrEnum would change str() semantics of Intent/Action
 ]

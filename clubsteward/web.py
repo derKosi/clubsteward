@@ -17,15 +17,13 @@ API (JSON)
 
 from __future__ import annotations
 
-import asyncio
-import json
 import shutil
 import threading
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, HTTPException, UploadFile, File, Form
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
 from .club import club_dirs, load_brand
@@ -53,8 +51,8 @@ def _club_dir(club_id: str) -> Path:
 
 def _capture_prints():
     """Collect stdout lines of a pipeline run into _run_status['last_log']."""
-    import io
     import contextlib
+    import io
 
     buf = io.StringIO()
     return buf, contextlib.redirect_stdout(buf)
@@ -93,11 +91,10 @@ def api_run(club_id: str):
         buf, redir = _capture_prints()
         with _run_lock, redir:
             try:
-                rc = pipeline_run(club=club_id)
-            except Exception as e:  # noqa: BLE001
+                pipeline_run(club=club_id)
+            except Exception as e:
                 _run_status["last_log"] = [f"ERROR: {e}"]
-                rc = 2
-        _run_status["last_log"] = [l for l in buf.getvalue().splitlines() if l.strip()][-40:]
+        _run_status["last_log"] = [ln for ln in buf.getvalue().splitlines() if ln.strip()][-40:]
         _run_status["running"] = False
     threading.Thread(target=_run, daemon=True).start()
     return {"started": True, "club": club_id}
@@ -114,7 +111,7 @@ def api_run_status(club_id: str):
 
 @app.get("/api/clubs/{club_id}/state")
 def api_state(club_id: str):
-    d = _club_dir(club_id)
+    _club_dir(club_id)  # validates club id (raises 404)
     cfg = Config.load(club_id)
     reg_rows = load_register_state(cfg)
     drafts = []
@@ -134,7 +131,7 @@ def api_state(club_id: str):
 
 @app.get("/api/clubs/{club_id}/decisions")
 def api_decisions(club_id: str) -> list[dict]:
-    d = _club_dir(club_id)
+    _club_dir(club_id)  # validates club id (raises 404)
     cfg = Config.load(club_id)
     out = []
     for p in sorted(cfg.decisions_dir.glob("*.json")):
@@ -172,8 +169,8 @@ def api_decision_action(club_id: str, did: str, action: str, body: EditBody | No
     pj = cfg.decisions_dir / f"{did}.json"
     if not pj.exists():
         raise HTTPException(404, f"decision '{did}' not found")
-    from .decide import approve
     from .agents import ClubSteward
+    from .decide import approve
     from .tools import set_config
     dec = Decision.model_validate_json(pj.read_text(encoding="utf-8"))
 

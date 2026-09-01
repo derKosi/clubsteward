@@ -65,7 +65,7 @@ class TestClassifier:
         return _Agent({"clubsteward:case": {"autonomy": autonomy, "intent": "signup"}})
 
     def test_read_tools_always_free(self):
-        for autonomy in ("auto", "ask", "auto_preapproved", None_marker := "unset"):
+        for autonomy in ("auto", "ask", "auto_preapproved", "unset"):
             agent = _Agent({}) if autonomy == "unset" else self._agent(autonomy)
             ev = _Event("register_lookup", agent)
             r = policy_classifier(ev)

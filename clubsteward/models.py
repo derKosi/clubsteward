@@ -5,7 +5,7 @@ from __future__ import annotations
 import csv
 import email
 import email.policy
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from pathlib import Path
 from typing import Any
@@ -41,7 +41,7 @@ class MailItem(BaseModel):
     body: str
 
     @classmethod
-    def parse(cls, path: Path) -> "MailItem":
+    def parse(cls, path: Path) -> MailItem:
         msg = email.message_from_bytes(path.read_bytes(), policy=email.policy.default)
         body = msg.get_body(preferencelist=("plain",))
         text = body.get_content() if body else ""
@@ -92,7 +92,7 @@ class Decision(BaseModel):
     triage: TriageResult
     policy_reason: str
     status: str = "pending"  # pending | approved | denied
-    created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat(timespec="seconds"))
+    created_at: str = Field(default_factory=lambda: datetime.now(UTC).isoformat(timespec="seconds"))
 
 
 class Draft(BaseModel):

@@ -15,6 +15,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: uv sync
+      - run: uv run ruff check .
       - run: uv run pytest tests/ -q
       - run: uv run python scripts/reset_demo.py
       - run: bash -n demo/run_demo.sh

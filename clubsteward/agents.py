@@ -4,14 +4,19 @@ from __future__ import annotations
 
 from strands import Agent
 from strands.models.litellm import LiteLLMModel
+from strands.session import FileSessionManager
 
 from .config import Config
 from .interventions import make_hitl
-from .models import Decision, Draft, Intent, MailItem, TriageResult
-from .policy import ClubPolicy, PolicyRule
-from .tools import log_activity, register_add, register_lookup, register_update, save_draft
-
-from strands.session import FileSessionManager
+from .models import MailItem, TriageResult
+from .policy import ClubPolicy
+from .tools import (
+    log_activity,
+    register_add,
+    register_lookup,
+    register_update,
+    save_draft,
+)
 
 TRIAGE_SYSTEM = """You are the triage brain of ClubSteward, an agent that helps a volunteer run
 a local community club's inbox (sports club, PTA, carnival club, neighborhood association).

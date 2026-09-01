@@ -7,7 +7,7 @@ tokens and latency per step, and total cost estimate for the night.
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -36,7 +36,7 @@ class RunSummary(BaseModel):
     steps: list[StepMetric] = Field(default_factory=list)
 
     def finish(self) -> None:
-        self.finished_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        self.finished_at = datetime.now(UTC).isoformat(timespec="seconds")
         self.total_tokens = sum(s.triage_tokens + s.act_tokens for s in self.steps)
 
 
@@ -74,7 +74,7 @@ def _tool_calls_from_messages(messages: Any) -> int:
 
 
 def new_summary() -> RunSummary:
-    return RunSummary(started_at=datetime.now(timezone.utc).isoformat(timespec="seconds"))
+    return RunSummary(started_at=datetime.now(UTC).isoformat(timespec="seconds"))
 
 
 def record_triage(summary: RunSummary, mail_file: str, intent: str, route: str, result: Any, triage_tokens: int = 0) -> None:

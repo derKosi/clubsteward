@@ -57,7 +57,7 @@ def init_db(data_dir: Path) -> sqlite3.Connection:
 def load_register_sqlite(data_dir: Path) -> list[dict[str, str]]:
     conn = init_db(data_dir)
     cur = conn.execute(f"SELECT {','.join(REGISTER_FIELDS)} FROM members ORDER BY member_id")
-    rows = [dict(zip(REGISTER_FIELDS, r)) for r in cur.fetchall()]
+    rows = [dict(zip(REGISTER_FIELDS, r, strict=True)) for r in cur.fetchall()]
     conn.close()
     return rows
 

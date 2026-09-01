@@ -33,7 +33,7 @@ class ClubPolicy(BaseModel):
     rules: list[PolicyRule]
 
     @classmethod
-    def load(cls, path) -> "ClubPolicy":
+    def load(cls, path) -> ClubPolicy:
         data = yaml.safe_load(Path(str(path)).read_text(encoding="utf-8"))
         return cls(**data)
 

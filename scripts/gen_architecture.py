@@ -75,7 +75,7 @@ svg.append(f'<text x="60" y="70" font-family="{FONT}" font-size="9" fill="{C["su
 svg.append(f'<rect x="40" y="110" width="1360" height="830" rx="12" fill="none" '
            f'stroke="{C["slate"]}" stroke-width="1.5" stroke-dasharray="8,4"/>')
 svg.append(f'<text x="60" y="130" font-family="{FONT}" font-size="8" fill="{C["sub"]}" '
-           f'letter-spacing="1">LOCAL MACHINE — THE CLUB SECRETARY&#39;S LAPTOP · ALL STATE &amp; TOOLS LOCAL · ~€0.01–0.03 PER NIGHT</text>')
+           f'letter-spacing="1">LOCAL MACHINE — THE CLUB SECRETARY&#39;S LAPTOP · ALL STATE &amp; TOOLS LOCAL · ~€0.01–0.03 PER NIGHT</text>')  # noqa: RUF001
 
 # arrows first (render behind boxes)
 arrow("slate", "M250,272 L316,272")
@@ -144,7 +144,8 @@ out_svg = ROOT / "docs" / "architecture.svg"
 out_svg.write_text("\n".join(svg))
 print("SVG:", out_svg, out_svg.stat().st_size, "bytes")
 
-import cairosvg
+import cairosvg  # noqa: E402  # optional heavy dep, only needed for PNG export
+
 out_png = ROOT / "docs" / "architecture.png"
 cairosvg.svg2png(url=str(out_svg), write_to=str(out_png), scale=2.0)
 print("PNG:", out_png, out_png.stat().st_size, "bytes")
