@@ -1,10 +1,13 @@
 name: tests
 
-# Not on every main push — tests run on pull requests and version tags only.
+# Runs on demand only: manual dispatch, version tags, or published releases.
+# Deliberately NOT on every push or PR — commits stay quiet.
 on:
-  pull_request:
+  workflow_dispatch:
   push:
     tags: ["v*"]
+  release:
+    types: [published]
 
 jobs:
   test:
