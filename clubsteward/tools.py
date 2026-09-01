@@ -13,7 +13,7 @@ from strands import tool
 
 from .config import Config
 from .models import REGISTER_FIELDS, load_register, save_register
-from .store import load_register_sqlite, save_register_sqlite, log_activity_sqlite
+from .store import db_path, load_register_sqlite, save_register_sqlite, log_activity_sqlite
 
 
 def _load_rows(cfg):
@@ -36,6 +36,17 @@ def _use_sqlite(cfg: Config) -> bool:
         return True
     flag = cfg.data_dir / "storage.flag"
     return flag.exists() and flag.read_text(encoding="utf-8").strip().lower() == "sqlite"
+
+
+def load_register_state(cfg):
+    """Read-only register view for the console: prefer the SQLite DB when it
+    exists (sqlite-mode clubs), else fall back to the CSV file. Never creates
+    a DB or file as a side effect."""
+    if _use_sqlite(cfg) and db_path(cfg.data_dir).exists():
+        return _load_rows(cfg)
+    if cfg.register_path.exists():
+        return load_register(cfg.register_path)
+    return []
 
 
 def set_config(cfg: Config) -> None:

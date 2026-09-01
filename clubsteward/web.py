@@ -32,6 +32,7 @@ from .club import club_dirs, load_brand
 from .config import Config
 from .models import Decision, MailItem
 from .policy import ClubPolicy
+from .tools import load_register_state
 
 ROOT = Path(__file__).resolve().parent.parent
 WEB = ROOT / "webapp" / "static"
@@ -115,11 +116,7 @@ def api_run_status(club_id: str):
 def api_state(club_id: str):
     d = _club_dir(club_id)
     cfg = Config.load(club_id)
-    reg_rows = []
-    if cfg.register_path.exists():
-        import csv
-        with cfg.register_path.open(newline="", encoding="utf-8") as f:
-            reg_rows = list(csv.DictReader(f))
+    reg_rows = load_register_state(cfg)
     drafts = []
     for p in sorted(cfg.outbox_dir.glob("*.eml")):
         text = p.read_text(encoding="utf-8")

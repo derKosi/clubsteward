@@ -30,7 +30,7 @@ else:
     C_TITLE = C_DIM = C_YELLOW = C_GREEN = C_RED = C_BOLD = R = ""
 
 
-def show(d: Decision) -> None:
+def show(d: Decision, cfg: Config) -> None:
     print()
     print(f"{C_TITLE}┌─ DECISION {d.id} " + "─" * max(0, 46 - len(d.id)) + f"{R}")
     print(f"{C_BOLD}│ Subject:{R} {d.subject}")
@@ -42,7 +42,7 @@ def show(d: Decision) -> None:
         print(f"{C_BOLD}│ Facts:{R}   {details[:200]}")
     print(f"{C_BOLD}│ Agent proposes:{R} {d.triage.proposed_action[:200]}")
     print(f"{C_YELLOW}│ Why you're asked:{R} {d.policy_reason}{R}")
-    mail_path = Config.load().decisions_dir / d.mail_file
+    mail_path = cfg.decisions_dir / d.mail_file
     if mail_path.exists():
         body = MailItem.parse(mail_path).body
         print(f"{C_DIM}│ --- mail (excerpt) ---{R}")
@@ -71,7 +71,7 @@ def run(assume: str | None = None, club: str | None = None) -> int:
 
     for pj in pending:
         d = Decision.model_validate_json(pj.read_text())
-        show(d)
+        show(d, cfg)
         if assume:
             answer = assume
         else:

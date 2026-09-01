@@ -127,3 +127,32 @@ class TestSqliteMode:
         assert (tmp_path / "clubsteward.db").exists()
         rows = tools._load_rows(cfg)
         assert len(rows) == 2
+
+
+class TestRegisterState:
+    """load_register_state: read-only console view (CSV default, sqlite when a DB exists)."""
+
+    def test_csv_mode(self, tmp_path, clean_env):
+        cfg = make_cfg(tmp_path, sqlite=False)
+        tools._save_rows(cfg, [dict(r) for r in SEED])
+        rows = tools.load_register_state(cfg)
+        assert [r["email"] for r in rows] == ["maria@example.org", "nico@example.org"]
+        assert not (tmp_path / "clubsteward.db").exists()
+
+    def test_sqlite_mode_reads_db(self, tmp_path, clean_env):
+        cfg = make_cfg(tmp_path, sqlite=True)
+        tools._save_rows(cfg, [dict(r) for r in SEED])
+        rows = tools.load_register_state(cfg)
+        assert len(rows) == 2
+
+    def test_sqlite_flag_without_db_falls_back_to_csv(self, tmp_path, clean_env):
+        from clubsteward.models import save_register
+        cfg = make_cfg(tmp_path, sqlite=True)  # flag set, but no DB created yet
+        save_register(cfg.register_path, [dict(r) for r in SEED])
+        rows = tools.load_register_state(cfg)
+        assert [r["email"] for r in rows] == ["maria@example.org", "nico@example.org"]
+        assert not (tmp_path / "clubsteward.db").exists()  # a read must not bootstrap a DB
+
+    def test_missing_register_yields_empty(self, tmp_path, clean_env):
+        cfg = make_cfg(tmp_path, sqlite=False)
+        assert tools.load_register_state(cfg) == []
