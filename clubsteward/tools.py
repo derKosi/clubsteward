@@ -24,7 +24,7 @@ def _save_rows(cfg, rows):
     if _use_sqlite(cfg):
         save_register_sqlite(cfg.data_dir, rows)
     else:
-        _save_rows(cfg, rows)
+        save_register(cfg.register_path, rows)
 
 # Config is injected per run (module-level default avoids global mutable state at import time)
 _cfg: Config | None = None
