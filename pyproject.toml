@@ -1,7 +1,7 @@
 [project]
-name = "agents-for-humans"
+name = "clubsteward"
 version = "0.1.0"
-description = "Add your description here"
+description = "AI email agent for club volunteers — nightly inbox triage, member register care, reply drafts, human-in-the-loop decisions."
 requires-python = ">=3.12"
 dependencies = [
     "fastapi>=0.141.1",

@@ -9,7 +9,7 @@ resolution-markers = [
 ]
 
 [[package]]
-name = "agents-for-humans"
+name = "clubsteward"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
