@@ -17,12 +17,14 @@ API (JSON)
 
 from __future__ import annotations
 
+import os
+import secrets
 import shutil
 import threading
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, FastAPI, File, Header, HTTPException, UploadFile
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
@@ -36,6 +38,24 @@ ROOT = Path(__file__).resolve().parent.parent
 WEB = ROOT / "webapp" / "static"
 
 app = FastAPI(title="ClubSteward", version="0.1.0")
+
+
+def _require_api_token(x_api_token: str | None = Header(default=None)) -> None:
+    """Optional shared-token gate for deployments beyond localhost.
+
+    Set CLUBSTEWARD_WEB_TOKEN to require `X-API-Token: <value>` (constant-time
+    compared) on every /api/* call. Unset (default) = open local demo mode.
+    The HTML pages stay public; without the token every API call fails 401,
+    so the console cannot read or act.
+    """
+    expected = os.environ.get("CLUBSTEWARD_WEB_TOKEN", "").strip()
+    if not expected:
+        return
+    if not x_api_token or not secrets.compare_digest(x_api_token, expected):
+        raise HTTPException(401, "missing or invalid X-API-Token header")
+
+
+api = APIRouter(prefix="/api", dependencies=[Depends(_require_api_token)])
 
 # ---- run lock: one pipeline run at a time (single-box SaaS stage 1) ----
 _run_lock = threading.Lock()
@@ -60,7 +80,7 @@ def _capture_prints():
 
 # ---------------------------------------------------------------- API
 
-@app.get("/api/clubs")
+@api.get("/clubs")
 def api_clubs() -> list[dict]:
     out = []
     for d in club_dirs():
@@ -79,7 +99,7 @@ def api_clubs() -> list[dict]:
     return out
 
 
-@app.post("/api/clubs/{club_id}/run")
+@api.post("/clubs/{club_id}/run")
 def api_run(club_id: str):
     _club_dir(club_id)
     if _run_lock.locked():
@@ -100,7 +120,7 @@ def api_run(club_id: str):
     return {"started": True, "club": club_id}
 
 
-@app.get("/api/clubs/{club_id}/run/status")
+@api.get("/clubs/{club_id}/run/status")
 def api_run_status(club_id: str):
     _club_dir(club_id)
     return {
@@ -109,7 +129,7 @@ def api_run_status(club_id: str):
     }
 
 
-@app.get("/api/clubs/{club_id}/state")
+@api.get("/clubs/{club_id}/state")
 def api_state(club_id: str):
     _club_dir(club_id)  # validates club id (raises 404)
     cfg = Config.load(club_id)
@@ -129,7 +149,7 @@ def api_state(club_id: str):
     }
 
 
-@app.get("/api/clubs/{club_id}/decisions")
+@api.get("/clubs/{club_id}/decisions")
 def api_decisions(club_id: str) -> list[dict]:
     _club_dir(club_id)  # validates club id (raises 404)
     cfg = Config.load(club_id)
@@ -160,7 +180,7 @@ class EditBody(BaseModel):
     instructions: str = ""
 
 
-@app.post("/api/clubs/{club_id}/decisions/{did}/{action}")
+@api.post("/clubs/{club_id}/decisions/{did}/{action}")
 def api_decision_action(club_id: str, did: str, action: str, body: EditBody | None = None):
     _club_dir(club_id)
     if action not in ("approve", "deny", "edit"):
@@ -189,7 +209,7 @@ def api_decision_action(club_id: str, did: str, action: str, body: EditBody | No
     return {"result": "executed", "id": did, "instructions": (body.instructions if body else "")}
 
 
-@app.post("/api/clubs/{club_id}/inbox")
+@api.post("/clubs/{club_id}/inbox")
 async def api_upload_mail(club_id: str, file: UploadFile = File(...)):
     _club_dir(club_id)
     if not file.filename or not file.filename.endswith(".eml"):
@@ -200,6 +220,9 @@ async def api_upload_mail(club_id: str, file: UploadFile = File(...)):
 
 
 # ---------------------------------------------------------------- Pages
+
+app.include_router(api)
+
 
 @app.get("/", response_class=HTMLResponse)
 def index() -> HTMLResponse:

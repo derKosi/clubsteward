@@ -24,6 +24,15 @@ multi-tenancy layer you have to bolt on later.
 - cron/systemd timer for the nightly loop; a human runs `decide <id>` in the morning
 - Zero infra, zero cost. This is what the demo video shows.
 
+### Stage 0.5 — shared token (as soon as ports are published)
+
+Set `CLUBSTEWARD_WEB_TOKEN=<random>` and every `/api/*` call must send
+`X-API-Token: <same value>` (compared constant-time). The product page and the
+console HTML stay public, but every API call fails with 401 without the header —
+the console cannot read or act. Unset (default) = open local demo mode.
+(The console UI does not send the header yet — token mode is for API
+deployments/reverse proxies until Stage 1.)
+
 ### Stage 1 — single-box SaaS (weeks, not months)
 One small server (VM or container), one FastAPI wrapper around the existing modules:
 
