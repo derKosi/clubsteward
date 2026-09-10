@@ -6,6 +6,7 @@ All tools operate on the demo sandbox (demo/data/**) only — no network, no rea
 from __future__ import annotations
 
 import json
+import re
 import threading
 from datetime import UTC, datetime
 from typing import Annotated
@@ -145,6 +146,16 @@ def register_add(
     return f"ADDED {member_id} {first_name} {last_name} ({team})"
 
 
+def _sanitize_subject(subject: str) -> str:
+    """Turn an email subject into a readable, filesystem-safe filename stem."""
+    s = subject.replace(":", "-").replace("?", "").replace("!", "").replace("+", "plus").replace("/", "-")
+    s = "".join(c if c.isalnum() or c in "-_." else " " for c in s)
+    s = re.sub(r"[- ]+", " ", s)
+    s = s.strip()[:80]
+    s = s.rstrip(" -")
+    return s
+
+
 @tool
 def save_draft(
     to: Annotated[str, "recipient email"],
@@ -154,7 +165,7 @@ def save_draft(
     """Save a reply draft to the club outbox (demo sandbox; nothing is actually sent)."""
     cfg = _require_cfg()
     cfg.outbox_dir.mkdir(parents=True, exist_ok=True)
-    safe = "".join(c if c.isalnum() or c in "-_." else "_" for c in subject)[:60]
+    safe = _sanitize_subject(subject)
     stamp = cfg.outbox_dir / f"draft_{safe}.eml"
     n = 1
     while stamp.exists():

@@ -15,7 +15,7 @@
   .bar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px; }
   .chip { background:var(--card); border:1px solid #e2e8f0; border-radius:999px; padding:8px 14px; font-size:13.5px; font-weight:600; cursor:pointer; color:var(--mut); }
   .chip.on { color:#fff; border-color:transparent; }
-  .row { display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
+  .row { display:grid; grid-template-columns: 5fr 4fr; gap:16px; }
   .card { background:var(--card); border:1px solid #e2e8f0; border-radius:16px; padding:18px; margin-bottom:14px; }
   .card h3 { font-size:15px; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
   .kpi { display:flex; gap:10px; margin-bottom:14px; }
@@ -27,14 +27,14 @@
   .btn-edit { background:#fef3c7; color:var(--warn); }
   .btn-up { background:var(--ink); color:#fff; }
   .dec { border:1px solid #e2e8f0; border-radius:14px; padding:16px; margin-bottom:12px; background:#fff; }
-  .dec h4 { font-size:15px; margin-bottom:4px; }
+  .dec h4 { font-size:15px; margin-bottom:4px; word-break:break-word; }
   .dec .meta { color:var(--mut); font-size:12.5px; margin-bottom:8px; }
   .dec .why { background:#fffbeb; border-left:3px solid var(--warn); padding:8px 10px; font-size:13px; margin:8px 0; border-radius:0 8px 8px 0; }
   .dec .body { background:#f8fafc; padding:10px; font-size:12.5px; white-space:pre-wrap; max-height:140px; overflow:auto; border-radius:8px; color:#334155; }
   .dec .acts { display:flex; gap:8px; margin-top:10px; }
   .draft { border-bottom:1px solid #eef2f7; padding:10px 0; font-size:13px; }
-  .draft b { display:block; } .draft span { color:var(--mut); }
-  .draft p { margin-top:4px; color:#334155; font-size:12.5px; white-space:pre-wrap; }
+  .draft b { display:block; word-break:break-word; } .draft span { color:var(--mut); }
+  .draft p { margin-top:4px; color:#334155; font-size:12.5px; white-space:pre-wrap; max-height:80px; overflow:hidden; }
   table { width:100%; border-collapse:collapse; font-size:12.5px; }
   th { text-align:left; color:var(--mut); font-weight:600; padding:6px 8px; border-bottom:1px solid #e2e8f0; }
   td { padding:6px 8px; border-bottom:1px solid #f1f5f9; }
@@ -64,7 +64,7 @@
   </div>
 
   <div class="row">
-    <div>
+    <div style="min-width:0">
       <div class="card">
         <h3>⚖️ Decisions for you <span id="decCount"></span></h3>
         <div id="decisions"><p style="color:var(--mut);font-size:13px">No pending decisions.</p></div>
@@ -74,7 +74,7 @@
         <div class="log" id="runlog">— run the night to see the agent work —</div>
       </div>
     </div>
-    <div>
+    <div style="min-width:0">
       <div class="card">
         <h3>📤 Outbox drafts (review before sending)</h3>
         <div id="drafts"></div>
@@ -105,7 +105,7 @@ async function loadState(){
   $('kpis').children[1].querySelector('b').textContent = s.decisions_pending;
   $('kpis').children[2].querySelector('b').textContent = s.drafts.length;
   $('drafts').innerHTML = s.drafts.length ? s.drafts.map(d=>
-    `<div class="draft"><b>${d.file.replace(/^draft_/,'').replace(/\.eml$/,'')}</b><span>to ${d.to}</span><p>${d.body.slice(0,220)}…</p></div>`).join('')
+    `<div class="draft"><b>${d.file.replace(/^draft_/,'').replace(/\.eml$/,'').replace(/_/g,' ')}</b><span>to ${d.to}</span><p>${d.body.slice(0,160)}…</p></div>`).join('')
     : '<p style="color:var(--mut);font-size:13px">No drafts yet.</p>';
   const reg = s.register;
   if(reg.length){
