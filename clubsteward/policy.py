@@ -43,7 +43,19 @@ class ClubPolicy(BaseModel):
     fees: dict[str, float] = Field(default_factory=dict)
     tone: str = "friendly, warm, concise club volunteer"
     reply_signature: str = ""
+    min_confidence: float = Field(
+        default=0.75,
+        description="Below this triage confidence an otherwise auto decision escalates "
+        "to ask — the agent prefers asking a human over guessing.",
+    )
     rules: list[PolicyRule]
+
+    @field_validator("min_confidence")
+    @classmethod
+    def _min_confidence_in_range(cls, v: float) -> float:
+        if not 0.0 < v <= 1.0:
+            raise ValueError("min_confidence must be within (0, 1]")
+        return v
 
     @classmethod
     def load(cls, path) -> ClubPolicy:

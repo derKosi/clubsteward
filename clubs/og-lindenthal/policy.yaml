@@ -10,6 +10,8 @@ reply_signature: |
   Der Vorstand
   OG Lindenthal e.V.
   (Entwurf erstellt von ClubSteward, dem Vereins-Agenten — vom Menschen freigegeben)
+# Unter dieser Triage-Konfidenz fragt der Agent nach, statt zu raten (0-1).
+min_confidence: 0.75
 rules:
   - intent: signup
     decision: auto

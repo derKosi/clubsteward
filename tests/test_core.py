@@ -171,6 +171,41 @@ class TestEvaluatePolicy:
         assert "waiting" in reason
 
 
+    def test_low_confidence_escalates_auto_intent(self, policy):
+        """Below policy.min_confidence the agent asks instead of guessing."""
+        from clubsteward.agents import evaluate_policy
+
+        t = TriageResult(intent=Intent.QUESTION, summary="s", proposed_action="a",
+                         confidence=0.60, flags=[])
+        decision, reason = evaluate_policy(policy, t)
+        assert decision == "ask"
+        assert "60%" in reason
+        assert "threshold" in reason
+
+    def test_confidence_at_threshold_stays_auto(self, policy):
+        from clubsteward.agents import evaluate_policy
+
+        t = TriageResult(intent=Intent.QUESTION, summary="s", proposed_action="a",
+                         confidence=policy.min_confidence, flags=[])
+        assert evaluate_policy(policy, t)[0] == "auto"
+
+    def test_flag_reason_wins_over_confidence(self, policy):
+        """Both escalate to ask — but the specific flag reason is kept, not the
+        generic uncertainty one (audit trail names the strongest cause)."""
+        from clubsteward.agents import evaluate_policy
+
+        t = TriageResult(intent=Intent.SIGNUP, summary="s", proposed_action="a",
+                         confidence=0.50, flags=["medical"])
+        decision, reason = evaluate_policy(policy, t)
+        assert decision == "ask"
+        assert "medical" in reason
+
+    def test_min_confidence_default_and_range(self):
+        pol = ClubPolicy(club_name="X", season="s", rules=[])
+        assert pol.min_confidence == 0.75
+        with pytest.raises(ValueError):
+            ClubPolicy(club_name="X", season="s", min_confidence=1.5, rules=[])
+
     def test_ask_if_no_false_positive_on_unrelated_flags(self, policy):
         """A flag that is NOT in ask_if must not escalate — word-level
         intersection used to match prose accidentally."""

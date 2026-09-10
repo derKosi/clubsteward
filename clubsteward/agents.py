@@ -154,9 +154,10 @@ class TriageTokenTracker:
 def evaluate_policy(policy: ClubPolicy, triage: TriageResult) -> tuple[str, str]:
     """Return (decision, reason). decision in {auto, ask, reject}.
 
-    ask_if conditions in the policy name flags (e.g. "medical", "waiting_list").
-    The triage agent extracts those flags; if any condition matches, an otherwise
-    auto intent is escalated to ask — policy-as-data all the way down.
+    Two escalation axes for otherwise-auto intents, most specific first:
+      ask_if conditions in the policy name flags (e.g. "medical", "waiting_list")
+      that the triage agent extracted; below policy.min_confidence the agent
+      asks rather than guesses. Both are policy-as-data, no code changes.
     """
     rule = policy.rule_for(triage.intent.value)
     if rule is None:
@@ -175,4 +176,10 @@ def evaluate_policy(policy: ClubPolicy, triage: TriageResult) -> tuple[str, str]
             key = " ".join(cond.lower().strip().replace("_", " ").split())
             if key in triage_flags:
                 return "ask", f"Policy escalation: '{rule.intent}' is normally auto, but flag '{key}' matches ask_if"
+    if triage.confidence < policy.min_confidence:
+        return (
+            "ask",
+            f"Policy escalation: agent is only {triage.confidence:.0%} sure "
+            f"(below the {policy.min_confidence:.0%} threshold) — asking instead of guessing",
+        )
     return "auto", f"Policy: intent '{rule.intent}' is auto-approved ({rule.note})"

@@ -10,6 +10,8 @@ reply_signature: |
   Maria Chen
   PTA President, Jefferson Elementary
   (This reply was drafted by ClubSteward, the PTA's agent — approved by a human)
+# Beneath this triage confidence the agent asks instead of guessing (0-1).
+min_confidence: 0.75
 rules:
   - intent: signup
     decision: auto

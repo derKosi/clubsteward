@@ -46,6 +46,7 @@ rules:
     decision: ask
   - intent: spam
     decision: reject
+min_confidence: 0.75          # below this the agent asks instead of guessing
 ```
 
 Volunteers edit YAML, not Python. And this file isn't just documentation — it literally
@@ -142,7 +143,9 @@ and it silently discards the "YOU WON 5000 EUR" spam.
 
 This escalation engine is data: the triage agent extracts lowercase flags
 (`medical`, `waiting_list`, `refund`, ...), and the policy's `ask_if` lines decide
-which flags interrupt a human. Volunteers tune autonomy by editing YAML.
+which flags interrupt a human. And when the agent simply isn't sure — a mail it
+could only classify at 62% — the policy's `min_confidence` line makes it ask
+rather than guess. Volunteers tune autonomy by editing YAML.
 
 ## Multiple clubs, white-labeled
 

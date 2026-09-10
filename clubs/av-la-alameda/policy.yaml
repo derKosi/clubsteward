@@ -10,6 +10,8 @@ reply_signature: |
   La Junta Directiva
   Asociación de Vecinos La Alameda
   (Redactado por ClubSteward, el agente de la asociación — aprobado por una persona)
+# Beneath this triage confidence the agent asks instead of guessing (0-1).
+min_confidence: 0.75
 rules:
   - intent: signup
     decision: auto
