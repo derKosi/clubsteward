@@ -104,6 +104,36 @@ class TestMailParsing:
         assert len(mails) >= 8  # 8 base corpus + optional follow-up scenario
 
 
+class TestMailCharset:
+    """Bodies without a charset header are often real-world UTF-8 — not us-ascii."""
+
+    @staticmethod
+    def _parse(tmp_path, raw: bytes) -> MailItem:
+        p = tmp_path / "mail.eml"
+        p.write_bytes(raw)
+        return MailItem.parse(p)
+
+    def test_utf8_body_without_charset_header(self, tmp_path):
+        raw = (
+            "From: Gaby Grips <gaby@example.de>\n"
+            "Subject: Termine\n"
+            "\n"
+            "Sitzungstermine für November?\n"
+        ).encode()  # UTF-8 bytes, deliberately without a charset header
+        body = self._parse(tmp_path, raw).body
+        assert "für" in body
+        assert "�" not in body
+
+    def test_declared_charset_is_honored(self, tmp_path):
+        raw = (
+            b"From: a <a@example.de>\n"
+            b"Subject: s\n"
+            b"Content-Type: text/plain; charset=iso-8859-1\n"
+            b"\n" + "Grüße aus Köln".encode("iso-8859-1")
+        )
+        assert "Grüße aus Köln" in self._parse(tmp_path, raw).body
+
+
 class TestEvaluatePolicy:
     def test_evaluate(self, policy):
         from clubsteward.agents import evaluate_policy

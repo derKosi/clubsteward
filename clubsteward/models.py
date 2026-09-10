@@ -30,6 +30,27 @@ class Action(str, Enum):
     REJECT = "reject"  # do not process (spam etc.)
 
 
+def _decode_text_part(part: email.message.Message | None) -> str:
+    """Decode a mail part to text, tolerating missing or wrong charset headers.
+
+    Real-world club mail often carries UTF-8 without a charset parameter; the
+    stdlib would then decode as us-ascii with errors='replace', turning every
+    umlaut into a pair of U+FFFD. Decode the CTE-processed bytes with the
+    declared charset and fall back to UTF-8.
+    """
+    if part is None:
+        return ""
+    payload = part.get_payload(decode=True)
+    if payload is None:
+        content = part.get_content()
+        return content if isinstance(content, str) else ""
+    charset = part.get_content_charset() or "utf-8"
+    try:
+        return payload.decode(charset)
+    except (UnicodeDecodeError, LookupError):
+        return payload.decode("utf-8", errors="replace")
+
+
 class MailItem(BaseModel):
     """A parsed inbound email from the club inbox folder."""
 
@@ -44,9 +65,7 @@ class MailItem(BaseModel):
     def parse(cls, path: Path) -> MailItem:
         msg = email.message_from_bytes(path.read_bytes(), policy=email.policy.default)
         body = msg.get_body(preferencelist=("plain",))
-        text = body.get_content() if body else ""
-        if not isinstance(text, str):
-            text = ""
+        text = _decode_text_part(body)
         from_addr = msg.get("From", "unknown@example.org")
         name, _, addr = str(from_addr).partition("<")
         return cls(
