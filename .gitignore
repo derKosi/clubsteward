@@ -32,3 +32,4 @@ demo/data/activity.log
 demo/data/run_summary.json
 *.log
 .traces/
+docs/screenshots/*.png
