@@ -95,6 +95,7 @@ def api_clubs() -> list[dict]:
             "inbox": len(list((d / "inbox").glob("*.eml"))),
             "decisions": len(list((d / "decisions").glob("*.json"))),
             "drafts": len(list((d / "outbox").glob("*.eml"))),
+            "handled": len(list((d / "processed").glob("*.eml"))),
         })
     return out
 
@@ -137,8 +138,14 @@ def api_state(club_id: str):
     drafts = []
     for p in sorted(cfg.outbox_dir.glob("*.eml")):
         text = p.read_text(encoding="utf-8")
-        to, _, rest = text.partition("\n\n")
-        drafts.append({"file": p.name, "to": to.replace("To: ", ""), "body": rest.strip()[:600]})
+        head, _, body = text.partition("\n\n")
+        to = subject = ""
+        for ln in head.splitlines():
+            if ln.lower().startswith("to:"):
+                to = ln[3:].strip()
+            elif ln.lower().startswith("subject:"):
+                subject = ln[8:].strip()
+        drafts.append({"file": p.name, "to": to, "subject": subject, "body": body.strip()[:600]})
     return {
         "club": club_id,
         "inbox": [p.name for p in sorted(cfg.inbox_dir.glob("*.eml"))],
@@ -164,6 +171,7 @@ def api_decisions(club_id: str) -> list[dict]:
             "id": dec.id,
             "subject": dec.subject,
             "from": f"{dec.from_name} <{dec.from_email}>",
+            "created_at": dec.created_at,
             "intent": dec.triage.intent.value,
             "confidence": dec.triage.confidence,
             "summary": dec.triage.summary,

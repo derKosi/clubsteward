@@ -90,20 +90,20 @@
 </div>
 
 <script>
+const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 fetch('/api/clubs').then(r=>r.json()).then(clubs=>{
   const el = document.getElementById('clubList');
   el.innerHTML = clubs.map(c=>`
     <div class="club">
-      <div class="dot" style="background:${c.color}"></div>
-      <div><b>${c.name}</b><span>${c.tagline}</span></div>
+      <div class="dot" style="background:${esc(c.color)}"></div>
+      <div><b>${esc(c.name)}</b><span>${esc(c.tagline)}</span></div>
     </div>`).join('');
-  let mails=0, dec=0;
-  // rough live stats from state endpoints would need per-club calls; keep hero simple
+  const sum = k => clubs.reduce((a,c)=>a+(c[k]||0),0);
   document.getElementById('stats').innerHTML = `
     <div class="stat"><b>${clubs.length}</b><span>clubs on board</span></div>
-    <div class="stat"><b>6</b><span>sample mails per club</span></div>
-    <div class="stat"><b>3–4</b><span>decisions per night (avg)</span></div>
-    <div class="stat"><b>~€0.01</b><span>per night, per club</span></div>`;
+    <div class="stat"><b>${sum('handled')}</b><span>mails handled overnight</span></div>
+    <div class="stat"><b>${sum('drafts')}</b><span>warm replies in outboxes</span></div>
+    <div class="stat"><b>${sum('decisions')}</b><span>decisions now waiting for a human</span></div>`;
 });
 </script>
 </body>

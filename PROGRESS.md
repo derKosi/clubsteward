@@ -270,3 +270,45 @@
 - Urteil: Repo NICHT zurückziehen (Qualitätsgates grün, 0 Forks), AGPL empfohlen: NEIN
   (MIT-Core + Closed-Cloud statt Copyleft — Vereinsmarkt kauft Vertrauen/On-Prem).
 - Entscheidungsvorlage 15.09.: ~/steward-open-core-memo.md (bewusst außerhalb des Repos).
+
+## Session 2026-09-10 — Sonderzeichen-Bugfix (MailItem charset) + Safari-Layout-Anfang
+
+**Done**
+- **Root Cause** gefunden für kaputte Sonderzeichen (`f??r` statt `für`): Korpus-/Decision-Mails haben **keinen `Content-Type`/charset-Header** → Python `email` dekodiert den Body als `us-ascii` mit `errors='replace'` → jedes UTF-8-Byte wird zu eigenem U+FFFD (daher 2×`?` pro Umlaut). Subject war nicht betroffen (Policy-Header-Parsing dekodiert korrekt).
+- **Fix** `clubsteward/models.py`: neuer Helper `_decode_text_part()` — `get_payload(decode=True)` (CTE-aware), dekodiert mit deklariertem Charset, Fallback UTF-8. Wirkt auf Pipeline, decide, Web-UI (Decision-Cards parsen MailItem zur Laufzeit).
+- **10 kaputte Dateien repariert** (alles `clubs/*/sessions/session_*/…/message_0.json` — Prompts mit eingebettetem Mailtext): chirurgischer Raw-String-Austausch, validiert dadurch, dass `mangle(saubere_korpus_mail)[:2000]` byte-exakt den korrupten Abschnitt reproduziert → repair = exakt das, was die gefixte Pipeline geschrieben hätte. Repo-weiter Scan: 0 U+FFFD übrig.
+- **Regressionstests** `tests/test_core.py::TestMailCharset` (UTF-8 ohne Header + deklariertes iso-8859-1). 43 passed, ruff clean.
+- Webapp (Port 8765) gestartet, API verifiziert: av-la-alameda Decision-Cards jetzt mit korrektem `pensión`, `Señores`, `¿habría`.
+
+**Learned**
+- macOS `screencapture` braucht **Screen-Recording-Permission** für den Terminal-App — ohne die liefert es nur das Desktop-Wallpaper (Safari-Fenster unsichtbar). Permission wurde erteilt, **Neustart (logout) nötig** → Safari-Layout-Review im nächsten Session-Teil.
+- `uv run pytest` ohne Scope sammelt `scripts/smoke_test.py` ein, das ohne `ZAI_API_KEY` beim Import exitet → `uv run pytest tests` verwenden (vorbestehendes Verhalten).
+
+**Blocked**
+- Safari-Layout-Review + Screenshots: wartet auf Neustart nach Screen-Recording-Permission.
+
+**Next**
+- Webapp neu starten: `nohup uv run uvicorn clubsteward.web:app --host 127.0.0.1 --port 8765 > /tmp/clubsteward_web.log 2>&1 &`
+- Safari (osascript) auf `http://127.0.0.1:8765/app`, Screenshots via `screencapture -x -R0,25,1440,815` (Bounds via `osascript … bounds of front window` → `0, 25, 1440, 840`), Layout-Review der Console (Club-Switcher, Decision-Cards, Outbox, Register) + Sonderzeichen final visuell prüfen.
+- Änderungen liegen **uncommittet** bereit: `clubsteward/models.py` (Fix), `tests/test_core.py` (Test), 10× `message_0.json` (Repair), `PROGRESS.md`. Konventioneller Commit z. B. `fix: decode mail bodies without charset header as UTF-8 (umlauts were U+FFFD)`.
+
+## Session 2026-09-10 (2) — Web-UI-Überholung (Safari ferngesteuert)
+
+**Done**
+- Safari-Fernsteuerung aktiv (nach Neustart): `osascript` setzt die URL, `screencapture -x -R0,25,1440,815` macht Screenshots → Layout-Review per Read-Bild. Workflow: Edit → URL neu setzen → Screenshot → Review.
+- **Decision Cards redesigned** (`webapp/static/app.html`): Größter inhaltlicher Mangel war, dass `proposed_action` und `details` in der API lagen, aber NICHT angezeigt wurden. Jetzt: **„Agent proposes“**-Block (teal), Facts-Grid (details als Key-Value, Listen mit `·`), Confidence-Chip mit Farbskala (≥90 grün / ≥75 gelb / sonst rot), Intent-Chip (mono), relatives Datum (`created_at` neu in `/decisions`-API), Original-Mail einklappbar (`<details>`), **Inline „Approve + instruct“** (Textarea statt hässlichem `prompt()`), Toast-Feedback nach Aktionen, Working-State während der LLM-Ausführung.
+- **XSS-Hygiene**: `esc()`-Helper für alle API-Strings in beiden Seiten (Korpus ist synthetisch, aber Juroren lesen Code).
+- **KPI/Toolbar**: Pending-Decisions-KPI rot hervorgehoben bei >0; Run-night/Drop-.eml-Buttons sauber gestapelt; Log auto-scrollt während des Runs; Toast bei Run-Ende; **Inbox-Zero-Empty-State (🎉)**.
+- **Deep-Links** (echtes Produktfeature + Test-Navigation): `/app?club=<id>` wählt Club direkt und sync't die URL (`history.replaceState`), Anker `#decisions` `#outbox` `#register` mit `scroll-margin-top`. Wichtig, weil Safari ohne „Allow JavaScript from Apple Events“ kein Scrollen/Clicken via osascript erlaubt — Anchors decken die Navigation ab.
+- **Draft-Anzeige-Fix** (`clubsteward/web.py` `api_state`): Header-Block wurde als Ganzes als „To“ genommen → `To:`/`Subject:` werden jetzt zeilenweise geparst; UI zeigt Subject als Draft-Titel, „to …“ als Meta.
+- **Produktseite mit echten Live-Stats** statt hartcodiert: `api_clubs` liefert jetzt `handled` (processed/*.eml); Hero zeigt 6 clubs · 17 mails handled · 14 warm replies · 7 decisions waiting (live aus den 6 Clubs).
+- Visuell verifiziert in Safari: av-la-alameda (Sonderzeichen korrekt), maplewood (4 Karten + `medical`-Flag-Chip), kg-rheinklause (Empty-State + Drafts mit Subject-Titel), Produktseite (Live-Stats).
+- 43 Tests grün, ruff clean.
+
+**Learned**
+- CSS-Falle: `.instruct { display:flex }` überschreibt das UA-Stylesheet für das `hidden`-Attribut → Panel war immer sichtbar. Fix: `.instruct[hidden] { display:none }`.
+- `screencapture` erfasst das vorderste Fenster der Region — Safari muss per `activate` in den Vordergrund, sonst gibt's ein Terminal-Screenshot.
+
+**Offen / Next**
+- Interaktionszustände (Mail expandiert, Inline-Edit geöffnet, Toast) noch nicht bildlich verifiziert — dafür braucht Safari **Develop → Allow JavaScript from Apple Events** (Settings → Advanced → Develop-Menü einblenden). Danach kann die Fernsteuerung auch klicken/scrollen/DOM lesen.
+- Uncommittet liegen jetzt zwei Pakete bereit: (1) charset-Fix von Session (1) — models.py + tests + 10 repaired message_0.json; (2) dieses UI-Paket — web.py, webapp/static/*, PROGRESS.md.
