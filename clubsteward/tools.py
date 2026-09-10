@@ -5,6 +5,9 @@ All tools operate on the demo sandbox (demo/data/**) only — no network, no rea
 
 from __future__ import annotations
 
+import json
+import threading
+from datetime import UTC, datetime
 from typing import Annotated
 
 from strands import tool
@@ -29,8 +32,8 @@ def _save_rows(cfg, rows):
     else:
         save_register(cfg.register_path, rows)
 
-# Config is injected per run (module-level default avoids global mutable state at import time)
-_cfg: Config | None = None
+# Config is injected per run (thread-local storage avoids race conditions across threads)
+_local = threading.local()
 
 
 def _use_sqlite(cfg: Config) -> bool:
@@ -53,8 +56,7 @@ def load_register_state(cfg):
 
 
 def set_config(cfg: Config) -> None:
-    global _cfg
-    _cfg = cfg
+    _local.cfg = cfg
     if cfg.data_dir.name != "data":  # club mode: bootstrap sqlite if flagged
         from . import store
         if _use_sqlite(cfg):
@@ -62,9 +64,10 @@ def set_config(cfg: Config) -> None:
 
 
 def _require_cfg() -> Config:
-    if _cfg is None:
+    cfg = getattr(_local, "cfg", None)
+    if cfg is None:
         raise RuntimeError("Config not set — call set_config() before running agents")
-    return _cfg
+    return cfg
 
 
 @tool
@@ -82,17 +85,25 @@ def register_lookup(query: Annotated[str, "member email or name to look up"]) ->
 @tool
 def register_update(
     email: Annotated[str, "member email (unique key)"],
-    updates: Annotated[str, "comma-separated key=value pairs, e.g. 'team=U12,fee_status=paid'"],
+    updates: Annotated[str, "JSON object string of field updates, e.g. '{\"team\":\"U12\",\"fee_status\":\"paid\"}'"],
 ) -> str:
     """Update fields of an existing member in the register (by email)."""
     cfg = _require_cfg()
     rows = _load_rows(cfg)
     changes: dict[str, str] = {}
-    for pair in updates.split(","):
-        k, _, v = pair.partition("=")
-        k, v = k.strip(), v.strip()
-        if k and k in REGISTER_FIELDS:
-            changes[k] = v
+    # Try JSON parsing first; fall back to comma-separated key=value for backward compat
+    try:
+        parsed = json.loads(updates)
+        if isinstance(parsed, dict):
+            for k, v in parsed.items():
+                if k in REGISTER_FIELDS:
+                    changes[k] = str(v)
+    except (json.JSONDecodeError, TypeError):
+        for pair in updates.split(","):
+            k, _, v = pair.partition("=")
+            k, v = k.strip(), v.strip()
+            if k and k in REGISTER_FIELDS:
+                changes[k] = v
     for r in rows:
         if r.get("email", "").lower() == email.lower():
             r.update(changes)
@@ -109,13 +120,16 @@ def register_add(
     team: Annotated[str, "team to join, e.g. U12"],
     birth_year: Annotated[str, "birth year, e.g. 2014"],
     notes: Annotated[str, "optional notes, e.g. medical"] = "",
+    fee_status: Annotated[str, "fee status, e.g. 'invoice_sent', 'paid', 'trial'"] = "invoice_sent",
+    joined: Annotated[str, "join date ISO format YYYY-MM-DD, empty string = today"] = "",
 ) -> str:
-    """Add a new member to the register."""
+    """Add a new member to the register. joined defaults to today if not specified."""
     cfg = _require_cfg()
     rows = _load_rows(cfg)
     if any(r.get("email", "").lower() == email.lower() for r in rows):
         return f"ERROR member already exists: {email}"
     member_id = f"M{len(rows) + 1:03d}"
+    join_date = joined if joined else datetime.now(UTC).strftime("%Y-%m-%d")
     rows.append({
         "member_id": member_id,
         "first_name": first_name,
@@ -123,8 +137,8 @@ def register_add(
         "email": email,
         "birth_year": birth_year,
         "team": team,
-    "fee_status": "invoice_sent",
-        "joined": "2026-08-23",
+        "fee_status": fee_status,
+        "joined": join_date,
         "notes": notes,
     })
     _save_rows(cfg, rows)

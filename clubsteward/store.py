@@ -64,12 +64,13 @@ def load_register_sqlite(data_dir: Path) -> list[dict[str, str]]:
 
 def save_register_sqlite(data_dir: Path, rows: list[dict[str, str]]) -> None:
     conn = init_db(data_dir)
-    conn.execute("DELETE FROM members")
-    conn.executemany(
-        f"INSERT INTO members ({','.join(REGISTER_FIELDS)}) VALUES ({','.join('?' * len(REGISTER_FIELDS))})",
-        [tuple(r.get(f, "") for f in REGISTER_FIELDS) for r in rows],
-    )
-    conn.commit()
+    with conn:
+        for r in rows:
+            vals = tuple(r.get(f, "") for f in REGISTER_FIELDS)
+            conn.execute(
+                f"INSERT OR REPLACE INTO members ({','.join(REGISTER_FIELDS)}) VALUES ({','.join('?' * len(REGISTER_FIELDS))})",
+                vals,
+            )
     conn.close()
 
 

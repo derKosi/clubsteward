@@ -40,7 +40,7 @@ def run(max_mails: int | None = None, recorder: RunRecorder | None = None, club:
     if recorder:
         recorder.set_model(cfg.model_id)
 
-    for d in (cfg.outbox_dir, cfg.decisions_dir, cfg.processed_dir):
+    for d in (cfg.outbox_dir, cfg.decisions_dir, cfg.processed_dir, cfg.errors_dir):
         d.mkdir(parents=True, exist_ok=True)
 
     mails = sorted(p for p in cfg.inbox_dir.glob("*.eml"))
@@ -61,6 +61,8 @@ def run(max_mails: int | None = None, recorder: RunRecorder | None = None, club:
             triage = triage_one(ck.triage_agent, mail)
         except Exception as e:
             print(f"  TRIAGE FAILED: {e}")
+            shutil.move(str(path), cfg.errors_dir / path.name)
+            record_triage(summary, path.name, "unknown", "reject", None, triage_tokens=0)
             continue
         triage = safety_flag_check(triage, mail)
         decision, reason = evaluate_policy(policy, triage)

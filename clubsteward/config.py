@@ -76,6 +76,10 @@ class Config(BaseModel):
         return self.data_dir / "processed"
 
     @property
+    def errors_dir(self) -> Path:
+        return self.data_dir / "_errors"
+
+    @property
     def register_path(self) -> Path:
         return self.data_dir / "register.csv"
 

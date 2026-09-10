@@ -42,9 +42,9 @@ def make_cfg(tmp_path: Path, sqlite: bool) -> Config:
 def clean_env(monkeypatch):
     """Isolate module config + force-default storage mode (env may override)."""
     monkeypatch.delenv("CLUBSTEWARD_STORAGE", raising=False)
-    tools._cfg = None
+    tools._local.cfg = None
     yield
-    tools._cfg = None
+    tools._local.cfg = None
 
 
 class TestCsvMode:
