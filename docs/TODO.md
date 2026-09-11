@@ -46,6 +46,17 @@ Stand: 23.08.2026 · Agent-seitige Arbeit: fertig · Alles Weitere braucht Kosi 
 - [ ] Repo-URL + Video-Link eintragen, AWS Builder ID angeben
 - [ ] Submit bis 12.09. (hartes Limit: 14.09., 17:00 PT / 15.09., 02:00 MESZ)
 
+## Entscheidung (vor Video/Writeup): Local-first Modell-Kaskade
+
+- [ ] Entscheiden: Local-first Triage-Kaskade (kleines lokales Modell via
+      LM Studio/Ollama macht die Erstbewertung, externes LLM nur bei
+      niedriger Confidence) — **Demo-Thema im Video oder Roadmap-Posten?**
+      Bewertung + Umfang (Strands bleibt unangetastet, nur Modell-Swap in
+      make_model(); Eval-Harness misst die lokale Qualität ehrlich):
+      docs/HOSTING.md → „Stage 1.6 — Local-first model cascade".
+      Empfehlung dort: NICHT vor der Submission implementieren, erster
+      Post-Competition-Step.
+
 ## Referenzen
 
 - Checkliste Abgabe-Pflichten: REQUIREMENTS.md (alle agent-seitigen Punkte ✓)

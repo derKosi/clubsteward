@@ -74,6 +74,45 @@ Post-competition priority, driven by real club demand: RAG-lite over club
 documents first (cheap, local, no infra), tenant-native ingestion (M365/Bedrock)
 second — heavier lift (permissions, consent flows), clear enterprise path.
 
+### Stage 1.6 — Local-first model cascade (idea, decision pending)
+
+Two-tier triage: a small LOCAL model (LM Studio / Ollama on a box in the
+club's network, OpenAI-compatible endpoint) does the first-pass classification,
+grounded in the club's own website/policy data (RAG-lite). Only when its
+confidence is far too low does the mail escalate to the external LLM. Inbound
+member mail for routine classification then never leaves the club network —
+the strongest possible GDPR story for a Verein.
+
+Why this is cheap for us: **Strands is already the framework and it is
+model-agnostic.** The whole loop (triage/act agents, tools, HITL classifier,
+per-member sessions) is strands-agents; the model enters only through
+`make_model()` as a LiteLLM `openai/<model>` provider pointed at an
+OpenAI-compatible base URL. A local endpoint is a config swap
+(`ZAI_BASE_URL=http://lm-studio-lan:1234/v1`), not a rewrite. The cascade
+re-uses policy-as-data at the model level: "below confidence X → escalate"
+is the same axis as the existing `min_confidence` rule, just pointing at a
+second model instead of a human. Triage agent → local model, act agent →
+cloud model; tools/policy/HITL unchanged.
+
+What would need deciding before relying on it:
+- Small-model classification quality on OUR corpus — measurable today: the
+  eval harness (`scripts/run_eval.sh`) points at any OpenAI-compatible
+  endpoint and gates on accuracy; run it against the local model before
+  trusting it. Our GLM structured-output quirks suggest small models will
+  need the deterministic `safety_flag_check` backstop even more.
+- Structured output reliability (TriageResult schema) on small models —
+  the 1× triage retry already absorbs occasional parse failures.
+- Hardware reality: a volunteer club has no server rack; the honest target
+  is "the secretary's existing Mac or a €200 mini-PC runs LM Studio".
+  Latency is irrelevant (nightly batch).
+- Escalated mails still go external — document that, or redact names for
+  the second hop (pipeline only needs intent/flags, not names).
+
+Recommendation: keep it OUT of the hackathon submission (scope risk one day
+before deadline; the keyless replay already demos without an API key) — but
+it is the natural first post-competition feature, and the eval harness is
+the honest way to prove it works.
+
 ### Stage 2 — multi-box (when it's actually needed)
 - Worker queue (SQS/Redis) instead of in-process runs; one job per club per night
 - Object storage (S3-compatible) replaces the folder per club — the Config layer
