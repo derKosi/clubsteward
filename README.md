@@ -54,31 +54,7 @@ Volunteers edit YAML, not Python. And this file isn't just documentation — it 
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    subgraph Inbox["📥 demo/data/inbox (*.eml)"]
-        M1[8 member emails]
-    end
-    subgraph Strands["Strands Agents SDK"]
-        T[Triage Agent<br/>structured_output → TriageResult]
-        P{{Policy Gate<br/>policy.yaml}}
-        A[Act Agent<br/>tool loop]
-        H[HumanInTheLoop<br/>intervention]
-    end
-    subgraph Sandbox["Local demo sandbox"]
-        R[(register.csv)]
-        O[📤 outbox/ drafts]
-        D[⚖️ decisions/ queue]
-        L[activity.log]
-    end
-    M1 --> T --> P
-    P -- auto --> A
-    P -- ask --> D
-    P -- reject --> X[🗑️ discarded]
-    A --> H
-    H -- "writes gated by<br/>policy classifier" --> R & O & L
-    D -- "human approves<br/>(decide CLI)" --> A
-```
+![ClubSteward architecture — policy-as-data, human-in-the-loop, fully local](docs/architecture.svg)
 
 **Human-in-the-loop, the Strands way:** the Act agent runs with the SDK's
 [`HumanInTheLoop`](https://strandsagents.com/docs/user-guide/concepts/agents/interventions/human-in-the-loop/)
