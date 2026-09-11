@@ -405,6 +405,26 @@ class TestRunOne:
         assert pipeline.run_one()["outcome"] == "empty"
 
 
+class TestPolicyReasonLanguage:
+    """The 'why does this need a human' framing follows the club's language."""
+
+    def test_german_reason(self, policy):
+        from clubsteward.agents import evaluate_policy
+
+        t = TriageResult(intent=Intent.CANCELLATION, summary="s", proposed_action="a", confidence=0.97)
+        _, en = evaluate_policy(policy, t)
+        _, de = evaluate_policy(policy, t, language="German")
+        assert "requires human decision" in en
+        assert "menschliche Entscheidung" in de
+
+    def test_unknown_language_falls_back_to_english(self, policy):
+        from clubsteward.agents import evaluate_policy
+
+        t = TriageResult(intent=Intent.CANCELLATION, summary="s", proposed_action="a", confidence=0.97)
+        _, reason = evaluate_policy(policy, t, language="xx")
+        assert "requires human decision" in reason
+
+
 class TestOfferIntent:
     """Inbound generosity (sponsorship, donations, help) is always a human decision."""
 

@@ -192,21 +192,60 @@ class TriageTokenTracker:
         return d
 
 
-def evaluate_policy(policy: ClubPolicy, triage: TriageResult) -> tuple[str, str]:
+POLICY_REASONS = {
+    "English": {
+        "no_rule": "No policy rule for intent '{intent}' — defaulting to ask.",
+        "reject": "Policy: intent '{intent}' is rejected ({note})",
+        "ask": "Policy: intent '{intent}' requires human decision ({note})",
+        "ask_if": "Policy escalation: '{intent}' is normally auto, but flag '{flag}' matches ask_if",
+        "low_conf": "Policy escalation: agent is only {conf:.0%} sure "
+                    "(below the {thr:.0%} threshold) — asking instead of guessing",
+        "auto": "Policy: intent '{intent}' is auto-approved ({note})",
+    },
+    "German": {
+        "no_rule": "Keine Policy-Regel für Intent '{intent}' — sicherheitshalber fragen.",
+        "reject": "Policy: Intent '{intent}' wird abgelehnt ({note})",
+        "ask": "Policy: Intent '{intent}' braucht eine menschliche Entscheidung ({note})",
+        "ask_if": "Policy-Eskalation: '{intent}' wäre sonst automatisch, aber das Flag '{flag}' trifft eine ask_if-Bedingung",
+        "low_conf": "Policy-Eskalation: der Agent ist nur zu {conf:.0%} sicher "
+                    "(unter der {thr:.0%}-Schwelle) — er fragt, statt zu raten",
+        "auto": "Policy: Intent '{intent}' läuft automatisch ({note})",
+    },
+    "Spanish": {
+        "no_rule": "Sin regla de política para el intent '{intent}' — por seguridad, se pregunta.",
+        "reject": "Policy: el intent '{intent}' se rechaza ({note})",
+        "ask": "Policy: el intent '{intent}' requiere decisión humana ({note})",
+        "ask_if": "Escalada de política: '{intent}' sería automático, pero el flag '{flag}' coincide con ask_if",
+        "low_conf": "Escalada de política: el agente solo está {conf:.0%} seguro "
+                    "(por debajo del umbral del {thr:.0%}) — pregunta en lugar de adivinar",
+        "auto": "Policy: el intent '{intent}' se aprueba automáticamente ({note})",
+    },
+}
+
+
+def evaluate_policy(policy: ClubPolicy, triage: TriageResult, language: str = "English") -> tuple[str, str]:
     """Return (decision, reason). decision in {auto, ask, reject}.
+
+    The reason text follows the CLUB's language (the note inside it comes from
+    the club's own policy.yaml, so it always spoke the tenant's language).
 
     Two escalation axes for otherwise-auto intents, most specific first:
       ask_if conditions in the policy name flags (e.g. "medical", "waiting_list")
       that the triage agent extracted; below policy.min_confidence the agent
       asks rather than guesses. Both are policy-as-data, no code changes.
     """
+    t = POLICY_REASONS.get(language) or POLICY_REASONS["English"]
+
+    def r(key: str, **kw) -> str:
+        return t[key].format(**kw)
+
     rule = policy.rule_for(triage.intent.value)
     if rule is None:
-        return "ask", f"No policy rule for intent '{triage.intent.value}' — defaulting to ask."
+        return "ask", r("no_rule", intent=triage.intent.value)
     if rule.decision == "reject":
-        return "reject", f"Policy: intent '{rule.intent}' is rejected ({rule.note})"
+        return "reject", r("reject", intent=rule.intent, note=rule.note)
     if rule.decision == "ask":
-        return "ask", f"Policy: intent '{rule.intent}' requires human decision ({rule.note})"
+        return "ask", r("ask", intent=rule.intent, note=rule.note)
 
     # decision == "auto": check ask_if conditions against extracted flags.
     # ask_if entries are explicit flag names (e.g. "medical", "waiting_list");
@@ -216,11 +255,7 @@ def evaluate_policy(policy: ClubPolicy, triage: TriageResult) -> tuple[str, str]
         for cond in rule.ask_if:
             key = " ".join(cond.lower().strip().replace("_", " ").split())
             if key in triage_flags:
-                return "ask", f"Policy escalation: '{rule.intent}' is normally auto, but flag '{key}' matches ask_if"
+                return "ask", r("ask_if", intent=rule.intent, flag=key)
     if triage.confidence < policy.min_confidence:
-        return (
-            "ask",
-            f"Policy escalation: agent is only {triage.confidence:.0%} sure "
-            f"(below the {policy.min_confidence:.0%} threshold) — asking instead of guessing",
-        )
-    return "auto", f"Policy: intent '{rule.intent}' is auto-approved ({rule.note})"
+        return "ask", r("low_conf", conf=triage.confidence, thr=policy.min_confidence)
+    return "auto", r("auto", intent=rule.intent, note=rule.note)

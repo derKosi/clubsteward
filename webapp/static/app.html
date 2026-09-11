@@ -253,7 +253,7 @@ async function loadDecisions(){
       <div class="sum">💡 ${esc(d.summary)}</div>
       <div class="prop"><label>Agent proposes</label><p>${esc(d.proposed)}</p></div>
       ${facts}
-      <div class="why"><b>Why you:</b> ${esc(String(d.policy_reason||'').replace(/^Policy:\s*/,''))}</div>
+      <div class="why"><b>${whyLabel()}:</b> ${esc(String(d.policy_reason||'').replace(/^Policy:\s*/,''))}</div>
       <details class="mail"><summary>Show original mail</summary><div class="body">${esc(d.mail_body)}</div></details>
       <div class="acts">
         <button class="btn-app" onclick="act('${esc(d.id)}','approve')">✓ Approve</button>
@@ -292,6 +292,8 @@ async function act(id, action, instructions=''){
 let runningHere = false;
 const WAIT_STEPS = ['🧠 the agent reads the mail…', '🧩 extracting intent, facts and flags…',
                     '⚖️ applying the club policy…', '✍️ drafting the reply…'];
+// "why does this need a human" — labelled in the ACTIVE tenant's language
+const whyLabel = ()=> ({de:'Warum du?', es:'¿Por qué tú?'})[(clubs.find(c=>c.id===CLUB)||{}).locale] || 'Why you';
 // one step state PER TENANT: {mail, status:'running'|'done', trace}
 // switching tenants never cancels the server-side work — the panel just
 // re-binds to the active tenant's state when you come back
@@ -359,7 +361,7 @@ function renderTrace(t){
   const flags = (t.flags&&t.flags.length) ? (t.flags.map(f=>`<span class="flag">${esc(f)}</span>`).join(' ') + ' ') : '';
   let html = `<div><span class="chipi">${esc(t.intent||'—')}</span> <span class="conf ${cls}">${pct}% sure</span> ${flags}</div>`
     + `<p style="margin-top:8px">💡 ${esc(t.summary||'')}</p>`
-    + `<div class="why"><b>Why you:</b> ${esc(t.reason||'')}</div>`;
+    + `<div class="why"><b>${whyLabel()}:</b> ${esc(t.reason||'')}</div>`;
   if(t.outcome === 'processed' && t.draft){
     html += `<div style="margin-top:12px"><span class="lbl" style="display:block;color:var(--mut);font-size:11.5px;text-transform:uppercase">✉️ Draft — ready in the outbox</span><b>${esc(t.draft.subject)}</b><p style="white-space:pre-wrap;margin-top:6px;max-height:220px;overflow:auto">${esc(t.draft.body)}</p></div>`;
   } else if(t.outcome === 'queued'){

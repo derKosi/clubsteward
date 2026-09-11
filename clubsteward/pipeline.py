@@ -12,6 +12,7 @@ from collections.abc import Callable
 from pathlib import Path
 
 from .agents import (
+    LANGUAGE_BY_LOCALE,
     ClubSteward,
     TriageTokenTracker,
     evaluate_policy,
@@ -102,7 +103,8 @@ def process_mail(cfg: Config, ck: ClubSteward, policy: ClubPolicy, summary, trac
                      proposed_action="", decision=None, reason=f"triage failed: {e}", outcome="error")
         return trace
     triage = safety_flag_check(triage, mail)
-    decision, reason = evaluate_policy(policy, triage)
+    decision, reason = evaluate_policy(policy, triage,
+                                       language=LANGUAGE_BY_LOCALE.get(cfg.brand.locale, "English"))
     record_triage(summary, path.name, triage.intent.value, decision, None,
                   triage_tokens=tracker.delta() if tracker else 0)
     line1 = f"  intent={triage.intent.value} confidence={triage.confidence:.2f} → {decision.upper()}"
