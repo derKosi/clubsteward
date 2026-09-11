@@ -109,7 +109,7 @@
     <div class="b" id="kpiDec"><b>—</b><span>pending decisions</span></div>
     <div class="b"><b>—</b><span>drafts ready to send</span></div>
     <div class="b acts-box">
-      <button class="btn-up sm" id="resetBtn" style="cursor:pointer;">↺ Reset &amp; run live</button>
+      <button class="btn-up sm" id="resetBtn" style="cursor:pointer;">↺ Reset data</button>
       <button class="btn-run" id="runBtn">🌙 Run night</button>
       <label class="btn-up sm" style="cursor:pointer;">📥 Drop .eml into inbox
         <input type="file" accept=".eml" multiple id="upFiles" style="display:none">
@@ -397,17 +397,16 @@ $('runBtn').onclick = async ()=>{
 
 $('resetBtn').onclick = async ()=>{
   if(!CLUB) return;
-  if(!confirm('Reset this club to its starting corpus?\nClears inbox/outbox/decisions/processed/sessions — then the night run starts live.')) return;
+  if(!confirm('Reset this club to its starting corpus?\nClears inbox/outbox/decisions/processed/sessions/_errors — nothing is processed yet.')) return;
   $('resetBtn').disabled = true; $('resetBtn').innerHTML = '<span class="spin">◌</span> resetting…';
   try {
     const r = await fetch(`/api/clubs/${CLUB}/reset`, {method:'POST'});
     if(!r.ok) throw new Error(await r.text());
     const j = await r.json();
-    toast(`↺ Reset — ${j.inbox} mails back in the inbox`, 'ok');
+    toast(`↺ Data reset — ${j.inbox} mails back in the inbox, ready to process`, 'ok');
     loadState(); loadDecisions();
-    $('runBtn').click();
   } catch(e) { toast('Reset failed — is a run in progress?', 'bad'); }
-  $('resetBtn').disabled = false; $('resetBtn').textContent = '↺ Reset & run live';
+  $('resetBtn').disabled = false; $('resetBtn').textContent = '↺ Reset data';
 };
 
 $('upFiles').onchange = async (e)=>{
