@@ -155,7 +155,7 @@ def api_process_one(club_id: str):
     """Step mode: triage → policy → act/queue for ONE mail, trace returned."""
     _club_dir(club_id)
     if _run_lock.locked():
-        raise HTTPException(409, "a batch run is in progress")
+        raise HTTPException(409, "another run is processing — wait for it to finish")
     from .pipeline import run_one
 
     buf, redir = _capture_prints()

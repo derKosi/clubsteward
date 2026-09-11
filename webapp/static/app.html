@@ -186,13 +186,10 @@ async function loadClubs(){
 function pick(id){
   if(id === CLUB) return;
   CLUB = id;
-  // tenant isolation in the UI: drop any in-flight single-mail step and hide
-  // its panel — a processing mail must never appear in another tenant's view
-  if(stepAbort) stepAbort.abort();
-  $('stepPanel').hidden = true;
-  $('stepMail').innerHTML = ''; $('stepAnalysis').innerHTML = '';
-  clearInterval(waitTimer);
-  const sb = $('stepBtn'); sb.disabled = false; sb.innerHTML = '▶ Process next mail';
+  // tenant isolation in the UI: the panel always shows the ACTIVE tenant's
+  // step state — an in-flight step keeps running server-side and reappears
+  // (with its result, once done) when you switch back to its tenant
+  renderStepPanel();
   history.replaceState(null, '', `/app?club=${encodeURIComponent(id)}${location.hash}`);
   loadClubs(); loadState(); loadDecisions();
 }
@@ -295,45 +292,64 @@ async function act(id, action, instructions=''){
 let runningHere = false;
 const WAIT_STEPS = ['🧠 the agent reads the mail…', '🧩 extracting intent, facts and flags…',
                     '⚖️ applying the club policy…', '✍️ drafting the reply…'];
-let waitTimer = null;
-let stepAbort = null;
+// one step state PER TENANT: {mail, status:'running'|'done', trace}
+// switching tenants never cancels the server-side work — the panel just
+// re-binds to the active tenant's state when you come back
+const stepStates = {};
+let waitIdx = 0;
+
+function renderStepPanel(){
+  const st = stepStates[CLUB];
+  $('stepPanel').hidden = !st;
+  const sb = $('stepBtn');
+  const busy = !!(st && st.status === 'running');
+  sb.disabled = busy;
+  sb.innerHTML = busy ? '<span class="spin">◌</span> processing…' : '▶ Process next mail';
+  if(!st) return;
+  $('stepMail').className = 'step-mail';
+  $('stepMail').innerHTML = `<b>${esc(st.mail.subject)}</b><span class="mut">from ${esc(st.mail.from)} · ${esc(st.mail.email)}</span><p>${esc(st.mail.body)}</p>`;
+  $('stepAnalysis').className = 'step-trace';
+  if(st.status === 'running'){
+    $('stepAnalysis').innerHTML = `<p style="color:var(--mut)">${WAIT_STEPS[0]}</p>`;
+  } else {
+    renderTrace(st.trace);
+  }
+}
+
+setInterval(()=>{ // rotate the waiting hint while the visible tenant's step runs
+  const st = stepStates[CLUB];
+  if(st && st.status === 'running'){
+    waitIdx = (waitIdx+1) % WAIT_STEPS.length;
+    $('stepAnalysis').innerHTML = `<p style="color:var(--mut)">${WAIT_STEPS[waitIdx]}</p>`;
+  }
+}, 8000);
 
 $('stepBtn').onclick = async ()=>{
   if(!CLUB || $('stepBtn').disabled) return;
-  const club0 = CLUB;               // step results must only ever land in the club they belong to
-  stepAbort = new AbortController();
-  const sig = stepAbort.signal;
-  const nx = await (await fetch(`/api/clubs/${CLUB}/inbox/next`, {signal:sig})).json();
+  const club0 = CLUB;               // this step belongs to this tenant, whatever is displayed later
+  const nx = await (await fetch(`/api/clubs/${club0}/inbox/next`)).json();
   if(!nx.mail){ toast('Inbox is empty — nothing to process 🎉','ok'); return; }
-  $('stepPanel').hidden = false;
-  $('stepMail').className = 'step-mail';
-  $('stepMail').innerHTML = `<b>${esc(nx.mail.subject)}</b><span class="mut">from ${esc(nx.mail.from)} · ${esc(nx.mail.email)}</span><p>${esc(nx.mail.body)}</p>`;
-  $('stepAnalysis').className = 'step-trace';
-  $('stepAnalysis').innerHTML = `<p style="color:var(--mut)">🧠 the agent reads the mail…</p>`;
-  let wi = 0;
-  clearInterval(waitTimer);
-  waitTimer = setInterval(()=>{ wi = (wi+1) % WAIT_STEPS.length;
-    $('stepAnalysis').innerHTML = `<p style="color:var(--mut)">${WAIT_STEPS[wi]}</p>`; }, 8000);
-  $('stepBtn').disabled = true; $('stepBtn').innerHTML = '<span class="spin">◌</span> processing…';
+  stepStates[club0] = {mail: nx.mail, status:'running'};
+  renderStepPanel();
   try {
-    const r = await fetch(`/api/clubs/${club0}/process-one`, {method:'POST', signal:sig});
+    const r = await fetch(`/api/clubs/${club0}/process-one`, {method:'POST'});
     if(!r.ok){ const err = await r.json().catch(()=>({detail:'request failed'})); throw new Error(err.detail); }
     const t = await r.json();
-    if(CLUB !== club0) return;      // tenant switched mid-flight — panel already reset by pick()
-    renderTrace(t);
-    toast(t.outcome==='processed' ? '✓ processed — draft ready in the outbox'
-         : t.outcome==='queued'   ? '⚖️ queued — waiting in “Decisions for you”'
-         : t.outcome==='rejected' ? '🗑 rejected as spam — discarded silently'
-         : '⚠️ processing failed — the mail is preserved in _errors/', t.outcome==='error' ? 'bad' : 'ok');
+    stepStates[club0] = {mail: nx.mail, status:'done', trace:t};
+    if(CLUB === club0){
+      renderStepPanel();
+      toast(t.outcome==='processed' ? '✓ processed — draft ready in the outbox'
+           : t.outcome==='queued'   ? '⚖️ queued — waiting in “Decisions for you”'
+           : t.outcome==='rejected' ? '🗑 rejected as spam — discarded silently'
+           : '⚠️ processing failed — the mail is preserved in _errors/', t.outcome==='error' ? 'bad' : 'ok');
+    } else {
+      toast(`✓ ${club0}: background step finished`, 'ok');
+    }
   } catch(e) {
-    if(e.name === 'AbortError') return;   // tenant switch aborted this step on purpose
-    if(CLUB !== club0) return;
-    $('stepAnalysis').innerHTML = `<p style="color:#b91c1c">Processing failed: ${esc(String(e.message||e))}</p>`;
-    toast('Processing failed','bad');
+    stepStates[club0] = {mail: nx.mail, status:'done', trace:{outcome:'error', reason:String(e.message||e)}};
+    if(CLUB === club0){ renderStepPanel(); toast('Processing failed','bad'); }
   }
-  clearInterval(waitTimer);
-  $('stepBtn').disabled = false; $('stepBtn').innerHTML = '▶ Process next mail';
-  loadState(); loadDecisions();
+  if(CLUB === club0){ loadState(); loadDecisions(); }
 };
 
 function renderTrace(t){
