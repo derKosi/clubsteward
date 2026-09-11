@@ -418,3 +418,22 @@
 
 **Next**
 - „Why you"-Reasons auf Tenant-Sprache heben (läuft), dann Video + Voiceover.
+
+## Session 2026-09-11 (8) — Abschluss UI-Runderneuerung + Handoff für den Abend
+
+**Done**
+- **Reset/Run getrennt** (Kosis Vorschlag, 29ed4c9): „↺ Reset data" ist jetzt eine reine Zustands-Operation (Corpus → Inbox, Runtime geleert, verarbeitet nichts); Verarbeitung ist explizit zweite Wahl: **🌙 Run night** (Batch, stoppbar) oder **▶ Process next mail** (Step-Modus).
+- **Policy-Reasons auf Tenant-Sprache** (02c6566): `evaluate_policy(policy, triage, language=…)` mit Template-Tabelle de/en/es für alle sechs Framings (no_rule/reject/ask/ask_if/low_conf/auto); `note` aus der policy.yaml war schon immer Club-Sprache. Pipeline übergibt `brand.locale`; Console-Label „Warum du?" / „¿Por qué tú?" je aktivem Tenant. 64 Tests grün.
+
+**WICHTIG für den Abend — offene Medien-Arbeiten (Demo-Oberfläche hat sich geändert!):**
+1. **docs/video-storyboard.md NEU schreiben** — alte Beats zeigen Terminal + decide-CLI. Neuer Demokern ist die Web-Console: Reset data → Inbox → ▶ Process next mail (links Mail, rechts Warte-Strings → Analyse → „Warum du?" → Draft) → Decisions (medical/offer/unexpected-Karten, Approve + instruct) → Outbox side-by-side → Run night + ⏹ Stop als Abschluss.
+2. **docs/voiceover-script.md + MP3s anpassen** — Segmente auf neue Beats; Aria-Freigabe (seit 24.08. offen!) endlich entscheiden.
+3. **Screenshots** frisch aus der laufenden Console (sv-gruenwald steht komplett deutsch bereit) für README/Devpost; Hero-Page hat Live-Stats.
+4. **docs/demo.gif** zeigt noch das Terminal-Replay — weiterempfehlen als „headless/replay"-Beat ODER durch Web-Console-GIF ersetzen.
+5. **README/Devpost-Draft**: Step-Modus + Reset-data/Run-night-Flow erwähnen.
+
+**Bekannter Zustand:** Die gespeicherten Decision-Karten in sv-gruenwald tragen noch englische Reason-Frames (vor dem Locale-Fix generiert) — ein frischer Run erzeugt sie deutsch. Empfehlung: den finalen sv-Refresh erst fahren, wenn keine UI-Tests mehr laufen (Interleaving-Falle CLI↔Web-Klicks, siehe Session 7).
+
+**Environment-Notizen:** Webapp läuft auf :8765 (`nohup uv run uvicorn clubsteward.web:app --host 127.0.0.1 --port 8765 > /tmp/clubsteward_web.log 2>&1 &`). Safari „Allow JavaScript from Apple Events" ist AUS (nicht nötig: URL setzen via AppleScript, Scrollen/Klicken via System-Events-Accessibility funktioniert). ZAI-Key liegt in ~/.zshenv.
+
+**Next (Abend):** Medien-Updates 1–5 → Video-Session mit Kosi → Submission 12.09. (Puffer 14.09., 17:00 PT).

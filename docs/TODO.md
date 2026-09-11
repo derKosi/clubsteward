@@ -1,6 +1,20 @@
 # TODO — bis zur Submission (12.09. intern / 14.09. hart)
 
-Stand: 23.08.2026 · Agent-seitige Arbeit: fertig · Alles Weitere braucht Kosi oder eine gemeinsame Session.
+Stand: **11.09., 17:30** · Code + Demo-UI fertig (Step-Modus, Reset/Run getrennt, alles tenant-sprachlich) · Offen: Medien-Updates + Video.
+
+## Abend-Block: Medien-Updates (vor der Video-Session)
+
+- [ ] **Storyboard neu** (docs/video-storyboard.md): Beats auf Web-Console umstellen —
+      Reset data → Inbox → ▶ Process next mail (links Mail / rechts Analyse) →
+      Decisions (medical/offer-Karten, Approve + instruct) → Outbox side-by-side →
+      Run night + ⏹ Stop. Details: PROGRESS.md Session 8.
+- [ ] **Voiceover-Skript** (docs/voiceover-script.md) auf neue Beats + Segmente neu rendern
+      — dabei endlich die Aria-Freigabe entscheiden (seit 24.08. offen: docs/voiceover/00-preview-note.mp3)
+- [ ] **Screenshots** frisch aus der Console (sv-gruenwald deutsch) für README + Devpost
+- [ ] **docs/demo.gif**: Terminal-Replay behalten (Replay-Modus existiert weiter) oder Web-GIF ergänzen
+- [ ] **README/Devpost-Draft**: Step-Modus + Reset-data/Run-night-Flow erwähnen
+- [ ] Optional vor Dreh: finaler sv-gruenwald-Run (localStorage-Karten dann komplett deutsch) —
+      NICHT parallel zu UI-Klicks fahren
 
 ## Kosi allein (ca. 20 min)
 
