@@ -1,0 +1,33 @@
+{
+  "id": "d425b4a0",
+  "mail_file": "09-unterstuetzung-angebot.eml",
+  "from_name": "Thomas Krüger",
+  "from_email": "thomas.krueger@example.de",
+  "subject": "Wir möchten etwas zurückgeben — wie können wir helfen?",
+  "triage": {
+    "intent": "offer",
+    "member_email": "thomas.krueger@example.de",
+    "member_name": "Thomas Krüger",
+    "summary": "Mitgliedervater Thomas Krüger bietet dem Verein finanzielle und praktische Unterstützung an (Spende 500–1000 €/Jahr, Trikotsponsoring über seine Werkstatt, Repair-Café-Nachmittag) und fragt nebenbei, wie er seine Tochter Lea (9) für eine künftige Mädchenmannschaft anmelden kann — das Sponsor-Angebot ist der Teil, der eine menschliche Entscheidung braucht.",
+    "proposed_action": "Angebot an den Vorstand/einen Menschen zur Entscheidung weiterleiten (Spende, Trikotsponsoring, Repair-Café) und Kontakt zur Jugendleitung klären. In der Antwort nur versprechen, dass sich ein Verantwortlicher meldet. Nebenbei: Verfügbarkeit einer Mädchenmannschaft für Altersklasse U9/U10 prüfen und Lea ggf. vormerken/anmelden.",
+    "details": {
+      "anbietende_person": "Thomas Krüger, selbstständig, Fahrradwerkstatt 'Krügers Radwerk' in Grünwald-Mitte",
+      "frage_anmeldung": "Darf Lea (9) schon angemeldet werden, sobald es eine Mädchenmannschaft gibt? Gibt es Wartelisten?",
+      "ist_mitglied": "Familie seit zwei Jahren im Verein, Sohn Luca (6) ist aktiv",
+      "spendenbetrag": "500–1000 € pro Jahr für die Jugend",
+      "sponsor_ideen": [
+        "Spende/Sponsoring für die Jugend (500–1000 €/Jahr, Zweck nach Vereinsentscheid)",
+        "Trikotsponsoring über die Werkstatt, komplett selbst finanziert",
+        "Repair-Café-Nachmittag im Vereinsheim (Fahrrad-Reparatur, Spenden nach Ermessen des Vereins)"
+      ],
+      "tochter": "Lea, 9 Jahre, möchte Fußball spielen"
+    },
+    "flags": [
+      "waiting_list"
+    ],
+    "confidence": 0.95
+  },
+  "policy_reason": "Keine Policy-Regel für Intent 'offer' — sicherheitshalber fragen.",
+  "status": "pending",
+  "created_at": "2026-09-11T17:58:50+00:00"
+}

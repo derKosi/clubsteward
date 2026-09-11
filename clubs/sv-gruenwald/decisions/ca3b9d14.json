@@ -1,0 +1,29 @@
+{
+  "id": "ca3b9d14",
+  "mail_file": "02-kuendigung.eml",
+  "from_name": "Petra Langen",
+  "from_email": "petra.langen@example.de",
+  "subject": "Kündigung Mitgliedschaft Finn",
+  "triage": {
+    "intent": "cancellation",
+    "member_email": "petra.langen@example.de",
+    "member_name": "Petra Langen",
+    "summary": "Petra Langen kündigt die U14-Mitgliedschaft ihres Sohnes Finn wegen Umzugs nach Hamburg im Oktober und fragt zugleich, was mit dem bereits bezahlten Jahresbeitrag passiert (Erstattungsfrage → läuft mit unter der Kündigung).",
+    "proposed_action": "An Vorstand/Kassierer zur menschlichen Entscheidung weiterleiten: Kündigung bestätigen (Fristen/Kündigungsmodalitäten prüfen), Klärung und ggf. anteilige Erstattung des bereits gezahlten Jahresbeitrags durch Kassierer klären, Absage erst nach Freigabe senden.",
+    "details": {
+      "grund": "Umzug der Familie nach Hamburg im Oktober",
+      "kind_name": "Finn",
+      "mitgliedschaft": "Jahresmitglied, bereits bezahlt",
+      "offene_frage": "Erstattung/Härtefallregelung des schon bezahlten Jahresbeitrags",
+      "team": "U14"
+    },
+    "flags": [
+      "refund",
+      "minor"
+    ],
+    "confidence": 0.98
+  },
+  "policy_reason": "Policy: Intent 'cancellation' braucht eine menschliche Entscheidung (mitten in der Saison — Trainerplanung und Erstattung)",
+  "status": "pending",
+  "created_at": "2026-09-11T17:49:46+00:00"
+}

@@ -1,0 +1,43 @@
+{
+  "id": "8c47338d",
+  "mail_file": "10-anmeldung-mit-viel-kontext.eml",
+  "from_name": "Claudia Bergmann",
+  "from_email": "claudia.bergmann@example.de",
+  "subject": "Anmeldung unserer Zwillinge für die Bambini/U10 — ein paar Fragen dazu",
+  "triage": {
+    "intent": "signup",
+    "member_email": "claudia.bergmann@example.de",
+    "member_name": "Claudia Bergmann",
+    "summary": "Claudia Bergmann möchte ihre Zwillinge Jakob und Johanna (beide Jg. 2017, Empfehlung durch Vereinsmitglied Nadine Okafor) verbindlich für die Bambini/U10 anmelden und fragt nach Inhalator-Aufbewahrung, Teamwechsel, Geschwister-Rabatt, Dauerauftrag und benötigten Unterlagen — medizinisch relevant ist Jakobs Asthma.",
+    "proposed_action": "Anmeldeformular bzw. Anmelde weg zeitnah per E-Mail schicken; ärztliche Bescheinigung zu Jakobs Asthma an den Trainer/die Abteilung weiterleiten und Hinweis auf Inhalator-Aufbewahrung dokumentieren; Geschwister-Rabatt und Dauerauftrag im Antwortmail beantworten (Standardfragen, keine finanzielle Erleichterung beantragt); fehlende Unterlagen auflisten.",
+    "details": {
+      "anliegen_wechsel": "Möglichkeit, innerhalb der U10 zwischen Mannschaften zu wechseln (Johanna noch zögerlich) – interner Wechsel, kein Austritt",
+      "bezahlung": "Frage nach Geschwister-Rabatt auf den Jahresbeitrag und Zahlung per Dauerauftrag (Routinefrage zur Anmeldung)",
+      "empfehlung_durch": "Nadine Okafor (Tochter Mia spielt in der U16)",
+      "fragende_person": "Claudia Bergmann (Mutter), claudia.bergmann@example.de",
+      "gesundheit": "Jakob: Asthma, braucht Inhalator nach längeren Läufen; laut Kinderarzt unbedenklich, ärztliche Bescheinigung liegt der Mail bei; Wunsch: Trainer soll Inhalator aufbewahren",
+      "kinder": [
+        "Jakob Bergmann (Jg. 2017)",
+        "Johanna Bergmann (Jg. 2017)"
+      ],
+      "mannschaft": "Bambini/U10",
+      "offene_fragen": [
+        "Aufbewahrung des Asthma-Inhalators durch den Trainer",
+        "Teamwechsel innerhalb der U10 möglich?",
+        "Geschwister-Rabatt auf den Jahresbeitrag?",
+        "Zahlung per Dauerauftrag möglich?",
+        "Welche Dokumente werden noch benötigt?"
+      ],
+      "umzug": "Familie vor drei Wochen von Bonn nach Eitorf gezogen, sucht schnellen sozialen Anschluss",
+      "adresse": "Am Sportpark 12, 53783 Eitorf",
+      "bereitschaft": "sofortige verbindliche Anmeldung beider Kinder gewünscht, Antwort per E-Mail erbeten"
+    },
+    "flags": [
+      "medical"
+    ],
+    "confidence": 0.97
+  },
+  "policy_reason": "Policy-Eskalation: 'signup' wäre sonst automatisch, aber das Flag 'medical' trifft eine ask_if-Bedingung",
+  "status": "pending",
+  "created_at": "2026-09-11T17:59:30+00:00"
+}

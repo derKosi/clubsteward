@@ -1,0 +1,32 @@
+{
+  "id": "350fbf29",
+  "mail_file": "11-wegen-der-sache.eml",
+  "from_name": "Rudi Falkenberg",
+  "from_email": "rudi.falkenberg@example.de",
+  "subject": "Wegen der Sache",
+  "triage": {
+    "intent": "unknown",
+    "member_email": "null",
+    "member_name": "null",
+    "summary": "Sehr vage Mail von Rudi Falkenberg, der ein Gespräch über eine \"Sache von damals\" – mutmaßlich eine frühere mündliche Zusage rund um einen Platz – endlich klären will und um Rückmeldung oder einen Termin bittet; ohne Kontext ist weder Anliegen noch gewünschte Leistung erkennbar.",
+    "proposed_action": "Zur manuellen Klärung an den Vorstand weiterleiten; bevorzugt das Vorstandsmitglied kontaktieren, das beim Sommerfest anwesend war, um zu rekonstruieren, worauf sich Rudi bezieht (\"die Sache von damals\", \"Platz\"); erst danach persönlich zurückmelden und – falls es um ein altes Versprechen geht – vorsichtig reagieren, keine Zusagen treffen.",
+    "details": {
+      "absender": "Rudi Falkenberg <rudi.falkenberg@example.de>",
+      "anliegen": "unklar, Cirka-Bezug auf frühere mündliche Vereinbarung, Bewegung gefordert",
+      "betreff": "Wegen der Sache",
+      "bezugsgegenstand": "Platz (möglicherweise Vereinsgelände/Rasenplatz/Raum)",
+      "kontaktwunsch": "Rückmeldung per Mail oder Vor-Ort-Termin",
+      "name": "Rudi Falkenberg",
+      "personal_context": "Behauptet persönliche Bekanntschaft (Sommerfest), Ehefrau drängt auf Klärung",
+      "warum_unklar": "Kein konkretes Thema benannt, kein Mitgliederausweis, keine klare Forderung – menschliche Klärung nötig, bevor geantwortet wird"
+    },
+    "flags": [
+      "vague",
+      "past_agreement"
+    ],
+    "confidence": 0.5
+  },
+  "policy_reason": "Policy: Intent 'unknown' braucht eine menschliche Entscheidung (nie raten)",
+  "status": "pending",
+  "created_at": "2026-09-11T18:00:20+00:00"
+}

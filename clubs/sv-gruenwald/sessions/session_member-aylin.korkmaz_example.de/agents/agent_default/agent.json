@@ -1,0 +1,26 @@
+{
+  "agent_id": "default",
+  "state": {
+    "clubsteward:case": {
+      "autonomy": "auto_preapproved",
+      "intent": "hardship_waiver",
+      "decision_id": "dda63a27",
+      "mail_file": "04-ratenzahlung.eml"
+    }
+  },
+  "conversation_manager_state": {
+    "__name__": "SlidingWindowConversationManager",
+    "removed_message_count": 0,
+    "model_call_count": 0
+  },
+  "_internal_state": {
+    "interrupt_state": {
+      "interrupts": {},
+      "context": {},
+      "activated": false
+    },
+    "model_state": {}
+  },
+  "created_at": "2026-09-11T18:01:18.669581+00:00",
+  "updated_at": "2026-09-11T18:02:44.021687+00:00"
+}

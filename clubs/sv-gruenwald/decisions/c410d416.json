@@ -1,0 +1,33 @@
+{
+  "id": "c410d416",
+  "mail_file": "07-unsicher-pause-oder-ende.eml",
+  "from_name": "Mevlüt Yilmaz",
+  "from_email": "mevluet.yilmaz@example.de",
+  "subject": "Zukunft von Emir in der U12 — wir sind unsicher",
+  "triage": {
+    "intent": "cancellation",
+    "member_email": "mevluet.yilmaz@example.de",
+    "member_name": "Mevlüt Yilmaz (Vater von Emir Yilmaz, U12)",
+    "summary": "Unentschlossener Vater fragt für seinen Sohn Emir (U12) nach Optionen, die Mitgliedschaft auszusetzen, auf weniger Trainingstage zu reduzieren oder zum Saisonende zu kündigen — inklusive Frage, was mit dem bezahlten Beitrag passiert — und bittet um eine Empfehlung; Austrittsentscheidung braucht daher einen Menschen.",
+    "proposed_action": "An den Vorstand zur menschlichen Entscheidung weiterleiten — keine verbindliche Zusage zu Kündigung oder Pause. Antwort vorbereiten mit den Optionen (Saisonpause ohne Ausscheiden, Wechsel in eine trainingsärmere Mannschaft innerhalb des Vereins, Kündigung zum Saisonende) und die Frage zur Regelung des bezahlten Beitrags vom Vorstand klären lassen; Rückruf telefonisch anbieten, da Familie unentschlossen ist.",
+    "details": {
+      "alternative_within_club": "Wechsel in eine Mannschaft mit weniger Trainingstagen als Option genannt (kein Vereinswechsel)",
+      "bezugsfrage_beitrag": "Was passiert mit dem bezahlten Beitrag bei Kündigung zum Saisonende? (Erstattung offen)",
+      "kind": "Emir Yilmaz, U12, seit 2024 im Verein",
+      "mitgliedsstatus": "bestehendes Mitglied (Familie unentschlossen, bittet um Empfehlung)",
+      "optionsfrage": "Saison aussetzen ohne ganz auszuscheiden; Trainingsreduktion; Kündigung zum Saisonende",
+      "sender": "Mevlüt Yilmaz, Vater von Emir",
+      "situation": "Vater seit April beruflich im Umbruch, pendelt 3x/Woche nach Stuttgart; Emir teils erst 18:30 Uhr zu Hause und erschöpft",
+      "wohlbefinden_kind": "Kind sagte zweimal 'Fußball macht kein Spaß mehr'; Vater vermutet Erschöpfung durch lange Tage statt Sport-Aversion (fragt am Wochenende weiter nach Spielen)",
+      "ziel": "Kind nicht überfordern, aber Vereinsmitgliedschaft nicht unnötig verlieren; wünscht Rückmeldung, gerne telefonisch"
+    },
+    "flags": [
+      "refund",
+      "child_wellbeing"
+    ],
+    "confidence": 0.92
+  },
+  "policy_reason": "Policy: Intent 'cancellation' braucht eine menschliche Entscheidung (mitten in der Saison — Trainerplanung und Erstattung)",
+  "status": "pending",
+  "created_at": "2026-09-11T17:57:12+00:00"
+}

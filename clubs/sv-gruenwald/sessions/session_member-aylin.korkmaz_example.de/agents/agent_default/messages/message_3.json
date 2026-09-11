@@ -1,0 +1,51 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "The email lookup didn't find Aylin. Let me try searching by name \"Korkmaz\" to see if there's a member under that name, and maybe \"Emma\" as well. Let me try the name lookup."
+          }
+        }
+      },
+      {
+        "text": "Die E-Mail wurde nicht gefunden – ich werde auch unter den Namen suchen, bevor ich etwas unternehme."
+      },
+      {
+        "toolUse": {
+          "toolUseId": "call_509ee28d67cb46baa06db706",
+          "name": "register_lookup",
+          "input": {
+            "query": "Korkmaz"
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "call_f978972a6e8c4cc8ad70d2b2",
+          "name": "register_lookup",
+          "input": {
+            "query": "Emma"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 736,
+        "outputTokens": 105,
+        "totalTokens": 841
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 6435
+      }
+    },
+    "tracking_id": "f9f3b924-d30b-4a56-91ef-f4a2fb3d6efd"
+  },
+  "message_id": 3,
+  "redact_message": null,
+  "created_at": "2026-09-11T18:01:54.714296+00:00",
+  "updated_at": "2026-09-11T18:01:54.714309+00:00"
+}

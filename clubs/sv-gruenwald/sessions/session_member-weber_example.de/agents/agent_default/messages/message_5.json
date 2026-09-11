@@ -5,29 +5,29 @@
       {
         "reasoningContent": {
           "reasoningText": {
-            "text": "Done. Both tool calls succeeded. Summarize the case outcome."
+            "text": "Case complete. Report to user."
           }
         }
       },
       {
-        "text": "Case processed. Summary:\n\n**Register check:** Jonas Weber (M001) is already in the register — U12, joined 2024, fees paid. No updates needed.\n\n**Reply draft saved** to `weber@example.de` (Re: \"Trainingszeiten U12?\"):\n- Warmly confirms Jonas is registered for the U12 (Saison 2026/27)\n- Since concrete U12 training times and the schedule link are **not in the club facts**, I did not invent them — the draft explains the exact times and Spielplan will follow shortly after an internal check\n- Signed with the exact configured signature, German, concise and friendly\n\n**Activity logged:** register lookup performed, no changes required; draft saved awaiting the official training times/schedule before sending."
+        "text": "Fall abgeschlossen. Zusammenfassung:\n\n**Registerprüfung:** Jonas Weber (jonas.weber@example.de, M001, Team U12, Geburtsjahr 2012) ist im Register als aktives Mitglied geführt, Beitrag bezahlt. Keine Aktualisierung nötig — die Anfrage war rein informativ.\n\n**Entwurf gespeichert:** `draft_AW Trainingszeiten U12.eml` an weber@example.de. Da konkrete Trainingszeiten für die U12 ab September nicht in den Club-Facts hinterlegt sind (und ich keine erfinden darf), habe ich im Entwurf freundlich zugesagt, dass die Zeiten samt Spielplan-Link umgehend nach Bestätigung durch den Jugendleiter nachgereicht werden — mit dem Verweis auf „Spielbetrieb“ auf der Vereins-Website.\n\n**Protokoll:** Aktivität mit Begründung geloggt.\n\n💡 Hinweis für den Menschen vor dem Freigeben: Wenn Sie mir die bestätigten Trainingszeiten nennen, kann ich den Entwurf vor dem Versand ergänzen, statt nachzufragen."
       }
     ],
     "metadata": {
       "usage": {
-        "inputTokens": 1239,
-        "outputTokens": 160,
-        "totalTokens": 1399
+        "inputTokens": 1083,
+        "outputTokens": 257,
+        "totalTokens": 1340
       },
       "metrics": {
         "latencyMs": 0,
-        "timeToFirstByteMs": 4116
+        "timeToFirstByteMs": 6227
       }
     },
-    "tracking_id": "2a065925-7dd4-4ea6-a24f-2a70eceb19e2"
+    "tracking_id": "59918e6c-ff26-4d4d-86a6-79ba96c87129"
   },
   "message_id": 5,
   "redact_message": null,
-  "created_at": "2026-09-11T13:46:48.379994+00:00",
-  "updated_at": "2026-09-11T13:46:48.380011+00:00"
+  "created_at": "2026-09-11T17:51:27.258523+00:00",
+  "updated_at": "2026-09-11T17:51:27.258537+00:00"
 }

@@ -1,128 +1,18 @@
 {
-  "started_at": "2026-09-11T13:44:32+00:00",
-  "finished_at": "2026-09-11T13:53:48+00:00",
-  "mails_total": 12,
-  "auto": 3,
-  "ask": 8,
-  "rejected": 1,
-  "total_tokens": 14308,
+  "started_at": "2026-09-11T18:03:34+00:00",
+  "finished_at": "2026-09-11T18:05:03+00:00",
+  "mails_total": 1,
+  "auto": 1,
+  "ask": 0,
+  "rejected": 0,
+  "total_tokens": 4862,
   "steps": [
-    {
-      "mail_file": "01-anmeldung-u10.eml",
-      "intent": "signup",
-      "route": "ask",
-      "triage_tokens": 0,
-      "act_tokens": 0,
-      "act_latency_ms": 0,
-      "tool_calls": 0,
-      "notes": ""
-    },
-    {
-      "mail_file": "02-kuendigung.eml",
-      "intent": "cancellation",
-      "route": "ask",
-      "triage_tokens": 0,
-      "act_tokens": 0,
-      "act_latency_ms": 0,
-      "tool_calls": 0,
-      "notes": ""
-    },
-    {
-      "mail_file": "03-trainingszeiten.eml",
-      "intent": "question",
-      "route": "auto",
-      "triage_tokens": 0,
-      "act_tokens": 3369,
-      "act_latency_ms": 0,
-      "tool_calls": 4,
-      "notes": ""
-    },
-    {
-      "mail_file": "04-ratenzahlung.eml",
-      "intent": "hardship_waiver",
-      "route": "ask",
-      "triage_tokens": 0,
-      "act_tokens": 0,
-      "act_latency_ms": 0,
-      "tool_calls": 0,
-      "notes": ""
-    },
-    {
-      "mail_file": "05-adresse.eml",
-      "intent": "address_change",
-      "route": "auto",
-      "triage_tokens": 0,
-      "act_tokens": 5832,
-      "act_latency_ms": 0,
-      "tool_calls": 4,
-      "notes": ""
-    },
-    {
-      "mail_file": "06-spam.eml",
-      "intent": "spam",
-      "route": "reject",
-      "triage_tokens": 0,
-      "act_tokens": 0,
-      "act_latency_ms": 0,
-      "tool_calls": 0,
-      "notes": ""
-    },
-    {
-      "mail_file": "07-unsicher-pause-oder-ende.eml",
-      "intent": "cancellation",
-      "route": "ask",
-      "triage_tokens": 0,
-      "act_tokens": 0,
-      "act_latency_ms": 0,
-      "tool_calls": 0,
-      "notes": ""
-    },
-    {
-      "mail_file": "08-vielfach-themen.eml",
-      "intent": "complaint",
-      "route": "ask",
-      "triage_tokens": 0,
-      "act_tokens": 0,
-      "act_latency_ms": 0,
-      "tool_calls": 0,
-      "notes": ""
-    },
-    {
-      "mail_file": "09-unterstuetzung-angebot.eml",
-      "intent": "offer",
-      "route": "ask",
-      "triage_tokens": 0,
-      "act_tokens": 0,
-      "act_latency_ms": 0,
-      "tool_calls": 0,
-      "notes": ""
-    },
-    {
-      "mail_file": "10-anmeldung-mit-viel-kontext.eml",
-      "intent": "signup",
-      "route": "ask",
-      "triage_tokens": 0,
-      "act_tokens": 0,
-      "act_latency_ms": 0,
-      "tool_calls": 0,
-      "notes": ""
-    },
-    {
-      "mail_file": "11-wegen-der-sache.eml",
-      "intent": "unknown",
-      "route": "ask",
-      "triage_tokens": 0,
-      "act_tokens": 0,
-      "act_latency_ms": 0,
-      "tool_calls": 0,
-      "notes": ""
-    },
     {
       "mail_file": "12-adresse-nur-teilweise.eml",
       "intent": "address_change",
       "route": "auto",
       "triage_tokens": 0,
-      "act_tokens": 5107,
+      "act_tokens": 4862,
       "act_latency_ms": 0,
       "tool_calls": 4,
       "notes": ""

@@ -1,0 +1,41 @@
+{
+  "id": "b54bc317",
+  "mail_file": "08-vielfach-themen.eml",
+  "from_name": "Nadine Okafor",
+  "from_email": "nadine.okafor@example.de",
+  "subject": "Adressänderung + ein paar Dinge, die mir unter den Nägeln brennen",
+  "triage": {
+    "intent": "complaint",
+    "member_email": "nadine.okafor@example.de",
+    "member_name": "Nadine Okafor",
+    "summary": "Mehrteilige Mail: Hauptsächlich Beschwerde der U16-Eltern über den unzureichenden Zustand von Umkleide 2 (Geruch, schief hängende Spiegel, wackelige Bank mit Verletzungsgefahr, Ausweichen in Umkleide 3 führt zu Konflikten) – zusätzlich Adressänderung für Mia Okafor (U16) und eine Frage nach Ferien-Trainingszeiten samt Schnuppertraining für zwei Freundinnen.",
+    "proposed_action": "Wegen akuter Verletzungsgefahr (wackelige Bank in Umkleide 2) priorisiert an Vorstand/Hausmeister-Verantwortliche weiterleiten: kurzfristige Begehung, Bank sichern bzw. austauschen, Geruchsursache in der Dusche klären und schief hängende Spiegel reparieren. Parallel: Adressänderung im Mitgliederverzeichnis eintragen (vorher bei der Absenderin nachfragen, welche Kombination aus Hausnummer und PLZ korrekt ist), Ferien-Trainingszeiten erfragen und Schnuppertraining der zwei Freundinnen vormerken (ggf. an Trainerin/Abteilungsleitung U16 weitergeben). Angebot zur Mithilfe der Eltern annehmen und einen Ansprechpartner benennen.",
+    "details": {
+      "adresse_alt": "Lindenstraße, 53604 (vermutlich Tippfehler für 537xx)",
+      "adresse_neu": "Am Sportpark 4, 53783 Eitorf",
+      "adresse_neu_unsicher": "Absenderin verwechselt Hausnummer und PLZ – neue Adresse vor Übernahme verifizieren",
+      "anliegen_mixed_mail": "Adressänderung + Ferien-Training + Schnuppertraining + Umkleiden-Beschwerde ( Beschwerde hat Vorrang)",
+      "beschwerde_details": {
+        "benachteiligung": "weibliche U16 weicht aus, Konflikte mit anderer Mannschaft",
+        "dusche": "ungeklärter Geruch",
+        "ort": "Umkleide 2, seit Sommersanierung",
+        "spiegel": "zwei Spiegel hängen schief",
+        "verletzungsgefahr": "wackelige Bank vor dem Duschbereich"
+      },
+      "frage_ferien": "Findet in den Herbstferien (12.10.–24.10.) Training statt?",
+      "kind": "Mia Okafor, U16, Kapitänin",
+      "kontaktperson": "Nadine Okafor",
+      "schnuppertraining": "Mia möchte zwei Freundinnen mitbringen, Anmeldung gewünscht",
+      "sprache": "Deutsch"
+    },
+    "flags": [
+      "safety",
+      "hygiene",
+      "complaint_escalation"
+    ],
+    "confidence": 0.95
+  },
+  "policy_reason": "Policy: Intent 'complaint' braucht eine menschliche Entscheidung (Konflikte brauchen ein menschliches Wort)",
+  "status": "pending",
+  "created_at": "2026-09-11T17:58:03+00:00"
+}

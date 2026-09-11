@@ -1,0 +1,31 @@
+{
+  "id": "cf8ad448",
+  "mail_file": "01-anmeldung-u10.eml",
+  "from_name": "Dennis Rosar",
+  "from_email": "dennis.rosar@example.de",
+  "subject": "Anmeldung Sohn U10 — wichtig: Asthma",
+  "triage": {
+    "intent": "signup",
+    "member_email": "dennis.rosar@example.de",
+    "member_name": "Dennis Rosar",
+    "summary": "Dennis Rosar meldet seinen Sohn Tim (Jahrgang 2016) für die U10 an und weist darauf hin, dass Tim leichtes Asthma mit Notfallspray hat — die Begleitfrage nach den Mitgliedschaftskosten ist eine reine Routinefrage zur Anmeldung.",
+    "proposed_action": "Anmeldung von Tim für die U10 erfassen; die Asthma-/Notfallspray-Information ausdrücklich an den Trainer weiterleiten (medizinischer Hinweis, schützt das Kind); Dennis die Mitgliedschaftskosten nennen und die Anmeldung bestätigen.",
+    "details": {
+      "angehörige_im_verein": "Cousine Mia spielt bereits im Verein",
+      "erkrankung": "leichtes Asthma, Notfallspray immer dabei; kann laut Vater alles mitmachen, Trainer soll Bescheid wissen",
+      "frage": "Kosten der Mitgliedschaft (Routinefrage zur Anmeldung, kein Hinweis auf finanzielle Notlage)",
+      "junge": "Tim Rosar",
+      "junggang": 2016,
+      "sichtungstraining": "bereits teilgenommen",
+      "saison": "nächste Saison",
+      "team": "U10"
+    },
+    "flags": [
+      "medical"
+    ],
+    "confidence": 0.97
+  },
+  "policy_reason": "Policy-Eskalation: 'signup' wäre sonst automatisch, aber das Flag 'medical' trifft eine ask_if-Bedingung",
+  "status": "pending",
+  "created_at": "2026-09-11T17:49:18+00:00"
+}
