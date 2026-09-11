@@ -391,6 +391,20 @@ class TestPipelineStop:
         assert (tmp_path / "inbox" / "m1.eml").exists()  # untouched — the next run picks it up
 
 
+class TestRunOne:
+    """Step mode backend: one mail per call, folder state between clicks."""
+
+    def test_run_one_empty_inbox(self, tmp_path, monkeypatch):
+        import shutil
+
+        from clubsteward import pipeline
+
+        shutil.copy(DEMO / "policy.yaml", tmp_path / "policy.yaml")
+        monkeypatch.setenv("CLUBSTEWARD_DATA", str(tmp_path))
+        monkeypatch.setenv("ZAI_API_KEY", "dummy")
+        assert pipeline.run_one()["outcome"] == "empty"
+
+
 class TestOfferIntent:
     """Inbound generosity (sponsorship, donations, help) is always a human decision."""
 

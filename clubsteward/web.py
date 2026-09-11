@@ -138,6 +138,36 @@ def api_run(club_id: str):
     return {"started": True, "club": club_id}
 
 
+@api.get("/clubs/{club_id}/inbox/next")
+def api_inbox_next(club_id: str):
+    _club_dir(club_id)
+    cfg = Config.load(club_id)
+    mails = sorted(cfg.inbox_dir.glob("*.eml"))
+    if not mails:
+        return {"mail": None}
+    m = MailItem.parse(mails[0])
+    return {"mail": {"file": mails[0].name, "from": m.from_name, "email": m.from_email,
+                     "subject": m.subject, "date": m.date, "body": m.body[:4000]}}
+
+
+@api.post("/clubs/{club_id}/process-one")
+def api_process_one(club_id: str):
+    """Step mode: triage → policy → act/queue for ONE mail, trace returned."""
+    _club_dir(club_id)
+    if _run_lock.locked():
+        raise HTTPException(409, "a batch run is in progress")
+    from .pipeline import run_one
+
+    buf, redir = _capture_prints()
+    with _run_lock, redir:
+        try:
+            trace = run_one(club=club_id)
+        except Exception as e:
+            raise HTTPException(500, f"processing failed: {e}") from None
+    trace["log"] = [ln for ln in buf.getvalue().splitlines() if ln.strip()]
+    return trace
+
+
 @api.post("/clubs/{club_id}/stop")
 def api_stop(club_id: str):
     _club_dir(club_id)
