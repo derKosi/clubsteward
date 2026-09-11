@@ -59,6 +59,15 @@
   .ins-btns { display:flex; gap:8px; }
   .zero { text-align:center; padding:26px 0 16px; }
   .zero .z1 { font-size:30px; } .zero b { display:block; margin-top:6px; font-size:15px; } .zero span { color:var(--mut); font-size:13px; }
+  #inboxCard h3 { display:flex; align-items:center; gap:10px; }
+  #inboxCard .count { margin-right:auto; }
+  .btn-sm { padding:7px 14px; font-size:13px; width:auto; }
+  .inbox-row { padding:6px 2px; border-bottom:1px solid #eef2f7; font-size:13px; color:#334155; }
+  .inbox-row:last-child { border-bottom:none; }
+  .step-mail b { display:block; word-break:break-word; }
+  .step-mail p { margin-top:8px; white-space:pre-wrap; max-height:340px; overflow:auto; line-height:1.55; }
+  .step-mail .mut { display:block; color:var(--mut); font-size:12px; margin:2px 0 0; }
+  .step-trace .why { margin-top:8px; background:#fffbeb; border-left:3px solid #f59e0b; padding:6px 10px; border-radius:6px; font-size:12.5px; color:#78350f; }
   .draft-pair { border-bottom:1px solid #eef2f7; }
   .draft-pair:last-child { border-bottom:none; }
   .draft-pair summary { cursor:pointer; padding:11px 6px; display:flex; align-items:baseline; gap:10px; font-size:14.5px; list-style:none; }
@@ -105,6 +114,19 @@
       <label class="btn-up sm" style="cursor:pointer;">📥 Drop .eml into inbox
         <input type="file" accept=".eml" multiple id="upFiles" style="display:none">
       </label>
+    </div>
+  </div>
+
+  <div class="card" id="inboxCard">
+    <h3>🗂 Inbox <span class="count" id="inboxCount">0</span>
+      <button class="btn-run btn-sm" id="stepBtn">▶ Process next mail</button>
+    </h3>
+    <div id="inboxList"></div>
+    <div id="stepPanel" hidden>
+      <div class="pair-grid" style="padding-top:12px">
+        <div class="draft-src"><span class="lbl">📥 Incoming</span><div id="stepMail" style="font-size:13.5px"></div></div>
+        <div class="draft-out"><span class="lbl">🧠 Agent analysis</span><div id="stepAnalysis" style="font-size:13.5px"></div></div>
+      </div>
     </div>
   </div>
 
@@ -162,7 +184,15 @@ async function loadClubs(){
     `<div class="chip ${c.id===CLUB?'on':''}" data-id="${esc(c.id)}" style="${c.id===CLUB?`background:${esc(c.color)};`:''}" onclick="pick('${esc(c.id)}')">${esc(c.name)}</div>`).join('');
 }
 function pick(id){
+  if(id === CLUB) return;
   CLUB = id;
+  // tenant isolation in the UI: drop any in-flight single-mail step and hide
+  // its panel — a processing mail must never appear in another tenant's view
+  if(stepAbort) stepAbort.abort();
+  $('stepPanel').hidden = true;
+  $('stepMail').innerHTML = ''; $('stepAnalysis').innerHTML = '';
+  clearInterval(waitTimer);
+  const sb = $('stepBtn'); sb.disabled = false; sb.innerHTML = '▶ Process next mail';
   history.replaceState(null, '', `/app?club=${encodeURIComponent(id)}${location.hash}`);
   loadClubs(); loadState(); loadDecisions();
 }
@@ -171,6 +201,10 @@ async function loadState(){
   if(!CLUB) return;
   const s = await (await fetch(`/api/clubs/${CLUB}/state`)).json();
   $('kpis').children[0].querySelector('b').textContent = s.inbox.length;
+  $('inboxCount').textContent = s.inbox.length;
+  $('inboxList').innerHTML = s.inbox.length ? s.inbox.map(f=>
+    `<div class="inbox-row">📄 ${esc(f.replace(/\.eml$/,''))}</div>`).join('')
+    : '<p style="color:var(--mut);font-size:13px">Inbox zero — everything processed. 🎉</p>';
   $('kpis').children[1].querySelector('b').textContent = s.decisions_pending;
   $('kpiDec').classList.toggle('hot', s.decisions_pending > 0);
   $('kpis').children[2].querySelector('b').textContent = s.drafts.length;
@@ -259,6 +293,68 @@ async function act(id, action, instructions=''){
 }
 
 let runningHere = false;
+const WAIT_STEPS = ['🧠 the agent reads the mail…', '🧩 extracting intent, facts and flags…',
+                    '⚖️ applying the club policy…', '✍️ drafting the reply…'];
+let waitTimer = null;
+let stepAbort = null;
+
+$('stepBtn').onclick = async ()=>{
+  if(!CLUB || $('stepBtn').disabled) return;
+  const club0 = CLUB;               // step results must only ever land in the club they belong to
+  stepAbort = new AbortController();
+  const sig = stepAbort.signal;
+  const nx = await (await fetch(`/api/clubs/${CLUB}/inbox/next`, {signal:sig})).json();
+  if(!nx.mail){ toast('Inbox is empty — nothing to process 🎉','ok'); return; }
+  $('stepPanel').hidden = false;
+  $('stepMail').className = 'step-mail';
+  $('stepMail').innerHTML = `<b>${esc(nx.mail.subject)}</b><span class="mut">from ${esc(nx.mail.from)} · ${esc(nx.mail.email)}</span><p>${esc(nx.mail.body)}</p>`;
+  $('stepAnalysis').className = 'step-trace';
+  $('stepAnalysis').innerHTML = `<p style="color:var(--mut)">🧠 the agent reads the mail…</p>`;
+  let wi = 0;
+  clearInterval(waitTimer);
+  waitTimer = setInterval(()=>{ wi = (wi+1) % WAIT_STEPS.length;
+    $('stepAnalysis').innerHTML = `<p style="color:var(--mut)">${WAIT_STEPS[wi]}</p>`; }, 8000);
+  $('stepBtn').disabled = true; $('stepBtn').innerHTML = '<span class="spin">◌</span> processing…';
+  try {
+    const r = await fetch(`/api/clubs/${club0}/process-one`, {method:'POST', signal:sig});
+    if(!r.ok){ const err = await r.json().catch(()=>({detail:'request failed'})); throw new Error(err.detail); }
+    const t = await r.json();
+    if(CLUB !== club0) return;      // tenant switched mid-flight — panel already reset by pick()
+    renderTrace(t);
+    toast(t.outcome==='processed' ? '✓ processed — draft ready in the outbox'
+         : t.outcome==='queued'   ? '⚖️ queued — waiting in “Decisions for you”'
+         : t.outcome==='rejected' ? '🗑 rejected as spam — discarded silently'
+         : '⚠️ processing failed — the mail is preserved in _errors/', t.outcome==='error' ? 'bad' : 'ok');
+  } catch(e) {
+    if(e.name === 'AbortError') return;   // tenant switch aborted this step on purpose
+    if(CLUB !== club0) return;
+    $('stepAnalysis').innerHTML = `<p style="color:#b91c1c">Processing failed: ${esc(String(e.message||e))}</p>`;
+    toast('Processing failed','bad');
+  }
+  clearInterval(waitTimer);
+  $('stepBtn').disabled = false; $('stepBtn').innerHTML = '▶ Process next mail';
+  loadState(); loadDecisions();
+};
+
+function renderTrace(t){
+  if(t.outcome === 'empty'){ $('stepAnalysis').innerHTML = '<p style="color:var(--mut)">Inbox is empty.</p>'; return; }
+  const pct = Math.round((t.confidence||0)*100);
+  const cls = pct>=90 ? 'hi' : pct>=75 ? 'mid' : 'lo';
+  const flags = (t.flags&&t.flags.length) ? (t.flags.map(f=>`<span class="flag">${esc(f)}</span>`).join(' ') + ' ') : '';
+  let html = `<div><span class="chipi">${esc(t.intent||'—')}</span> <span class="conf ${cls}">${pct}% sure</span> ${flags}</div>`
+    + `<p style="margin-top:8px">💡 ${esc(t.summary||'')}</p>`
+    + `<div class="why"><b>Why you:</b> ${esc(t.reason||'')}</div>`;
+  if(t.outcome === 'processed' && t.draft){
+    html += `<div style="margin-top:12px"><span class="lbl" style="display:block;color:var(--mut);font-size:11.5px;text-transform:uppercase">✉️ Draft — ready in the outbox</span><b>${esc(t.draft.subject)}</b><p style="white-space:pre-wrap;margin-top:6px;max-height:220px;overflow:auto">${esc(t.draft.body)}</p></div>`;
+  } else if(t.outcome === 'queued'){
+    html += `<div style="margin-top:12px;color:var(--mut)">⚖️ filed as decision <b>${esc(t.decision_id||'')}</b> — approve it in “Decisions for you”.</div>`;
+  } else if(t.outcome === 'rejected'){
+    html += `<div style="margin-top:12px;color:var(--mut)">🗑 discarded without a reply (spam).</div>`;
+  } else if(t.outcome === 'error'){
+    html += `<div style="margin-top:12px;color:#b91c1c">⚠️ ${esc(t.reason||t.error||'processing failed')} — the mail is preserved in _errors/ for a retry.</div>`;
+  }
+  $('stepAnalysis').innerHTML = html;
+}
 $('runBtn').onclick = async ()=>{
   if(!CLUB) return;
   if(runningHere){  // second click while the night runs = stop after the current mail
