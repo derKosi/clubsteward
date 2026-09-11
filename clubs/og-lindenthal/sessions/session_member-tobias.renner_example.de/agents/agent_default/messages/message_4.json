@@ -1,0 +1,34 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "call_51d2554cf0be4d91b285ee0c",
+          "status": "success",
+          "content": [
+            {
+              "text": "DRAFT SAVED draft_Ihr Familienbeitritt bei der OG Lindenthal.eml"
+            }
+          ]
+        }
+      },
+      {
+        "toolResult": {
+          "toolUseId": "call_9cb8b085ba2a4d25a08185d6",
+          "status": "success",
+          "content": [
+            {
+              "text": "LOGGED"
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "7e51eed4-d163-4c93-89a9-b97947be1acc"
+  },
+  "message_id": 4,
+  "redact_message": null,
+  "created_at": "2026-09-11T12:41:09.419783+00:00",
+  "updated_at": "2026-09-11T12:41:09.419808+00:00"
+}

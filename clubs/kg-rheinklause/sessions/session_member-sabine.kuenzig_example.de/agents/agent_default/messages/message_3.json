@@ -5,35 +5,44 @@
       {
         "reasoningContent": {
           "reasoningText": {
-            "text": "The lookup for Timo didn't return results. Let me also check by name."
+            "text": "Interesting — Timo is not in the register. The mother says Timo is already a member with email timo.kuenzig@example.de, but the register doesn't have him. Let me try other lookups — maybe by name \"Timo\" or different email."
           }
         }
       },
       {
         "toolUse": {
-          "toolUseId": "tool-21b3e8d665a14ea082e3e1c08b4b648b",
+          "toolUseId": "call_ce46904fbd904e35a7243ad7",
           "name": "register_lookup",
           "input": {
-            "query": "Timo Künzig"
+            "query": "Timo"
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "call_1de70a8346e84bc691c32f6b",
+          "name": "register_lookup",
+          "input": {
+            "query": "timo@"
           }
         }
       }
     ],
     "metadata": {
       "usage": {
-        "inputTokens": 713,
-        "outputTokens": 52,
-        "totalTokens": 765
+        "inputTokens": 793,
+        "outputTokens": 82,
+        "totalTokens": 875
       },
       "metrics": {
         "latencyMs": 0,
-        "timeToFirstByteMs": 1222
+        "timeToFirstByteMs": 4062
       }
     },
-    "tracking_id": "d83edc62-d087-4cd8-af9f-4bf801c0873d"
+    "tracking_id": "dc2d9430-46a4-42f3-ad1d-30e57b44cbd7"
   },
   "message_id": 3,
   "redact_message": null,
-  "created_at": "2026-08-23T13:11:13.744833+00:00",
-  "updated_at": "2026-08-23T13:11:13.744842+00:00"
+  "created_at": "2026-09-11T13:25:02.529046+00:00",
+  "updated_at": "2026-09-11T13:25:02.529063+00:00"
 }

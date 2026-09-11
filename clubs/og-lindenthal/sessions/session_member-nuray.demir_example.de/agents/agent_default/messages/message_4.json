@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "call_75e96026b2574e6eaf2c252b",
+          "status": "success",
+          "content": [
+            {
+              "text": "UPDATED nuray.demir@example.de: {}"
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "b112b93d-16dd-4942-bb25-7488c78d97b1"
+  },
+  "message_id": 4,
+  "redact_message": null,
+  "created_at": "2026-09-11T12:44:14.519872+00:00",
+  "updated_at": "2026-09-11T12:44:14.519892+00:00"
+}

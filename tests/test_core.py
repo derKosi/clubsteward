@@ -345,6 +345,23 @@ class TestSaveDraftReplace:
         assert self._files(cfg.outbox_dir) == ["draft_An A neu.eml", "draft_An B.eml"]
 
 
+class TestPipelineStop:
+    """Stop flag between mails — an unprocessed mail stays in the inbox."""
+
+    def test_stop_leaves_mail_in_inbox(self, tmp_path, monkeypatch):
+        import shutil as sh
+
+        from clubsteward import pipeline
+
+        (tmp_path / "inbox").mkdir()
+        (tmp_path / "inbox" / "m1.eml").write_text("From: a@x.de\n\nhi\n", encoding="utf-8")
+        sh.copy(DEMO / "policy.yaml", tmp_path / "policy.yaml")
+        monkeypatch.setenv("CLUBSTEWARD_DATA", str(tmp_path))
+        monkeypatch.setenv("ZAI_API_KEY", "dummy")
+        assert pipeline.run(should_stop=lambda: True) == 0
+        assert (tmp_path / "inbox" / "m1.eml").exists()  # untouched — the next run picks it up
+
+
 class TestOfferIntent:
     """Inbound generosity (sponsorship, donations, help) is always a human decision."""
 

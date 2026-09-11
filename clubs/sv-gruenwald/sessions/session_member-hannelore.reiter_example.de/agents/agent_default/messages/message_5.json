@@ -1,0 +1,42 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "The member is not found in the register under either her name or email. Maybe the family is registered under the husband's name? Let me try a couple of lookups — \"Reiter\" perhaps."
+          }
+        }
+      },
+      {
+        "text": "Der Registereintrag wurde nicht gefunden. Ich prüfe nun, ob die Familie unter dem Namen des Ehemanns eingetragen sein könnte."
+      },
+      {
+        "toolUse": {
+          "toolUseId": "call_ecbf515631e84097826e48da",
+          "name": "register_lookup",
+          "input": {
+            "query": "Reiter"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 760,
+        "outputTokens": 70,
+        "totalTokens": 830
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 6729
+      }
+    },
+    "tracking_id": "2691a1e7-b4d7-4361-901f-2feee6d3b42a"
+  },
+  "message_id": 5,
+  "redact_message": null,
+  "created_at": "2026-09-11T13:03:05.678659+00:00",
+  "updated_at": "2026-09-11T13:03:05.678675+00:00"
+}

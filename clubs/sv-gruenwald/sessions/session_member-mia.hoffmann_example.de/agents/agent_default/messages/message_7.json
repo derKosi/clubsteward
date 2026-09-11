@@ -5,29 +5,29 @@
       {
         "reasoningContent": {
           "reasoningText": {
-            "text": "All done. Summary for the user."
+            "text": "The case is complete. Let me summarize what was done."
           }
         }
       },
       {
-        "text": "Fall abgeschlossen! ✅\n\n**Was ich gemacht habe:**\n\n1. **Register geprüft:** Mia Hoffmann (M005, U16, Kapitänin, Beitrag bezahlt) unter ihrer alten Adresse gefunden.\n2. **Register aktualisiert:**\n   - Neue E-Mail: `mia.hoffmann.neu@example.de`\n   - Notiz ergänzt: „Kapitänin; vorgesehener Wechsel in die U17 ab Oktober 2026 (lt. Trainer, interner Aufstieg)\" — der bisherige Team-Eintrag (U16) bleibt bis zum tatsächlichen Wechsel unverändert.\n3. **Antwortentwurf gespeichert** an ihre alte Adresse (`mia.hoffmann@example.de`, da die neue noch nicht senden könnte, bevor sie die Bestätigung sieht): freundliche kurze Bestätigung beider Punkte auf Deutsch, mit der exakten Vereins-Signatur.\n4. **Aktivität protokolliert** mit Begründung.\n\n**Hinweis für den Freigabe-Menschen:** Der Entwurf wartet im Ausgangsordner auf Freigabe. Da der U17-Wechsel „lt. Trainer\" gemeldet wurde, könnte man vor Oktober beim Trainer kurz rückversichern — die Notiz im Register deckt das als „vorgesehen\" bereits ab."
+        "text": "Case processed. Here's the summary:\n\n**Anfrage:** Mia Hoffmann (M005, U16, Geb. 2010) bat um Aktualisierung ihrer E-Mail-Adresse und Vormerkung des U17-Aufstiegs im Oktober.\n\n**Durchgeführte Schritte:**\n1. **Register geprüft:** Mia Hoffmann gefunden (M005, Team U16, Gebührenstatus: bezahlt, Notiz „Kapitänin\").\n2. **Register aktualisiert:** Neue E-Mail `mia.hoffmann.neu@example.de` hinterlegt; Notiz ergänzt zu „Kapitänin; geplanter Aufstieg in die U17 im Oktober\". Keine Änderung an Beiträgen oder Team — nur Vermerk.\n3. **Antwortentwurf gespeichert** (an die alte Adresse, da dort die Anfrage einging): freundliche Bestätigung auf Deutsch, dass die neue E-Mail aktiv ist und der U17-Aufstieg vermerkt wurde, mit Hinweis, dass etwaige Beitragänderungen rechtzeitig bestätigt werden. Signiert mit dem vorgegebenen Sarah-Verwald-Signet inkl. ClubSteward-Hinweis.\n4. **Aktivitätsprotokoll** ergänzt.\n\n**Hinweis:** Der U17-Wechsel ist als geplanter, interner Squad-Wechsel dokumentiert — die eigentliche Team-Umstellung im Register sollte im Oktober (oder auf Bestätigung des Trainers) erfolgen; das ist im Entwurf nicht zugesagt, nur als Vermerk bestätigt. Keine Fehler bei den Tools."
       }
     ],
     "metadata": {
       "usage": {
-        "inputTokens": 1344,
-        "outputTokens": 302,
-        "totalTokens": 1646
+        "inputTokens": 1237,
+        "outputTokens": 358,
+        "totalTokens": 1595
       },
       "metrics": {
         "latencyMs": 0,
-        "timeToFirstByteMs": 6087
+        "timeToFirstByteMs": 7327
       }
     },
-    "tracking_id": "94ebbef8-008f-42b8-a433-95e287573b98"
+    "tracking_id": "db77d947-01ac-434c-8760-0c511a1b80a5"
   },
   "message_id": 7,
   "redact_message": null,
-  "created_at": "2026-09-11T12:17:12.080033+00:00",
-  "updated_at": "2026-09-11T12:17:12.080055+00:00"
+  "created_at": "2026-09-11T12:59:22.678430+00:00",
+  "updated_at": "2026-09-11T12:59:22.678448+00:00"
 }

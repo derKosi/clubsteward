@@ -1,0 +1,26 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "text": "**Ergebnis:**\n\n- **Register:** Keine Aktualisierung möglich — weder unter \"Hannelore Reiter\", noch unter der E-Mail-Adresse oder dem Nachnamen \"Reiter\" wurde ein Eintrag gefunden. Da ich keine Daten erfinden darf, habe ich nichts geändert.\n- **Entwurf:** Eine freundliche Rückfrage an `hannelore.reiter@example.de` gespeichert, mit der Bitte um (a) den Namen/die E-Mail-Adresse, unter der die Mitgliedschaft läuft, und (b) die vollständige neue Adresse. Zusätzlich habe ich klargestellt, dass Kontakt- und Beitragsadresse bei uns zusammengeführt werden und wir kurz nachfragen, wohin die Beitragspost soll.\n- **Protokoll:** Vorgang wurde im Aktivitätsprotokoll dokumentiert.\n\nDer Entwurf wartet nun auf menschliche Freigabe und Versand."
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 1269,
+        "outputTokens": 205,
+        "totalTokens": 1474
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 5662
+      }
+    },
+    "tracking_id": "494e64e9-6fe6-4ad4-8313-475879bb0eee"
+  },
+  "message_id": 11,
+  "redact_message": null,
+  "created_at": "2026-09-11T13:03:51.500412+00:00",
+  "updated_at": "2026-09-11T13:03:51.500429+00:00"
+}

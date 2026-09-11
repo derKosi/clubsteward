@@ -4,7 +4,18 @@
     "content": [
       {
         "toolResult": {
-          "toolUseId": "tool-297832549dae41068a8e796e197afdb6",
+          "toolUseId": "call_f6b5d3e68d7840ca905728cd",
+          "status": "success",
+          "content": [
+            {
+              "text": "NOT_FOUND"
+            }
+          ]
+        }
+      },
+      {
+        "toolResult": {
+          "toolUseId": "call_ae642a796e864a5486ff9b52",
           "status": "success",
           "content": [
             {
@@ -14,10 +25,10 @@
         }
       }
     ],
-    "tracking_id": "446271de-b79b-48a7-b0e1-0cab836d888e"
+    "tracking_id": "037fdb27-362b-4b0e-93cb-53273bc0a76e"
   },
   "message_id": 2,
   "redact_message": null,
-  "created_at": "2026-08-23T13:11:11.122084+00:00",
-  "updated_at": "2026-08-23T13:11:11.122090+00:00"
+  "created_at": "2026-09-11T13:24:58.415155+00:00",
+  "updated_at": "2026-09-11T13:24:58.415167+00:00"
 }

@@ -127,13 +127,16 @@ def cmd_status(args) -> int:
     return 0
 
 
-def cmd_reset(args) -> int:
-    d = CLUBS / args.id
+def reset_club(d: Path) -> int:
+    """Restore a club sandbox from its corpus/. Returns the inbox mail count.
+
+    Also clears _errors: stale error files from older runs can mask new
+    failures (a previous session's lesson), so a fresh demo starts truly clean.
+    """
     corpus = d / "corpus"
     if not corpus.exists():
-        print(f"Club '{args.id}' has no corpus/ to reset from")
-        return 2
-    for sub in ("inbox", "outbox", "decisions", "processed", "sessions"):
+        raise FileNotFoundError(f"{d.name} has no corpus/ to reset from")
+    for sub in ("inbox", "outbox", "decisions", "processed", "sessions", "_errors"):
         shutil.rmtree(d / sub, ignore_errors=True)
         (d / sub).mkdir(parents=True)
         (d / sub / ".gitkeep").touch()
@@ -148,7 +151,17 @@ def cmd_reset(args) -> int:
     log = d / "activity.log"
     if log.exists():
         log.unlink()
-    print(f"{C_GREEN}Reset:{R} {args.id} — inbox={len(list((d/'inbox').glob('*.eml')))} mails, frisches Register")
+    return len(list((d / "inbox").glob("*.eml")))
+
+
+def cmd_reset(args) -> int:
+    d = CLUBS / args.id
+    try:
+        n = reset_club(d)
+    except FileNotFoundError:
+        print(f"Club '{args.id}' has no corpus/ to reset from")
+        return 2
+    print(f"{C_GREEN}Reset:{R} {args.id} — inbox={n} mails, frisches Register")
     return 0
 
 

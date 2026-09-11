@@ -22,6 +22,8 @@ rules:
   - intent: address_change
     decision: auto
     note: reine Datenpflege
+    ask_if:
+      - billing_address_unclear
   - intent: cancellation
     decision: ask
     note: mitten in der Saison — Trainerplanung und Erstattung

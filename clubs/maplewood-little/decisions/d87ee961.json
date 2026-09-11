@@ -1,0 +1,32 @@
+{
+  "id": "d87ee961",
+  "mail_file": "02-cancel-moving.eml",
+  "from_name": "Derek Paton",
+  "from_email": "derek.paton@example.org",
+  "subject": "Withdrawing Mason - relocating to Denver",
+  "triage": {
+    "intent": "cancellation",
+    "member_email": "derek.paton@example.org",
+    "member_name": "Derek Paton",
+    "summary": "Derek Paton wants to withdraw his son Mason from the T-Ball squad due to a company relocation to Denver in April and asks whether any of the season fee is refundable for the mid-season exit — a cancellation with an attached refund request, so it needs a human decision.",
+    "proposed_action": "Route to a human: confirm Mason's withdrawal from the T-Ball squad effective April, refer the mid-season refund request for a human money decision, and log the return of the fundraiser candy box. Reply may only acknowledge receipt and promise a follow-up.",
+    "details": {
+      "child_name": "Mason",
+      "currency": null,
+      "equipment_return": "fundraiser candy box",
+      "league": "T-Ball",
+      "reason": "company relocation to Denver",
+      "requested_amount": null,
+      "topic_priority_note": "cancellation takes priority over the refund question",
+      "team": "T-Ball",
+      "withdrawal_date": "April"
+    },
+    "flags": [
+      "refund"
+    ],
+    "confidence": 0.95
+  },
+  "policy_reason": "Policy: intent 'cancellation' requires human decision (mid-season cancellations involve refunds and roster spots)",
+  "status": "pending",
+  "created_at": "2026-09-11T12:48:25+00:00"
+}

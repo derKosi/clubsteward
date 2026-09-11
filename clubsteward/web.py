@@ -60,6 +60,7 @@ api = APIRouter(prefix="/api", dependencies=[Depends(_require_api_token)])
 # ---- run lock: one pipeline run at a time (single-box SaaS stage 1) ----
 _run_lock = threading.Lock()
 _run_status: dict[str, Any] = {"running": False, "club": None, "started_at": None, "last_log": []}
+_stop_flags: dict[str, bool] = {}  # club_id -> stop requested (checked between mails)
 
 
 def _club_dir(club_id: str) -> Path:
@@ -100,6 +101,20 @@ def api_clubs() -> list[dict]:
     return out
 
 
+@api.post("/clubs/{club_id}/reset")
+def api_reset(club_id: str):
+    d = _club_dir(club_id)
+    if _run_lock.locked():
+        raise HTTPException(409, "cannot reset while a run is in progress")
+    from .club import reset_club
+
+    try:
+        n = reset_club(d)
+    except FileNotFoundError:
+        raise HTTPException(404, f"club '{club_id}' has no corpus/ to reset from") from None
+    return {"reset": True, "club": club_id, "inbox": n}
+
+
 @api.post("/clubs/{club_id}/run")
 def api_run(club_id: str):
     _club_dir(club_id)
@@ -108,22 +123,37 @@ def api_run(club_id: str):
     # run in a background thread; return immediately (UI polls state)
     def _run():
         from .pipeline import run as pipeline_run
-        _run_status.update(running=True, club=club_id, last_log=[])
         buf, redir = _capture_prints()
+        _stop_flags.pop(club_id, None)
+        _run_status.update(running=True, club=club_id, last_log=[], buf=buf)
         with _run_lock, redir:
             try:
-                pipeline_run(club=club_id)
+                pipeline_run(club=club_id, should_stop=lambda: _stop_flags.get(club_id, False))
             except Exception as e:
                 _run_status["last_log"] = [f"ERROR: {e}"]
         _run_status["last_log"] = [ln for ln in buf.getvalue().splitlines() if ln.strip()][-40:]
+        _run_status["buf"] = None
         _run_status["running"] = False
     threading.Thread(target=_run, daemon=True).start()
     return {"started": True, "club": club_id}
 
 
+@api.post("/clubs/{club_id}/stop")
+def api_stop(club_id: str):
+    _club_dir(club_id)
+    if not _run_lock.locked():
+        raise HTTPException(409, "no run is in progress")
+    _stop_flags[club_id] = True
+    return {"stop_requested": True, "club": club_id}
+
+
 @api.get("/clubs/{club_id}/run/status")
 def api_run_status(club_id: str):
     _club_dir(club_id)
+    # live tail: drain the in-flight run's stdout so the UI streams lines
+    # while the agent works, not only after the run finishes
+    if _run_status["running"] and _run_status.get("buf") is not None:
+        _run_status["last_log"] = [ln for ln in _run_status["buf"].getvalue().splitlines() if ln.strip()][-40:]
     return {
         "running": _run_status["running"] and _run_status["club"] == club_id,
         "log": _run_status["last_log"] if _run_status["club"] == club_id else [],

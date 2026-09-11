@@ -1,11 +1,11 @@
 {
-  "started_at": "2026-08-23T13:19:23+00:00",
-  "finished_at": "2026-08-23T13:22:12+00:00",
-  "mails_total": 6,
+  "started_at": "2026-09-11T12:47:51+00:00",
+  "finished_at": "2026-09-11T12:51:08+00:00",
+  "mails_total": 7,
   "auto": 1,
-  "ask": 4,
+  "ask": 5,
   "rejected": 1,
-  "total_tokens": 3166,
+  "total_tokens": 2936,
   "steps": [
     {
       "mail_file": "01-signup-epipen.eml",
@@ -42,7 +42,7 @@
       "intent": "question",
       "route": "auto",
       "triage_tokens": 0,
-      "act_tokens": 3166,
+      "act_tokens": 2936,
       "act_latency_ms": 0,
       "tool_calls": 3,
       "notes": ""
@@ -61,6 +61,16 @@
       "mail_file": "06-spam.eml",
       "intent": "spam",
       "route": "reject",
+      "triage_tokens": 0,
+      "act_tokens": 0,
+      "act_latency_ms": 0,
+      "tool_calls": 0,
+      "notes": ""
+    },
+    {
+      "mail_file": "07-snack-schedule-celiac.eml",
+      "intent": "question",
+      "route": "ask",
       "triage_tokens": 0,
       "act_tokens": 0,
       "act_latency_ms": 0,

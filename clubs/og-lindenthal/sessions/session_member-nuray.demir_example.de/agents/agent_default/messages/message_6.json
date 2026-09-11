@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "call_e4612e94607841459e023b24",
+          "status": "success",
+          "content": [
+            {
+              "text": "member_id=M005, first_name=Nuray, last_name=Demir, email=nuray.demir@example.de, birth_year=1990, team=Familie, fee_status=invoice_sent, joined=2026-05-01, notes=Rechnung 2026"
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "33ad10cb-e9d5-459b-84e4-1dd186d24747"
+  },
+  "message_id": 6,
+  "redact_message": null,
+  "created_at": "2026-09-11T12:44:21.090177+00:00",
+  "updated_at": "2026-09-11T12:44:21.090197+00:00"
+}

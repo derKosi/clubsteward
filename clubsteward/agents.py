@@ -67,10 +67,13 @@ def make_model(cfg: Config):
     # GLM spends reasoning tokens from the same budget; 1024 truncated rich
     # triage JSON ("Unterminated string") and long act runs mid-tool-call.
     max_tokens = int(os.environ.get("ZAI_MAX_TOKENS", "4096"))
+    # A hung LLM call must not freeze the night: timeout raises, the act
+    # try/except files that one mail into _errors and the run continues.
+    timeout = int(os.environ.get("ZAI_TIMEOUT", "180"))
     return LiteLLMModel(
         client_args={"api_key": cfg.api_key, "api_base": cfg.base_url},
         model_id=f"openai/{cfg.model_id}",
-        params={"max_tokens": max_tokens, "temperature": 0.2},
+        params={"max_tokens": max_tokens, "temperature": 0.2, "timeout": timeout},
     )
 
 

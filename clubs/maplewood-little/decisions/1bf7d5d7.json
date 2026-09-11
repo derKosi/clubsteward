@@ -1,0 +1,29 @@
+{
+  "id": "1bf7d5d7",
+  "mail_file": "07-snack-schedule-celiac.eml",
+  "from_name": "Priya Shah",
+  "from_email": "priya.shah@example.org",
+  "subject": "Snack schedule - and a heads-up about Nia",
+  "triage": {
+    "intent": "question",
+    "member_email": "priya.shah@example.org",
+    "member_name": "Priya Shah",
+    "summary": "Parent Priya Shah volunteers for the first Saturday snack slot and asks where to sign up, while flagging a new celiac/wheat allergy diagnosis for her daughter Nia (Minors, Tyler Brooks's group) that requires gluten-free treats.",
+    "proposed_action": "Register Priya for the Saturday snack slot and answer her question about where the sign-up list lives; crucially, record Nia Shah's celiac/gluten allergy in the member file and flag it to Coach Dana and the snack coordinator so gluten-free options are guaranteed at shared snack events (offer to share Priya's gluten-free tips with other families only with her OK).",
+    "details": {
+      "child_name": "Nia Shah",
+      "coach_group": "Tyler Brooks's group",
+      "medical_condition": "Celiac disease / highly allergic to wheat; parent will bring separately wrapped gluten-free treats",
+      "question": "Should snack rotation be signed up on the paper sheet at the field or on a new list this season?",
+      "snack_slot_requested": "first slot this Saturday",
+      "team": "Minors"
+    },
+    "flags": [
+      "medical"
+    ],
+    "confidence": 0.9
+  },
+  "policy_reason": "Policy escalation: 'question' is normally auto, but flag 'medical' matches ask_if",
+  "status": "pending",
+  "created_at": "2026-09-11T12:51:08+00:00"
+}

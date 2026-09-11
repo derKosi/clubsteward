@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "call_42c129a03bb348bcadd848a7",
+          "status": "success",
+          "content": [
+            {
+              "text": "UPDATED nuray.demir@example.de: {'notes': 'Rechnung 2026 | Adresse: Rosenweg 12 (Umzug innerhalb des Ortes, gemeldet per Mail)'}"
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "ddb78e13-7c9d-494c-b99b-9dfb64335c21"
+  },
+  "message_id": 8,
+  "redact_message": null,
+  "created_at": "2026-09-11T12:44:33.131321+00:00",
+  "updated_at": "2026-09-11T12:44:33.131345+00:00"
+}

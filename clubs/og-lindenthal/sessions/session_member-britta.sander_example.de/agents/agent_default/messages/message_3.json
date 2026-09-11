@@ -1,0 +1,42 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "The member is not found in the register by email. Let me try by name."
+          }
+        }
+      },
+      {
+        "text": "Der Eintrag wurde nicht gefunden — ich werde auch unter ihrem Namen nachsehen, bevor ich etwas unternehme."
+      },
+      {
+        "toolUse": {
+          "toolUseId": "call_9f405be500d24b2da7449e30",
+          "name": "register_lookup",
+          "input": {
+            "query": "Britta Sander"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 619,
+        "outputTokens": 66,
+        "totalTokens": 685
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 5807
+      }
+    },
+    "tracking_id": "af4c9be6-880d-40fc-b539-636dded9d94f"
+  },
+  "message_id": 3,
+  "redact_message": null,
+  "created_at": "2026-09-11T12:42:36.785209+00:00",
+  "updated_at": "2026-09-11T12:42:36.785229+00:00"
+}

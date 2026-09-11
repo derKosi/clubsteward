@@ -1,0 +1,48 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "Let me process this case. First, I need to look up the member Nuray Demir in the register before updating."
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "call_a0b7c1186d4a47aea3499543",
+          "name": "register_lookup",
+          "input": {
+            "query": "nuray.demir@example.de"
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "call_14b17507d8b04bc99cf4a9b9",
+          "name": "register_lookup",
+          "input": {
+            "query": "Nuray Demir"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 536,
+        "outputTokens": 93,
+        "totalTokens": 629
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 5518
+      }
+    },
+    "tracking_id": "728d6f83-b8c1-4c29-bd85-2545de1e5305"
+  },
+  "message_id": 1,
+  "redact_message": null,
+  "created_at": "2026-09-11T12:44:03.824527+00:00",
+  "updated_at": "2026-09-11T12:44:03.824546+00:00"
+}

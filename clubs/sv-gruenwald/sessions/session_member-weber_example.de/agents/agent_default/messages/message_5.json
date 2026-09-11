@@ -5,29 +5,29 @@
       {
         "reasoningContent": {
           "reasoningText": {
-            "text": "Done. Summarize briefly in German-ish/English mix — the club tone is German; final answer to operator can be concise."
+            "text": "The case is complete. Draft saved, log entry created. Now report the final answer."
           }
         }
       },
       {
-        "text": "Fall abgeschlossen ✅\n\n- **Register:** Jonas Weber (M001, U12, Geb.-Jahr 2012, Beitrag **bezahlt**) verifiziert — keine Aktualisierung nötig.\n- **Entwurf gespeichert** an weber@example.de: freundliche Bestätigung des Trainingsstarts ab September, Hinweis, dass exakte Trainingszeiten und Spielplan der Saison 2026/27 zeitnah auf der Vereins-Website erscheinen und direkt nachgereicht werden — ohne Zeiten zu erfinden, da sie nicht in den Vereinsdaten hinterlegt sind.\n- **Protokolliert:** Aktion und Begründung im Aktivitätslog festgehalten.\n\nKeine Fehler von den Tools; der Entwurf wartet auf Freigabe durch den Menschen."
+        "text": "Fall bearbeitet ✅\n\n**Zusammenfassung:**\n- **Registerprüfung:** Jonas Weber (M001, geb. 2012, Team U12, Beitrag *bezahlt*, Mitglied seit 2024) ist bereits ordnungsgemäß gemeldet – **keine Änderung nötig**.\n- **Antwortentwurf gespeichert** (an weber@example.de, Betreff „Trainingszeiten U12 – Saison 2026/27\"): herzliche, kurze Bestätigung, dass Jonas gemeldet ist, und dass die genauen Trainingszeiten ab September sowie der Spielplan (Vereinswebsite) umgehend nachgereicht werden. Da die konkreten Zeiten nicht in den autoritativen Vereinsdaten stehen, habe ich bewusst **keine Zeiten erfunden**, sondern deren Bestätigung zugesagt.\n- **Protokolleintrag** hinterlegt: Vorgehen und Begründung dokumentiert.\n\nDer Entwurf liegt im Postausgang zur Freigabe durch die Geschäftsstelle bereit."
       }
     ],
     "metadata": {
       "usage": {
-        "inputTokens": 1177,
-        "outputTokens": 182,
-        "totalTokens": 1359
+        "inputTokens": 1206,
+        "outputTokens": 242,
+        "totalTokens": 1448
       },
       "metrics": {
         "latencyMs": 0,
-        "timeToFirstByteMs": 6871
+        "timeToFirstByteMs": 6786
       }
     },
-    "tracking_id": "1ffdda29-8575-4fb6-9ed6-745c9f7cba74"
+    "tracking_id": "fbefda70-d95d-4e13-8508-3467cc462292"
   },
   "message_id": 5,
   "redact_message": null,
-  "created_at": "2026-09-11T12:15:11.162214+00:00",
-  "updated_at": "2026-09-11T12:15:11.162230+00:00"
+  "created_at": "2026-09-11T12:57:40.982446+00:00",
+  "updated_at": "2026-09-11T12:57:40.982461+00:00"
 }

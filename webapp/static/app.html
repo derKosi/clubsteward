@@ -88,6 +88,7 @@
     <div class="b" id="kpiDec"><b>—</b><span>pending decisions</span></div>
     <div class="b"><b>—</b><span>drafts ready to send</span></div>
     <div class="b acts-box">
+      <button class="btn-up sm" id="resetBtn" style="cursor:pointer;">↺ Reset &amp; run live</button>
       <button class="btn-run" id="runBtn">🌙 Run night</button>
       <label class="btn-up sm" style="cursor:pointer;">📥 Drop .eml into inbox
         <input type="file" accept=".eml" multiple id="upFiles" style="display:none">
@@ -232,15 +233,42 @@ async function act(id, action, instructions=''){
   loadState(); loadDecisions();
 }
 
+let runningHere = false;
 $('runBtn').onclick = async ()=>{
   if(!CLUB) return;
-  $('runBtn').disabled = true; $('runBtn').innerHTML = '<span class="spin">◌</span> running…';
+  if(runningHere){  // second click while the night runs = stop after the current mail
+    await fetch(`/api/clubs/${CLUB}/stop`, {method:'POST'});
+    $('runBtn').innerHTML = '<span class="spin">◌</span> stopping…';
+    return;
+  }
+  runningHere = true;
+  $('runBtn').innerHTML = '⏹ Stop';
   await fetch(`/api/clubs/${CLUB}/run`, {method:'POST'});
   const poll = setInterval(async ()=>{
     const st = await (await fetch(`/api/clubs/${CLUB}/run/status`)).json();
     if(st.log && st.log.length){ const el = $('runlog'); el.textContent = st.log.join('\n'); el.scrollTop = el.scrollHeight; }
-    if(!st.running){ clearInterval(poll); $('runBtn').disabled=false; $('runBtn').textContent='🌙 Run night'; toast('🌙 Night run finished','ok'); loadState(); loadDecisions(); }
+    if(!st.running){
+      clearInterval(poll); runningHere = false;
+      $('runBtn').textContent = '🌙 Run night';
+      toast(st.log.some(l => l.includes('Stop requested')) ? '⏹ Stopped — remaining mails stay in the inbox' : '🌙 Night run finished','ok');
+      loadState(); loadDecisions();
+    }
   }, 2000);
+};
+
+$('resetBtn').onclick = async ()=>{
+  if(!CLUB) return;
+  if(!confirm('Reset this club to its starting corpus?\nClears inbox/outbox/decisions/processed/sessions — then the night run starts live.')) return;
+  $('resetBtn').disabled = true; $('resetBtn').innerHTML = '<span class="spin">◌</span> resetting…';
+  try {
+    const r = await fetch(`/api/clubs/${CLUB}/reset`, {method:'POST'});
+    if(!r.ok) throw new Error(await r.text());
+    const j = await r.json();
+    toast(`↺ Reset — ${j.inbox} mails back in the inbox`, 'ok');
+    loadState(); loadDecisions();
+    $('runBtn').click();
+  } catch(e) { toast('Reset failed — is a run in progress?', 'bad'); }
+  $('resetBtn').disabled = false; $('resetBtn').textContent = '↺ Reset & run live';
 };
 
 $('upFiles').onchange = async (e)=>{

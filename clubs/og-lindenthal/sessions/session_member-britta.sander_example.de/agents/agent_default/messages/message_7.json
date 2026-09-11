@@ -1,0 +1,32 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "toolUse": {
+          "toolUseId": "call_a3cface3cfac45e2ac130353",
+          "name": "log_activity",
+          "input": {
+            "event": "Saal-Anfrage von Britta Sander (60. Geburtstag, ~40 Pers., Nov., Samstagabend): Register-Treffer fehlgeschlagen (weder E-Mail noch Name) – kein Register-Eintrag angelegt/ändert; Antwortentwurf gespeichert (Terminprüfung beim Saalwart, Kosten werden nachgeprüft, Hinweis auf fehlenden Mitgliedereintrag); kein Preis erfunden, da keine Saalmiete in CLUB FACTS."
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 1044,
+        "outputTokens": 141,
+        "totalTokens": 1185
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 7752
+      }
+    },
+    "tracking_id": "f3a83060-8510-4946-b9d0-7e6f56911d57"
+  },
+  "message_id": 7,
+  "redact_message": null,
+  "created_at": "2026-09-11T12:43:04.780969+00:00",
+  "updated_at": "2026-09-11T12:43:04.780983+00:00"
+}

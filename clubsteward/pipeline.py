@@ -8,6 +8,7 @@ from __future__ import annotations
 import shutil
 import sys
 import uuid
+from collections.abc import Callable
 
 from .agents import (
     ClubSteward,
@@ -26,7 +27,8 @@ from .recorder import RunRecorder
 from .tools import set_config
 
 
-def run(max_mails: int | None = None, recorder: RunRecorder | None = None, club: str | None = None) -> int:
+def run(max_mails: int | None = None, recorder: RunRecorder | None = None, club: str | None = None,
+        should_stop: Callable[[], bool] | None = None) -> int:
     cfg = Config.load(club)
     brand = cfg.brand
     if brand.name and cfg.club_id != "demo":
@@ -55,6 +57,10 @@ def run(max_mails: int | None = None, recorder: RunRecorder | None = None, club:
     tracker = TriageTokenTracker(ck.triage_agent)
     processed, asked = 0, 0
     for path in mails:
+        if should_stop and should_stop():
+            remaining = len(mails) - mails.index(path)
+            print(f"\n⏹ Stop requested — {remaining} mail(s) stay in the inbox for the next run.")
+            break
         mail = MailItem.parse(path)
         print(f"\n--- {path.name} ---")
         try:

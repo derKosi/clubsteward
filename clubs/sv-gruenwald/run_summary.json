@@ -1,11 +1,11 @@
 {
-  "started_at": "2026-09-11T12:12:57+00:00",
-  "finished_at": "2026-09-11T12:19:50+00:00",
-  "mails_total": 10,
-  "auto": 2,
-  "ask": 7,
+  "started_at": "2026-09-11T12:55:44+00:00",
+  "finished_at": "2026-09-11T13:03:51+00:00",
+  "mails_total": 12,
+  "auto": 3,
+  "ask": 8,
   "rejected": 1,
-  "total_tokens": 7785,
+  "total_tokens": 14217,
   "steps": [
     {
       "mail_file": "01-anmeldung-u10.eml",
@@ -32,7 +32,7 @@
       "intent": "question",
       "route": "auto",
       "triage_tokens": 0,
-      "act_tokens": 3180,
+      "act_tokens": 3320,
       "act_latency_ms": 0,
       "tool_calls": 4,
       "notes": ""
@@ -52,7 +52,7 @@
       "intent": "address_change",
       "route": "auto",
       "triage_tokens": 0,
-      "act_tokens": 4605,
+      "act_tokens": 4636,
       "act_latency_ms": 0,
       "tool_calls": 4,
       "notes": ""
@@ -105,6 +105,26 @@
       "act_tokens": 0,
       "act_latency_ms": 0,
       "tool_calls": 0,
+      "notes": ""
+    },
+    {
+      "mail_file": "11-wegen-der-sache.eml",
+      "intent": "unknown",
+      "route": "ask",
+      "triage_tokens": 0,
+      "act_tokens": 0,
+      "act_latency_ms": 0,
+      "tool_calls": 0,
+      "notes": ""
+    },
+    {
+      "mail_file": "12-adresse-nur-teilweise.eml",
+      "intent": "address_change",
+      "route": "auto",
+      "triage_tokens": 0,
+      "act_tokens": 6261,
+      "act_latency_ms": 0,
+      "tool_calls": 5,
       "notes": ""
     }
   ]

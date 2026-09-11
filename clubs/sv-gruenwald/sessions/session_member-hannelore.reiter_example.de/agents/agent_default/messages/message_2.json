@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "call_9e47e0522e314f9ab47f6211",
+          "status": "success",
+          "content": [
+            {
+              "text": "NOT_FOUND"
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "39caf5d1-1294-4c2e-9831-881945d9f425"
+  },
+  "message_id": 2,
+  "redact_message": null,
+  "created_at": "2026-09-11T13:02:53.735025+00:00",
+  "updated_at": "2026-09-11T13:02:53.735038+00:00"
+}

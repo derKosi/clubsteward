@@ -1,0 +1,34 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "call_a0b7c1186d4a47aea3499543",
+          "status": "success",
+          "content": [
+            {
+              "text": "member_id=M005, first_name=Nuray, last_name=Demir, email=nuray.demir@example.de, birth_year=1990, team=Familie, fee_status=invoice_sent, joined=2026-05-01, notes=Rechnung 2026"
+            }
+          ]
+        }
+      },
+      {
+        "toolResult": {
+          "toolUseId": "call_14b17507d8b04bc99cf4a9b9",
+          "status": "success",
+          "content": [
+            {
+              "text": "member_id=M005, first_name=Nuray, last_name=Demir, email=nuray.demir@example.de, birth_year=1990, team=Familie, fee_status=invoice_sent, joined=2026-05-01, notes=Rechnung 2026"
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "02bc53cc-e79a-40ac-8488-bbcf3ec0eb9f"
+  },
+  "message_id": 2,
+  "redact_message": null,
+  "created_at": "2026-09-11T12:44:03.839762+00:00",
+  "updated_at": "2026-09-11T12:44:03.839780+00:00"
+}

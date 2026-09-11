@@ -1,0 +1,39 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "Let me look up the member first to see her record."
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "call_9e47e0522e314f9ab47f6211",
+          "name": "register_lookup",
+          "input": {
+            "query": "Hannelore Reiter"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 687,
+        "outputTokens": 45,
+        "totalTokens": 732
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 4903
+      }
+    },
+    "tracking_id": "e8396a5f-d9cc-4a6f-aaa2-e13e5b791614"
+  },
+  "message_id": 1,
+  "redact_message": null,
+  "created_at": "2026-09-11T13:02:53.728440+00:00",
+  "updated_at": "2026-09-11T13:02:53.728456+00:00"
+}

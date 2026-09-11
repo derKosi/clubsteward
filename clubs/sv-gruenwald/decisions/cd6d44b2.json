@@ -1,0 +1,51 @@
+{
+  "id": "cd6d44b2",
+  "mail_file": "08-vielfach-themen.eml",
+  "from_name": "Nadine Okafor",
+  "from_email": "nadine.okafor@example.de",
+  "subject": "Adressänderung + ein paar Dinge, die mir unter den Nägeln brennen",
+  "triage": {
+    "intent": "complaint",
+    "member_email": "nadine.okafor@example.de",
+    "member_name": "Nadine Okafor",
+    "summary": "Mother and member Nadine Okafor requests an address change and holiday training info, but the mail is dominated by a complaint about unsafe, run-down changing room 2 (wobbly bench = injury risk, bad smell, crooked mirrors, conflicts with another team) that she urges the club to fix — mixed mail classified as complaint (highest human-attention topic).",
+    "proposed_action": "Escalate the changing room 2 complaint (especially the wobbly bench = injury hazard) to a board member for prompt inspection/repair and involve the volunteer offer; separately process the address update and answer the holiday-training/trial-session question. Money/exit decisions: none.",
+    "details": {
+      "address_change": {
+        "affected": [
+          "Mia Okafor (U16)",
+          "Nadine Okafor (contact person)"
+        ],
+        "new_address": "Am Sportpark 4, 53783 Eitorf",
+        "note": "sender notes old record confusion: old address Lindenstraße, 53604; warns about house number/postcode mix-up",
+        "type": "intra-town move (August)"
+      },
+      "complaint_facilities": {
+        "causing_conflicts": "girls avoid changing room 2 and use changing room 3, causing conflicts with another team",
+        "demands": "club must organize repair; family offers to help with the work",
+        "reported_since": "after summer renovation, discussed by U16 parents for weeks",
+        "safety_risk": "wobbly bench in front of shower area – risk of injury",
+        "symptoms": [
+          "unexplained odour in shower",
+          "two mirrors hanging crooked",
+          "wobbly/unstable bench in front of shower area"
+        ]
+      },
+      "member_role": "mother of Mia Okafor (U16, captain)",
+      "trial_training": {
+        "members": "two friends of Mia",
+        "timing": "during autumn holidays (12.–24.10.)"
+      },
+      "unclear_point": "no information whether training runs during holidays 12.–24.10."
+    },
+    "flags": [
+      "safety",
+      "facilities",
+      "trial_training"
+    ],
+    "confidence": 0.94
+  },
+  "policy_reason": "Policy: intent 'complaint' requires human decision (Konflikte brauchen ein menschliches Wort)",
+  "status": "pending",
+  "created_at": "2026-09-11T13:01:03+00:00"
+}

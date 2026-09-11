@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "call_41adfc9954b74b909ffad4a2",
+          "status": "success",
+          "content": [
+            {
+              "text": "DRAFT SAVED draft_Festsaal für deinen 60. Geburtstag gerne.eml"
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "695c80e5-a33c-4cd0-8b47-c6eb618bb1fe"
+  },
+  "message_id": 6,
+  "redact_message": null,
+  "created_at": "2026-09-11T12:42:57.018479+00:00",
+  "updated_at": "2026-09-11T12:42:57.018498+00:00"
+}

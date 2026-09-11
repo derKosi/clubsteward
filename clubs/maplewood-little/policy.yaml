@@ -23,6 +23,8 @@ rules:
   - intent: address_change
     decision: auto
     note: routine data hygiene
+    ask_if:
+      - medical
   - intent: cancellation
     decision: ask
     note: mid-season cancellations involve refunds and roster spots
@@ -32,6 +34,8 @@ rules:
   - intent: question
     decision: auto
     note: informational replies are routine
+    ask_if:
+      - medical
   - intent: complaint
     decision: ask
     note: conflicts need a human touch

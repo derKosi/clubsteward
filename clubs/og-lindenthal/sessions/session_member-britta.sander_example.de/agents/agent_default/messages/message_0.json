@@ -1,0 +1,15 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "text": "Process this case for the club automatically.\n\nCLUB FACTS (authoritative — NEVER invent or change amounts; if a fee is not listed, say you will confirm):\n  club: OG Lindenthal e.V.\n  season: Jahr 2026\n  tone: nachbarschaftlich-warm, auf Deutsch, knapp\n  fees:\n  jahresbeitrag: 36.0\n  familienbeitrag: 60.0\n  hardness_waiver_max: 36.0\n  signature (use EXACTLY this signature):\nDer Vorstand\nOG Lindenthal e.V.\n(Entwurf erstellt von ClubSteward, dem Vereins-Agenten — vom Menschen freigegeben)\n\nMAIL from Britta Sander <britta.sander@example.de> subject 'Festsaal für runden Geburtstag mieten?':\nHallo,\n\nich würde für meinen 60. im November gern euren Festsaal mieten (ca. 40 Personen,\nSamstagabend). Geht das als Mitglied, und was kostet das?\n\nLiebe Grüße\nBritta Sander\n\nTRIAGE: intent=question, summary=Member Britta Sander asks whether she can rent the club's festival hall for her 60th birthday (~40 people, Saturday evening in November) and what it costs.\nDETAILS: {'attendees_approx': 40, 'event_type': '60th birthday party', 'is_member': True, 'requested_when': 'Saturday evening, November', 'sender_language': 'German', 'topic': 'festival hall rental'}\nProposed action: Reply in German with rental terms and pricing for member private events and forward to the hall/facility manager to check availability for a Saturday evening in November for ~40 people.\n\nReply in the language of the member's mail (this club's default: German if unsure). Use the tools to update the register and draft a reply to britta.sander@example.de. Finish with a log entry."
+      }
+    ],
+    "tracking_id": "966e184d-b67f-4454-a904-a06c2c822d2b"
+  },
+  "message_id": 0,
+  "redact_message": null,
+  "created_at": "2026-09-11T12:41:54.343627+00:00",
+  "updated_at": "2026-09-11T12:41:54.343640+00:00"
+}

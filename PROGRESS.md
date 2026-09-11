@@ -362,3 +362,28 @@
 
 **Next**
 - Video + Voiceover mit Kosi (heute Nacht/morgen), dann Submission 12.09.
+
+## Session 2026-09-11 (5) — Demo-Control: Reset & Run live, Stop, Live-Log, LLM-Timeout
+
+**Done**
+- **Kosis Fragen geklärt**: KG Rheinklause „alles abgearbeitet" = UI-Test-Rest von gestern (alle Decisions approved); OG Lindenthal „keine Daten" = nie gefahren (nur Corpus+Policy) → **erstmals gelaufen**: 3 auto / 2 ask / 1 reject, EXIT 0.
+- **Demo-Mails für die Eskalations-Achsen** (Kosis Wunsch: Fälle, in denen das LLM NICHT >95 % sure ist):
+  - sv-gruenwald Mail 11 „Wegen der Sache" (absichtlich vage): Triage `unknown` @ **0.55** mit Flags vague/possible_scam → „nie raten"-ASK. Der robuste Low-Confidence-Beat fürs Video.
+  - sv-gruenwald Mail 12 „Adresse, aber nur teilweise?": GLM blieb bei 0.90 (zu selbstbewusst, wie Mail 07 lehrte) — aber Triage setzte Flag `billing_address_unclear` → **Policy-as-Data**: `ask_if`-Zeile in der address_change-Regel. (Varianz: im Final-Run Flag nicht wieder da → AUTO @ 0.95; legitim, Adresswechsel ist auto-appropriat.)
+  - maplewood Mail 07 „Snack schedule – heads-up about Nia" (Kosis Wunsch: 2. englisches Beispiel, sozial, unkontrovers, 2. medizinisch): Frage zur Snack-Rotation, Tochter mit Weizen-Allergie (Cöliakie — bewusst NICHT Erdnuss, das hat Mail 01 schon). Triage `question` @ 0.90 + Flag `medical` → neue `ask_if: medical`-Zeilen auf question/address_change in der Maplewood-Policy („alles Medizinische geht an einen Menschen") → ASK. Club neu gefahren: 2 auto / 5 ask / 1 reject.
+- **Reset & Run live** (Web-Konsole): `POST /clubs/{id}/reset` (teilt sich `reset_club()` mit dem CLI — **räumt jetzt auch `_errors`**, die alte Falle) + Button „↺ Reset & run live" (Confirm → Reset → automatischer Run).
+- **Live-Log**: `run/status` drained jetzt den stdout-Puffer des laufenden Runs — Zeilen erscheinen WÄHREND des Laufs in der Konsole (vorher: erst am Ende).
+- **Stop** (Kosis Idee): `should_stop`-Callback in `pipeline.run` (geprüft zwischen den Mails), `POST /clubs/{id}/stop` (409 ohne laufenden Run), „Run night"-Button wird während des Laufs zu „⏹ Stop". E2E bewiesen an kg-rheinklause: Mail 01 lief fertig, dann „⏹ Stop requested — 5 mail(s) stay in the inbox", Endstand inbox=5/processed=1. Resume = einfach „Run night".
+- **LLM-Timeout (Robustheit!)**: Beim Stop-Test hing ein Act-LLM-Call **6+ Minuten** — kein Timeout im Modell-Client, Stop kann dazwischen nicht greifen. Fix: `timeout=180` (env `ZAI_TIMEOUT`) in `make_model` → Raise → act-try/except filet die Mail in `_errors`, Run läuft weiter. `.env.example` dokumentiert ZAI_MAX_TOKENS/ZAI_TIMEOUT.
+- Finaler sv-gruenwald-Stand (via Reset&Live-Pfad gefahren): **12 Mails · 4 auto / 8 ask / 1 reject**, ~€0.0043 — Karten inkl. offer-, medical- und „nie raten"-Eskalation.
+- 59 Tests grün, ruff clean.
+
+**Learned**
+- Stop zwischen Mails ist billig und ehrlich (folder-based State) — aber ohne LLM-Timeout ist jeder „Stop" der Mutter eines hängenden Calls ausgeliefert. Timeout zuerst, Kontrolle zweiter.
+- GLMs Selbstbewusstsein ist nicht per Mailtext steuerbar (0.55 bei echter Vagheit, 0.90 bei gebauter Ambiguität) — für deterministische Demo-Beats: Policy-Flags + fail-closed, nicht Prompt-Gebetse.
+
+**Offen**
+- Safari-„Allow JavaScript from Apple Events" ist wieder aus (Safari-Neustart) → Button-Klicks via osascript nicht möglich; fürs Video egal (Kosi klickt selbst), sonst: Develop → Allow JavaScript from Apple Events.
+
+**Next**
+- Video + Voiceover (heute Nacht/morgen), Submission 12.09.
