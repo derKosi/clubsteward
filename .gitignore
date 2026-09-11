@@ -32,4 +32,5 @@ demo/data/activity.log
 demo/data/run_summary.json
 *.log
 .traces/
-docs/screenshots/*.png
+docs/screenshots/03-decision-cards.png
+docs/screenshots/*.jpg
