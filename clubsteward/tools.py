@@ -33,8 +33,12 @@ def _save_rows(cfg, rows):
     else:
         save_register(cfg.register_path, rows)
 
-# Config is injected per run (thread-local storage avoids race conditions across threads)
+# Config is injected per run. Thread-local takes precedence (explicit per-thread
+# clubs), with a process-global fallback: the SDK executes tools on executor
+# threads where a purely thread-local config would be invisible — and every tool
+# call would die with "Config not set" mid-run.
 _local = threading.local()
+_cfg_global: Config | None = None
 
 
 def _use_sqlite(cfg: Config) -> bool:
@@ -57,6 +61,8 @@ def load_register_state(cfg):
 
 
 def set_config(cfg: Config) -> None:
+    global _cfg_global
+    _cfg_global = cfg
     _local.cfg = cfg
     if cfg.data_dir.name != "data":  # club mode: bootstrap sqlite if flagged
         from . import store
@@ -65,7 +71,7 @@ def set_config(cfg: Config) -> None:
 
 
 def _require_cfg() -> Config:
-    cfg = getattr(_local, "cfg", None)
+    cfg = getattr(_local, "cfg", None) or _cfg_global
     if cfg is None:
         raise RuntimeError("Config not set — call set_config() before running agents")
     return cfg
@@ -166,11 +172,13 @@ def save_draft(
     cfg = _require_cfg()
     cfg.outbox_dir.mkdir(parents=True, exist_ok=True)
     safe = _sanitize_subject(subject)
+    # One draft per recipient: if the agent refines its reply within a run,
+    # replace the earlier draft instead of leaving _2 variants next to it.
+    for old in cfg.outbox_dir.glob("draft_*.eml"):
+        head = old.read_text(encoding="utf-8").split("\n\n", 1)[0]
+        if any(line.strip() == f"To: {to}" for line in head.splitlines()):
+            old.unlink()
     stamp = cfg.outbox_dir / f"draft_{safe}.eml"
-    n = 1
-    while stamp.exists():
-        n += 1
-        stamp = cfg.outbox_dir / f"draft_{safe}_{n}.eml"
     stamp.write_text(f"To: {to}\nSubject: {subject}\n\n{body}\n", encoding="utf-8")
     return f"DRAFT SAVED {stamp.name}"
 

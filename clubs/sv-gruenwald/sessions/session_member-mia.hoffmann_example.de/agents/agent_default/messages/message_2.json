@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "call_d91974a0dfaf468fbe2fa547",
+          "status": "success",
+          "content": [
+            {
+              "text": "member_id=M005, first_name=Mia, last_name=Hoffmann, email=mia.hoffmann@example.de, birth_year=2010, team=U16, fee_status=paid, joined=2022-07-01, notes=Kapitänin"
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "1dc5bd2d-0672-4551-a41e-7d68d0d2cc9e"
+  },
+  "message_id": 2,
+  "redact_message": null,
+  "created_at": "2026-09-11T12:16:26.183944+00:00",
+  "updated_at": "2026-09-11T12:16:26.183963+00:00"
+}

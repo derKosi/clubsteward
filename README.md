@@ -137,6 +137,7 @@ No cloud, no accounts, no network beyond the LLM API call. Everything else is lo
 | "Cancelling Noah's membership" (mid-season, fees paid) | cancellation | Team planning + refund judgment |
 | "Third cancelled training in a row!" (angry neighbour) | complaint | Conflicts need a human touch |
 | "Signing up Yusuf — asthma, carries an inhaler" | signup **+ flag `medical`** | Normally auto, but the policy's `ask_if` condition ("medical notes that require coach coordination") escalates it |
+| "We'd like to give something back — sponsorship, jersey deal, repair café" | offer | Inbound money/generosity is decided by humans — no policy rule needed, unknown intents fail closed to ask |
 
 And things it never asks about: plain sign-ups, address changes, fixture questions —
 and it silently discards the "YOU WON 5000 EUR" spam.

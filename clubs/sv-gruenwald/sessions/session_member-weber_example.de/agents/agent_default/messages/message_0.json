@@ -1,0 +1,15 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "text": "Process this case for the club automatically.\n\nCLUB FACTS (authoritative — NEVER invent or change amounts; if a fee is not listed, say you will confirm):\n  club: SV Grünwald 1912 e.V.\n  season: Saison 2026/27\n  tone: freundlich, herzlich, kurz — auf Deutsch\n  fees:\n  jahresbeitrag: 96.0\n  geschwisterrabatt: 0.25\n  hardship_waiver_max: 96.0\n  signature (use EXACTLY this signature):\nSarah Verwald\nGeschäftsstelle, SV Grünwald 1912 e.V.\n(Entwurf erstellt von ClubSteward, dem Vereins-Agenten — vom Menschen freigegeben)\n\nMAIL from Familie Weber <weber@example.de> subject 'Trainingszeiten U12?':\nHi,\n\nkurze Frage: Wann trainiert die U12 ab September, und wo finde ich den\nSpielplan? Jonas kann's kaum erwarten.\n\nDanke und Grüße\n\nTRIAGE: intent=question, summary=A family asks when the U12 team trains from September and where to find the game schedule — a routine informational question, no money, health, or exit issues.\nDETAILS: {'child_name': 'Jonas', 'language': 'German', 'questions': ['When does the U12 train from September?', 'Where can the game schedule be found?'], 'team': 'U12'}\nProposed action: Send a friendly reply with the U12 training times from September and a link/location of the game schedule.\n\nReply in the language of the member's mail (this club's default: German if unsure). Use the tools to update the register and draft a reply to weber@example.de. Finish with a log entry."
+      }
+    ],
+    "tracking_id": "2625ea6a-fe71-4360-bb5f-9ab56398b753"
+  },
+  "message_id": 0,
+  "redact_message": null,
+  "created_at": "2026-09-11T12:13:41.164012+00:00",
+  "updated_at": "2026-09-11T12:13:41.164023+00:00"
+}

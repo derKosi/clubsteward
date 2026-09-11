@@ -25,6 +25,20 @@ Use intent "spam" for scam/phishing/lottery/ad mail that has nothing to do with 
 IMPORTANT: any mail that requests, references, or follows up on a fee reduction, waiver,
 instalment plan, or financial hardship — even phrased as a polite question or thank-you —
 is intent "hardship_waiver", never "question". Money decisions always go to a human.
+Exception: routine fee questions that merely accompany a signup (what does membership
+cost, is there a sibling discount, how do I pay) are plain "signup" — hardship_waiver
+is for existing or joining members who say they struggle to pay and ask for relief.
+Same rule for leaving the club: any mail that floats pausing, stepping back, or
+cancelling the membership — even undecided, even phrased as asking for advice
+("what would you recommend?") — is intent "cancellation", never "question". Exit decisions
+always go to a human. Exception: normal squad moves WITHIN the club ("move up to U16",
+switch to the Tuesday group) and changes of contact details are NOT exits.
+Use intent "offer" when someone offers the club something (money, sponsorship,
+equipment, rooms, volunteer work, partnerships) — inbound generosity is decided
+by a human; the reply may only promise that a human will follow up.
+If a mail mixes several topics, classify it by the topic that needs the MOST human
+attention (complaint > cancellation > hardship_waiver > offer > signup > address_change > question),
+and say so in the summary.
 Angry mails about noise, behaviour, safety, fairness, or broken promises are "complaint",
 even when politely worded or in another language.
 Also set "flags" with short lowercase tags for anything special that needs human attention:
@@ -48,10 +62,15 @@ Rules:
 
 
 def make_model(cfg: Config):
+    import os
+
+    # GLM spends reasoning tokens from the same budget; 1024 truncated rich
+    # triage JSON ("Unterminated string") and long act runs mid-tool-call.
+    max_tokens = int(os.environ.get("ZAI_MAX_TOKENS", "4096"))
     return LiteLLMModel(
         client_args={"api_key": cfg.api_key, "api_base": cfg.base_url},
         model_id=f"openai/{cfg.model_id}",
-        params={"max_tokens": 1024, "temperature": 0.2},
+        params={"max_tokens": max_tokens, "temperature": 0.2},
     )
 
 
@@ -98,7 +117,12 @@ class ClubSteward:
 
 
 def triage_one(triage_agent: Agent, mail: MailItem) -> TriageResult:
-    """Classify one mail; returns the agent's structured TriageResult."""
+    """Classify one mail; returns the agent's structured TriageResult.
+
+    One plain retry: GLM structured output occasionally fails to parse
+    ("Unterminated string", dropped tool call). The prompt is used temporarily
+    (never added to history), so the second attempt starts clean.
+    """
     prompt = (
         f"Classify this club inbox email. Check carefully for special conditions "
         f"(medical/health, waiting list, refund, ...) and set flags accordingly.\n\n"
@@ -106,7 +130,10 @@ def triage_one(triage_agent: Agent, mail: MailItem) -> TriageResult:
         f"Subject: {mail.subject}\nDate: {mail.date}\n\n"
         f"{mail.body[:2500]}"
     )
-    return triage_agent.structured_output(TriageResult, prompt)
+    try:
+        return triage_agent.structured_output(TriageResult, prompt)
+    except Exception:
+        return triage_agent.structured_output(TriageResult, prompt)
 
 
 MEDICAL_KEYWORDS = (

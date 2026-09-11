@@ -1,0 +1,25 @@
+{
+  "agent_id": "default",
+  "state": {
+    "clubsteward:case": {
+      "autonomy": "auto",
+      "intent": "address_change",
+      "mail_file": "05-adresse.eml"
+    }
+  },
+  "conversation_manager_state": {
+    "__name__": "SlidingWindowConversationManager",
+    "removed_message_count": 0,
+    "model_call_count": 0
+  },
+  "_internal_state": {
+    "interrupt_state": {
+      "interrupts": {},
+      "context": {},
+      "activated": false
+    },
+    "model_state": {}
+  },
+  "created_at": "2026-09-11T12:15:51.004176+00:00",
+  "updated_at": "2026-09-11T12:17:00.270376+00:00"
+}

@@ -1,0 +1,30 @@
+{
+  "id": "d5b27ca6",
+  "mail_file": "04-ratenzahlung.eml",
+  "from_name": "Aylin Korkmaz",
+  "from_email": "aylin.korkmaz@example.de",
+  "subject": "Beitrag in Raten möglich?",
+  "triage": {
+    "intent": "hardship_waiver",
+    "member_email": "aylin.korkmaz@example.de",
+    "member_name": "Aylin Korkmaz",
+    "summary": "Single mother Aylin Korkmaz asks whether Emma's annual membership fee can be paid in three instalments because she is struggling financially this month — a fee-relief request requiring a human money decision.",
+    "proposed_action": "Route to treasurer/board for decision on a 3-instalment payment plan for Emma's annual fee; do not commit in an auto-reply, only confirm that a human will follow up.",
+    "details": {
+      "annual_fee_instalments_requested": 3,
+      "child_name": "Emma Korkmaz",
+      "language": "German",
+      "member_status": "existing member (child Emma)",
+      "reason": "single parent raising children alone, cannot make ends meet this month"
+    },
+    "flags": [
+      "instalment_plan",
+      "financial_hardship",
+      "single_parent"
+    ],
+    "confidence": 0.98
+  },
+  "policy_reason": "Policy: intent 'hardship_waiver' requires human decision (Geld + Menschlichkeit entscheidet immer ein Mensch)",
+  "status": "pending",
+  "created_at": "2026-09-11T12:15:29+00:00"
+}

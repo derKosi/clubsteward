@@ -1,6 +1,6 @@
 # PROGRESS
 
-> **Zustand 23.08. (Ende):** Phase 0–3 abgeschlossen. Agent-seitig ist **alles fertig** bis auf Video (gemeinsame Session Anfang Sept.) und die Submission selbst (12.09., nur gemeinsam). Nächster Einstieg: `docs/TODO.md` + GH Project-Board (github.com/users/derKosi/projects/5). Repo ist **privat bis 12.09.**, dann public.
+> **Zustand 11.09.:** Phase 0–3 abgeschlossen, Eval 10/10, SV-Grünwald-Demo-Stand final (3 auto / 7 ask / 1 reject, `_errors` leer). 54 Tests grün. Rest: Video + Voiceover (11./12.09., gemeinsam), Submission 12.09. Nächster Einstieg: `docs/TODO.md` + GH Project-Board (github.com/users/derKosi/projects/5).
 
 ## Session 2026-08-23 — Phase 0: Setup & Recon
 
@@ -312,3 +312,53 @@
 **Offen / Next**
 - Interaktionszustände (Mail expandiert, Inline-Edit geöffnet, Toast) noch nicht bildlich verifiziert — dafür braucht Safari **Develop → Allow JavaScript from Apple Events** (Settings → Advanced → Develop-Menü einblenden). Danach kann die Fernsteuerung auch klicken/scrollen/DOM lesen.
 - Uncommittet liegen jetzt zwei Pakete bereit: (1) charset-Fix von Session (1) — models.py + tests + 10 repaired message_0.json; (2) dieses UI-Paket — web.py, webapp/static/*, PROGRESS.md.
+
+## Session 2026-09-10 (3) — min_confidence-Policy, Robustheits-Fixes, SV-Grünwald-Corpus
+
+**Done**
+- **Safari-Fernsteuerung komplett** (Allow JavaScript from Apple Events an): Mail-Expand, Inline-Edit, Toast, Upload-Flow per do-JavaScript gebildlich verifiziert. Toast "📥 1 mail dropped into the inbox" e2e bestätigt. KPI-Label "drafts ready" → "drafts ready to send".
+- Zwei Pakete committet + gepusht: charset-Fix (bc647d9) und UI-Paket (d34d5fc).
+- **Policy `min_confidence` (a94949d? → a94946d)**: zweite Eskalations-Achse neben Intent/ask_if — Triage-Confidence unter policy.min_confidence (default 0.75, alle 7 YAMLs) eskaliert auto → ask, Reason nennt %-Wert und Schwelle. 4 Tests → 48 grün.
+- **Z.ai-Key auf diesem Mac verfügbar** (Kosi legte ihn in ~/.zshenv, außerhalb des Repos, 600). Verifiziert: Key in 0 Dateien, 0 Commits.
+- **Echte Pipeline-Runs für SV Grünwald** (10 Mails, GLM glm-5-turbo, ~€0.0086): 5 auto / 3 ask / 1 reject / 1 triage-fail, 5 Drafts, Register-Update echt (Mia Hoffmann Adresse). Demo-Zustand steht.
+- **Bug 1 (Repo-Bug!): `threading.local`-Config** — tools.set_config setzte thread-local; der SDK führt Tools auf Executor-Threads aus → jeder Tool-Call warf "Config not set". Auf der VM zufällig nie sichtbar. Fix: process-global Fallback + thread-local Override, Unit-Test mit echtem Thread.
+- **Bug 2: max_tokens 1024** — GLMs Reasoning-Anteil frisst das Budget → TRIAGE FAILED "No tool_calls"/"Unterminated string" bei langen Mails + act-Abbrüche (MaxTokensReachedException tötete den GESAMTEN Run). Fix: 4096 (env ZAI_MAX_TOKENS), plus act-try/except → Mail nach _errors, Run läuft weiter.
+- **Befund fürs Pitching**: Mail 07 („Pause, Wechsel oder Kündigung?") kam als `question` @ 0.82 durch und lief AUTO — GLM ist bei Mehrdeutigkeit zu selbstbewusst; 0.82 > 0.75-Schwelle. Genau die stille Autonomie-Lücke. → TRIAGE_SYSTEM um Exit-Regel („Aussetzen/Wechsel/Kündigung auch fragend = cancellation") + Multi-Intent-Regel („most human attention wins", Mail 08s Beschwerde wurde von address_change überdeckt) erweitert — **uncommittet, Eval-Gate steht aus**.
+- corpus 07–10 (lang, realistisch): 07 mehrdeutiger Ausstieg, 08 Multi-Intent+wirre Adresse, 09 Support-Angebot mehrdeutig, 10 Anmeldung+medical (Kontrollgruppe). Mail 10 triaged weiter nicht (GLM-Structured-Output-Quirk, char ~407) — liegt in _errors, Retry-Idee für nächste Session.
+
+**Learned**
+- Sessions tragen Erinnerung — auch Fehler-Erinnerung: Run 2 mit Run-1-Kaputt-Sessions wiederholte die Tool-Fehler trotz Fix. Bei Diagnose immer sessions/ löschen.
+- `club reset` leert `_errors` nicht → Altdateien können neue Scheiterungen maskieren.
+- `tail` im Background-Run puffert bis zum Ende; Fortschritt über Verzeichnis-Zähler pollsen.
+
+**Offen / Next**
+- Eval gegen die neue TRIAGE_SYSTEM-Regel laufen lassen (scripts/run_eval.sh), dann Prompt committen; danach SV-Grünwald full re-run als finaler Demo-Stand.
+- Triage-Retry (1×) bei Parse-Fail als Robustheits-Fix.
+- Mail 10 Triage-Fail debuggen (GLM-Quirk?) — ggf. Mail leicht kürzen.
+
+## Session 2026-09-11 (4) — Eval-Gate, offer-Intent, Robustheit, finaler Demo-Stand, UX-Review
+
+**Done**
+- **Eval-Gate hat gearbeitet**: Erste Eval gegen die neuen TRIAGE_SYSTEM-Regeln: 8/10. Die Regeln überkorrigierten — Irena (Signup mit Sibling-Diskount-Frage) → hardship_waiver, Sofia („might move up to U16") → cancellation. Geschärft mit expliziten Ausnahmen (Gebührenfrage bei Anmeldung ≠ Hardship; Squad-Wechsel IM Verein ≠ Exit). Danach 2× **10/10 = 100 %**, Ø conf 0.97.
+- **Neuer Intent `offer`**: Run 1 hatte das Sponsoring-Angebot (Mail 09) als `question` @ 0.93 AUTO beantwortet — Draft versprach „zuständige Person meldet sich", keiner im Vorstand sah es. Jetzt: Angebote (Geld/Sponsoring/Sachmittel/Ehrenamt) = eigener Intent; **keine Policy-Regel nötig** — fehlende Regel fail-closed → ask (getestet). README-Entscheidungen-Tabelle um Offer-Zeile ergänzt.
+- **`save_draft`: ein Draft pro Empfänger** — der Act-Agent hatte bei Mail 09 mitten im Draft self-corrected („gibt es aktuell noch. Moment — noch nicht, richtig.") und eine zweite Version als `_2` abgelegt; die holprige Erstversion blieb im Outbox. Jetzt ersetzt ein Re-Save den früheren Draft desselben Empfängers (auch betreffübergreifend), 3 Tests.
+- **Triage-Retry (1×)** bei Parse-Fail: `structured_output` nutzt den Prompt temporär (nicht in der History) — der Retry startet sauber, keine „Fehler-Erinnerung". 2 Tests (retry + Abbruch nach 2. Fail).
+- **Finaler SV-Grünwald-Re-Run** (~€0.0023, EXIT 0, `_errors` leer): 3 auto / 7 ask / 1 reject — 01 medical-ASK (echtes Asthma), 02 Kündigung, 03/05 AUTO mit Drafts + Register-Update (Mia Hoffmann), 06 Spam-REJECT, **07 cancellation ASK** (vorher stille Lücke: question @ 0.82 AUTO), **08 complaint ASK** (Multi-Intent), **09 offer ASK**, **10 medical-ASK ohne Triage-Fail** (max_tokens 4096 + Retry haben den GLM-Quirk behoben — Debug nicht mehr nötig).
+- **UX-Review im Safari (Top 5, bewusst NICHT gefixt)**:
+  1. Sprach-Mix in den Decision-Cards: deutsche Clubs lesen englische Summaries/Facts/„AGENT PROPOSES" (Mails+Drafts sind deutsch) — `brand.locale`/Policy-Tone könnte die Karten lokalisieren. Größtes echtes Nutzerproblem.
+  2. Karten-Länge: Offer-Card ~2 Screens (6-Facts-Grid + langer Summary-Block), Approve ganz unten — 7 Entscheidungen am Morgen = Scroll-Arbeit. Facts/Details default-einklappen oder kompakte Zeilen mit Expand.
+  3. Club-Switcher: 6 Pills, alle gleich, Umbrauch in Zeile 2 — keine Pending-Counts sichtbar („SV Grünwald (7)"), Multi-Club-Bediener muss durchklicken.
+  4. Member-Register: horizontale Scrollbar, E-Mail-Spalte abgeschnitten (emma.schneider@example…) — E-Mail ist aber das Feld, das Mitglieder prüfen.
+  5. Nach Approve verschwindet die Karte — keine „heute ausgeführt"-Sicht (Audit-Trail existiert als JSON/Log, aber nicht im UI); Trust-Feature „was hat der Agent über Nacht gemacht" fehlt noch. (Deny ohne Inline-Grund.)
+  Kleinere Notizen: „Why you:"-Label gewöhnungsbedürftig; Empty-State 🎉 und Live-Stats auf der Produktseite wirken gut.
+- **Docs: Stage 1.6 „Local-first model cascade"** (docs/HOSTING.md): Kosis Idee — kleines lokales Modell (LM Studio/Ollama, OpenAI-kompatibel) macht Erst-Triage, externes LLM nur bei niedriger Confidence; Kosis Frage beantwortet: **Strands bleibt unangetastet** (Modell kommt nur als LiteLLM-Provider via make_model() rein — Basis-URL-Swap, kein Framework-Wechsel; Kaskade = dieselbe „unter Confidence X → eskalieren"-Achse wie min_confidence, nur aufs Modell-Level gehoben). Eval-Harness misst lokale Qualität ehrlich. Empfehlung: NICHT vor Submission implementieren. Entscheider-Item in docs/TODO.md.
+
+**Learned**
+- Eval vor jedem Prompt-Commit ist Pflicht: genau die beiden neuen Regeln hatten zwei Korpus-Mails kippen lassen — ohne Gate wäre der Commit als „Verbesserung" gegangen.
+- Fail-closed macht neue Intents billig: neuer Enum-Wert + Prompt-Zeile = sofort korrektes Verhalten in allen 7 Club-Policies ohne YAML-Änderung.
+
+**Blocked / decisions needed**
+- Local-first-Kaskade: Video-Thema oder Roadmap? (Kosi, vor der Vertonung — docs/TODO.md)
+
+**Next**
+- Video + Voiceover mit Kosi (heute Nacht/morgen), dann Submission 12.09.

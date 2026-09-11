@@ -134,6 +134,24 @@ class TestMailCharset:
         assert "Grüße aus Köln" in self._parse(tmp_path, raw).body
 
 
+class TestThreadSafeConfig:
+    """Tools run on SDK executor threads — config must be reachable there."""
+
+    def test_config_reachable_from_other_thread(self):
+        import threading
+
+        from clubsteward import tools
+        from clubsteward.config import Config
+
+        tools.set_config(Config.load())
+        got = []
+        t = threading.Thread(target=lambda: got.append(tools._require_cfg()))
+        t.start()
+        t.join()
+        assert got, "tool thread could not see the run config"
+        assert got[0].data_dir.name == "data"  # demo sandbox
+
+
 class TestEvaluatePolicy:
     def test_evaluate(self, policy):
         from clubsteward.agents import evaluate_policy
@@ -251,6 +269,92 @@ class TestSafetyFlagCheck:
         mail = MailItem.parse(DEMO / "05-question-fixtures.eml")
         t2 = safety_flag_check(t, mail)
         assert "medical" not in t2.flags
+
+
+class TestTriageRetry:
+    """GLM structured output fails to parse occasionally — triage_one retries once."""
+
+    def _mail(self):
+        return MailItem.parse(DEMO / "01-signup-irena.eml")
+
+    def test_retries_once_after_parse_error(self):
+        from clubsteward.agents import triage_one
+
+        class _Flaky:
+            calls = 0
+
+            def structured_output(self, model, prompt):
+                self.calls += 1
+                if self.calls == 1:
+                    raise ValueError("Unterminated string starting at")
+                return TriageResult(intent=Intent.SIGNUP, summary="s", proposed_action="a", confidence=0.9)
+
+        agent = _Flaky()
+        result = triage_one(agent, self._mail())
+        assert agent.calls == 2
+        assert result.intent == Intent.SIGNUP
+
+    def test_second_failure_propagates(self):
+        from clubsteward.agents import triage_one
+
+        class _Broken:
+            calls = 0
+
+            def structured_output(self, model, prompt):
+                self.calls += 1
+                raise ValueError("No tool_calls found")
+
+        agent = _Broken()
+        with pytest.raises(ValueError):
+            triage_one(agent, self._mail())
+        assert agent.calls == 2  # gave up after the retry, no infinite loop
+
+
+class TestSaveDraftReplace:
+    """One draft per recipient — a refined re-save replaces the earlier draft."""
+
+    def _cfg(self, tmp_path):
+        from clubsteward import tools
+        from clubsteward.config import Config
+
+        cfg = Config(api_key="k", base_url="u", model_id="m", data_dir=tmp_path)
+        tools.set_config(cfg)
+        return tools, cfg
+
+    def _files(self, outbox):
+        return sorted(p.name for p in outbox.glob("draft_*.eml"))
+
+    def test_resave_replaces_same_recipient(self, tmp_path):
+        tools, cfg = self._cfg(tmp_path)
+        tools.save_draft(to="a@x.de", subject="Gleicher Betreff", body="v1")
+        tools.save_draft(to="a@x.de", subject="Gleicher Betreff", body="v2")
+        assert self._files(cfg.outbox_dir) == ["draft_Gleicher Betreff.eml"]
+        assert "v2" in (cfg.outbox_dir / "draft_Gleicher Betreff.eml").read_text(encoding="utf-8")
+
+    def test_resave_replaces_across_subjects(self, tmp_path):
+        tools, cfg = self._cfg(tmp_path)
+        tools.save_draft(to="a@x.de", subject="Erster Betreff", body="v1")
+        tools.save_draft(to="a@x.de", subject="Zweiter Betreff", body="v2")
+        assert self._files(cfg.outbox_dir) == ["draft_Zweiter Betreff.eml"]
+
+    def test_other_recipients_untouched(self, tmp_path):
+        tools, cfg = self._cfg(tmp_path)
+        tools.save_draft(to="a@x.de", subject="An A", body="v1")
+        tools.save_draft(to="b@x.de", subject="An B", body="v2")
+        tools.save_draft(to="a@x.de", subject="An A neu", body="v3")
+        assert self._files(cfg.outbox_dir) == ["draft_An A neu.eml", "draft_An B.eml"]
+
+
+class TestOfferIntent:
+    """Inbound generosity (sponsorship, donations, help) is always a human decision."""
+
+    def test_offer_asks_when_policy_has_no_rule(self, policy):
+        from clubsteward.agents import evaluate_policy
+
+        t = TriageResult(intent=Intent.OFFER, summary="s", proposed_action="a", confidence=0.97)
+        decision, reason = evaluate_policy(policy, t)
+        assert decision == "ask"
+        assert "offer" in reason
 
 
 class TestRecorder:

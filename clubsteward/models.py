@@ -18,6 +18,7 @@ class Intent(str, Enum):
     ADDRESS_CHANGE = "address_change"
     CANCELLATION = "cancellation"
     HARDSHIP_WAIVER = "hardship_waiver"
+    OFFER = "offer"
     QUESTION = "question"
     COMPLAINT = "complaint"
     SPAM = "spam"

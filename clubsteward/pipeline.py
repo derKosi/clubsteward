@@ -100,7 +100,17 @@ def run(max_mails: int | None = None, recorder: RunRecorder | None = None, club:
             "intent": triage.intent.value,
             "mail_file": path.name,
         })
-        result = agent(act_prompt(mail, triage, policy))
+        try:
+            result = agent(act_prompt(mail, triage, policy))
+        except Exception as e:
+            # one broken act run (e.g. MaxTokensReached) must not kill the night —
+            # file the mail into _errors like a triage failure and keep going.
+            print(f"  ACT FAILED: {e}")
+            shutil.move(str(path), cfg.errors_dir / path.name)
+            record_act(summary, path.name, None, [])
+            if recorder:
+                recorder.pipeline_step(path.name, [line1, f"  ACT FAILED: {e}"], ["inbox→_errors"])
+            continue
         record_act(summary, path.name, result, agent.messages)
         line3 = f"  act: {str(result)[:140]}"
         print(line3)

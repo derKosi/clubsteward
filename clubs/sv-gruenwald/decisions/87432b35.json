@@ -1,0 +1,31 @@
+{
+  "id": "87432b35",
+  "mail_file": "02-kuendigung.eml",
+  "from_name": "Petra Langen",
+  "from_email": "petra.langen@example.de",
+  "subject": "Kündigung Mitgliedschaft Finn",
+  "triage": {
+    "intent": "cancellation",
+    "member_email": "petra.langen@example.de",
+    "member_name": "Finn Langen",
+    "summary": "Parent Petra Langen cancels her son Finn's (U14) membership because the family is moving to Hamburg in October, and asks what happens to the already paid annual fee (refund question) — primary topic is the cancellation.",
+    "proposed_action": "Route to a human: confirm the membership cancellation of Finn (U14) effective with the move in October, and clarify whether/how the already paid annual fee will be refunded (e.g., pro rata) — refund decision needs human approval.",
+    "details": {
+      "age_group": "U14",
+      "child_name": "Finn",
+      "language": "German",
+      "moving_to": "Hamburg",
+      "move_month": "October",
+      "reason": "family relocation to Hamburg",
+      "refund_question": "what happens to the already paid annual fee"
+    },
+    "flags": [
+      "refund",
+      "minor"
+    ],
+    "confidence": 0.97
+  },
+  "policy_reason": "Policy: intent 'cancellation' requires human decision (mitten in der Saison — Trainerplanung und Erstattung)",
+  "status": "pending",
+  "created_at": "2026-09-11T12:13:30+00:00"
+}
