@@ -105,12 +105,13 @@ uv sync
 cp .env.example .env          # add your Z.ai API key (https://z.ai)
 export $(grep -v '^#' .env | xargs)
 
-# 1. nightly batch run (the "overnight" part)
-uv run python scripts/reset_demo.py     # pristine demo inbox: 8 mails
-uv run python -m clubsteward.pipeline
+# the console — pick a club, step through mails, approve decisions
+uv run uvicorn clubsteward.web:app --port 8765    # → http://localhost:8765
 
-# 2. the human part — work the decision queue
-uv run python -m clubsteward.decide      # approve / edit / deny per case
+# prefer the terminal? the same flow headless:
+uv run python scripts/reset_demo.py     # pristine demo corpus
+uv run python -m clubsteward.pipeline   # nightly batch run
+uv run python -m clubsteward.decide     # work the decision queue
 ```
 
 **No API key? Watch the recorded session instead:**
@@ -128,6 +129,35 @@ Results appear in `demo/data/`: `outbox/` (drafts), `register.csv` (updated),
 `decisions/` (cleared), `activity.log` (audit trail).
 
 No cloud, no accounts, no network beyond the LLM API call. Everything else is local files.
+
+## The web console — the secretary's morning
+
+The fastest way to see ClubSteward work is the built-in console — no CLI required:
+
+```bash
+uv run uvicorn clubsteward.web:app --port 8765    # open http://localhost:8765
+```
+
+Pick any of the six clubs, then:
+
+- **↺ Reset data** — restore the club's starting corpus. Nothing is processed yet;
+  processing is always an explicit second step (**🌙 Run night** or **▶ Process next mail**).
+- **▶ Process next mail** — step mode: the mail on the left, the agent's live analysis on
+  the right — intent, confidence, extracted facts, the policy reason, and the draft it
+  produced. The best seat in the house for the escalation moment: a routine sign-up stops
+  for a human because one line of YAML says medical notes need a coach.
+- **⚖️ Decisions for you** — every judgment call as a card: what the mail said, what the
+  agent proposes, and exactly why it's asking (*"Warum du?"* — in the club's own language).
+  Approve, approve with an instruction, or deny — the agent executes immediately.
+- **🌙 Run night** — the full overnight batch, one click. Need to leave? **⏹ Stop** halts
+  after the current mail; the rest simply wait in the inbox.
+- **📤 Outbox drafts** — every draft side-by-side with the mail it answers. Nothing is
+  ever sent automatically.
+
+![Console with pending decisions](docs/screenshots/02-console.png)
+![Step mode: incoming mail vs. agent analysis](docs/screenshots/03-step-mode.png)
+![A decision card: proposal, facts, and the policy reason](docs/screenshots/05-decision-card.png)
+![Outbox: draft next to the mail it answers](docs/screenshots/06-outbox-pair.png)
 
 ## Decisions the agent asks about (examples from the demo corpus)
 
@@ -150,7 +180,8 @@ rather than guess. Volunteers tune autonomy by editing YAML.
 
 ## Multiple clubs, white-labeled
 
-ClubSteward is multi-club by design — three German example clubs ship in `clubs/`:
+ClubSteward is multi-club by design — six example clubs ship in `clubs/`
+(three German, two American English, one Spanish):
 
 ```bash
 uv run python -m clubsteward.club list                    # KG Rheinklause · SV Grünwald · OG Lindenthal
@@ -210,6 +241,8 @@ clubsteward/          the agent package
   decide.py          human decision CLI
   tools.py           register/draft/log tools (sandboxed)
   policy.py          policy-as-data loader
+  web.py             FastAPI app serving the console + JSON API
+webapp/static/       the console UI (vanilla HTML/JS — no build step)
 demo/corpus/         pristine demo corpus (8 mails, register, policy)
 demo/data/           runtime sandbox (gitignored contents, reset via script)
 scripts/             reset_demo, run helpers

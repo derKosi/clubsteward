@@ -1,79 +1,108 @@
-# ClubSteward — Demo Video Storyboard (≤ 5 min, target 3:30)
+# ClubSteward — Demo Video Storyboard v2 (≤ 5 min, target ~4:00)
 
-Structure per hackathon judging: Problem → Audience → Live demo (end-to-end) → Why it matters.
-Screen recording + voiceover (no camera needed, officially allowed). English.
+**v2, 11.09.** — komplett auf die **Web-Console** umgestellt (alter Terminal-Beats-Plan ist obsolet).
+Screen-Recording: Safari 1440×900, Console `/app?club=sv-gruenwald`. EN-Voiceover;
+**das deutsche UI ist ein Feature** (Tenant-Sprache) — YouTube-Untertitel EN empfohlen.
+
+Struktur nach Judging-Schema: Problem → Audience → Live-Demo (end-to-end) → Why it matters → How it's built.
+
+Demo-Club: **SV Grünwald** (deutsch, 12 Mails, kompletter Policy-Satz inkl. medical / ask_if / offer / Spam).
 
 ---
 
-## 0:00–0:25 — HOOK / PROBLEM (voiceover over static shots)
+## 0:00–0:25 — HOOK / PROBLEM (über statische Shots)
 
-- Visual: slow pan over a messy inbox folder; counter "47 unread".
-- VO: "Every community club runs on the same scarce resource: a volunteer willing to
-  be the secretary. Sarah spends six hours a week on member emails. Sign-ups.
-  Address changes. Fee questions. And once a month — a letter that needs a human heart,
+- Visual: Hero-Page mit Live-Stats; dann langsamer Scroll über das **Inbox-Panel** (12 reale deutsche Vereins-Mails).
+- VO: "Every community club runs on the same scarce resource: a volunteer willing to be
+  the secretary. Sarah spends six hours a week on member emails. Sign-ups. Address
+  changes. Fee questions. And once a month — a letter that needs a human heart,
   not a template."
 
-## 0:25–0:45 — INTRODUCING CLUBSTEWARD (title card + architecture flash)
+## 0:25–0:45 — INTRODUCING CLUBSTEWARD (15–20 s)
 
-- Visual: architecture.svg (2s), then `club list` showing SIX clubs — German carnival club,
-  football club, neighborhood org, US Little League, US PTA, Spanish vecinos association
-  (name + tagline + colors each) — ~15 seconds total.
-- VO: "ClubSteward is an agent built with the Strands Agents SDK. It runs at night,
-  does the repetitive 80%, and hands volunteers only the decisions that deserve
-  their judgment. Any club. Any language."
+- Visual: Hero „How it works"-Karten (2–3 s je), dann Console mit den **6 Vereins-Chips** (deutscher Karnevalsverein, Fußballverein, Nachbarschaftsverein, US Little League, US PTA, spanische Vecinos-Asociación).
+- VO: "ClubSteward is an agent that runs the club's inbox. Built on the Strands Agents
+  SDK, powered by GLM — and it hands Sarah only the decisions that deserve her judgment.
+  Any club. Any language."
 
-## 0:45–2:45 — LIVE DEMO (real terminal, sped up 2x where idle)
+## 0:45–1:10 — RESET + DIE INBOX (25 s)
 
-1. `uv run python scripts/reset_demo.py` — "Nine emails arrive overnight."
-2. `uv run python -m clubsteward.pipeline` — show live output:
-   - "signup → AUTO", "address change → AUTO", "question → AUTO"
-   - "hardship waiver → QUEUED", "cancellation → QUEUED", "complaint → QUEUED"
-   - **the escalation beat**: "signup + medical flag → QUEUED (ask_if matched)" —
-     "the same sign-up that ran automatically a second ago now stops for a human,
-     because the club's policy says medical notes need coach coordination"
-   - "spam → DISCARDED"
-   - run summary line: tokens, cost (~€0.01)
-   - VO during: "No human touched any of this. The agent read the policy file —
-     a YAML the club edits — updated the member register, and drafted replies."
-3. Show `demo/data/outbox/` — open the welcome draft (Irena) — VO: "Notice: it asked
-   Daniel to confirm his son's record instead of guessing a sibling discount."
-4. `uv run python -m clubsteward.decide` — the three decision cards:
-   - hardship (Kwame's mother) → show mail + policy reason → approve with instruction
-     "offer 50% reduction + instalments"
-   - cancellation (Noah) → approve
-   - complaint → approve with instruction "apologize, promise coach escalation"
-   - VO: "Three decisions, ninety seconds. Sarah stays the human in the loop —
-     on exactly the things that need one."
-5. Show updated register.csv (M007 Irena added), the hardship reply draft
-   (references the instalment plan), activity.log lines.
+- Visual: Klick auf **↺ Reset data** → Bestätigen → 12 Mails landen in der Inbox, alle Zähler auf Startzustand.
+- VO: "Twelve mails arrived for SV Grünwald — every one a scenario a real board
+  deals with weekly. Watch what the agent does on its own — and where it stops."
 
-## 2:45–3:15 — THE MEMORY BEAT (differentiator)
+## 1:10–2:05 — STEP-MODUS: AUTO vs. ESKALATION (55 s — der Kernbeat)
 
-- Re-run with mail 09 (Miriam's follow-up): agent remembers the instalment plan,
-  answers consistently, asks for Yaw's details.
-- VO: "Because every member has a persistent session, the agent remembers last week's
-  promises. Volunteers don't have to."
+- Visual: Klick auf **▶ Process next mail**. Zweispaltiges Panel: **links die Mail, rechts die Live-Analyse**.
+  1. Mail 01 (U10-Anmeldung) → Analyse erscheint: Intent-Chip `signup`, Konfidenz, Fakten —
+     dann **Flag `medical` leuchtet auf** und das Ergebnis ist **QUEUED** („⚖️ filed as decision —
+     approve it in Decisions for you").
+     - VO: "A father signs up his son for the U10s. Routine — except for one word: asthma.
+       The agent flags it medical, and the club's own policy stops it in its tracks.
+       A human decides. That rule is one line of YAML the club wrote — not code."
+  2. Mail 03 (Trainingszeiten-Frage) → **AUTO**: rechts erscheint der fertige **Entwurf**
+     („✉️ Draft — ready in the outbox").
+     - VO: "And the routine ones? A fixtures question — answered, drafted, register checked.
+       No human touched it."
+- Hinweis: die Warte-Zeilen („🧠 the agent reads the mail…") rotieren live — gut für Tempo.
 
-## 3:15–3:45 — HOW IT'S BUILT (Strands depth, fast)
+## 2:05–2:55 — DECISIONS: DER MORGEN (50 s)
 
-- Flash: policy.yaml (10 rules), interventions.py classifier (15 lines), README section.
-- VO: "The entire governance model is thirty lines of YAML driving the SDK's
-  Human-in-the-Loop intervention. Read tools run free. Writes need policy or human
-  approval. Unknown tools fail closed. No cloud, no accounts — it runs on a laptop
-  for about a cent a night."
+- Visual: Scroll zu **⚖️ Decisions for you** (Badge „N pending"). Karten auf Deutsch:
+  - 02 Kuendigung (mitten in der Saison), 04 Ratenzahlung (Hardship), 07 unsicher (Zukunft Emir),
+    12 Adresse nur teilweise (`billing_address_unclear`), ggf. 09 Angebot (neuer `offer`-Intent).
+  - Jede Karte zeigt: Mail-Betreff, Intent-Chip, Konfidenz-Prozent, 💡 Zusammenfassung,
+    **„Agent proposes"**-Box, Fakten-Grid und die **„Warum du?"**-Zeile mit dem exakten Policy-Grund.
+- Aktion: Karte 04 öffnen → **✎ Approve + instruct** → eintippen:
+  „Bietet Emma Familie drei Raten zu je 32 € an — und bestätigt den Platz."
+  → Spinner „the agent is executing…" → Toast „✓ Approved with your instructions — done".
+- VO: "Morning. Each card tells Sarah three things: what the mail said, what the agent
+  proposes — and exactly why it's asking. Sarah adds one instruction — an instalment
+  plan for a family that's short this month — and the agent writes the reply.
+  Warm, correct, in the club's voice, in seconds."
 
-## 3:45–4:00 — CLOSE
+## 2:55–3:20 — OUTBOX: SIDE-BY-SIDE (25 s)
 
-- Visual: outbox full, empty inbox, decision queue cleared.
-- VO: "Six hours a week back for every Sarah in every club. That's an agent for humans."
-- Card: repo URL + "Built with Strands Agents SDK · GLM by Z.ai"
+- Visual: **📤 Outbox drafts** → erstes Paar ist aufgeklappt: **links die eingegangene Mail,
+  rechts der Entwurf** — inkl. Signatur-Zusatz „(Entwurf erstellt von ClubSteward … vom Menschen freigegeben)".
+- VO: "Nothing is ever sent automatically. Sarah reviews every draft next to the mail it
+  answers — and because every member has a persistent session, the agent remembers what
+  it promised last week. Volunteers don't have to."
+
+## 3:20–3:45 — RUN NIGHT + STOP (25 s)
+
+- Visual: Klick **🌙 Run night** → Button wird zu **⏹ Stop** → Log streamt Mail für Mail →
+  Klick auf ⏹ → „Stopped — remaining mails stay in the inbox".
+- VO: "Prefer to let the whole night run at once? One click. And if Sarah needs to leave,
+  stop is one click too — the remaining mails simply wait in the inbox."
+
+## 3:45–4:10 — HOW IT'S BUILT (25 s)
+
+- Visual: policy.yaml (die `ask_if:`-Zeilen), dann Register-Panel (neue Mitglieder drin),
+  dann Hero-Live-Stats.
+- VO: "The entire governance model is a thirty-line YAML file driving the SDK's
+  Human-in-the-Loop intervention. Read tools run free. Writes need policy or a human.
+  Unknown tools fail closed. No cloud, no accounts — about one cent per night."
+
+## 4:10–4:25 — CLOSE (15 s)
+
+- Visual: Hero-Page mit Live-Stats (Mails handled, Outbox gefüllt), Outbox „Inbox zero 🎉".
+- VO: "Six hours a week back — for every Sarah, in every club.
+  That's an agent for humans. ClubSteward — built with Strands and GLM."
+- Card: repo URL + „Built with the Strands Agents SDK · GLM by Z.ai".
 
 ---
 
 ## Production notes
 
-- Record: `asciinema` or OBS at 1920x1080, 2x speed for idle parts, real-time for decide CLI.
-- Terminal font ≥ 16pt; use `grep -v reasoningContent`-style clean output (pipeline already clean).
-- The decide CLI input prompts must be visible — record in real time there.
-- Voiceover: record separately (Audacity), Kosi reads; or TTS for draft, re-record final.
-- Keep total ≤ 5:00 hard limit; target 3:30–4:00.
+- **Recording:** OBS oder QuickTime, Region 1440×900, 30 fps. Console-Schrift ist groß genug
+  (Karten 13.5–17 px); Browser-Zoom 110 % ist optional für mehr Präsenz.
+- **Step-Panel-Wartezeit:** jede LLM-Stufe dauert 10–30 s — fürs Video **nicht** beschleunigen
+  beim ersten Step (Suspense!), weitere Steps 2–4× timelapse.
+- **Die Warte-Zeilen rotieren alle 8 s** — bei langen Wartezeiten im Schnitt auf die Analyse springen.
+- **Typing-Beat** (Approve + instruct) in Echtzeit lassen — das ist der „Human in the loop"-Moment.
+- **docs/demo.gif** (Terminal-Replay) optional als 2–3 s B-Roll im „How it's built"-Block
+  („…or run it headless from the CLI"). Der Replay-Modus existiert weiterhin ohne API-Key.
+- Voiceover: Segmente in `docs/voiceover/` (edge-tts, en-US-AriaNeural oder Freigabe-Alternative),
+  Master via concat-Skript; Skript: `docs/voiceover-script.md`.
+- Hard limit 5:00 — die Memory-Zeile im Outbox-Beat ist der kürzbare Block.

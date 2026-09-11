@@ -1,112 +1,109 @@
-# ClubSteward — Voiceover Script (word-for-word, EN)
+# ClubSteward — Voiceover Script v2 (EN, word-for-word)
 
-Target: ~3:45 at natural pace. Timings match docs/video-storyboard.md.
+Target: ~4:05 at natural pace (150 wpm). Timings match docs/video-storyboard.md **v2 (Web-Console)**.
 [PAUSE] = 1s beat. Screen cues in (parentheses) — do not read aloud.
 
 ---
 
-## [0:00] HOOK (22s)
+## [0:00] HOOK (24s · Segment 01-hook)
 
-(Slow pan over inbox folder, counter "47 unread")
+(Slow pan: hero page, then the inbox list with 12 German mails)
 
 Every community club runs on the same scarce resource:
 a volunteer willing to be the secretary. [PAUSE]
 Sarah spends six hours a week on member emails.
-Sign-ups. Address changes. Fixture questions.
+Sign-ups. Address changes. Fee questions.
 And once a month — a letter that needs a human heart,
 like a single parent asking for a fee waiver.
 
-## [0:25] INTRODUCING CLUBSTEWARD (20s)
+## [0:25] INTRODUCING CLUBSTEWARD (18s · Segment 02-intro)
 
-(Architecture diagram, 2 seconds, then terminal title)
+(Hero "How it works" cards, then the console with the six club chips)
 
-ClubSteward is an agent that runs the club's inbox overnight. [PAUSE]
-It's built on the Strands Agents SDK,
-and it hands Sarah only the decisions that deserve her judgment.
+ClubSteward is an agent that runs the club's inbox. [PAUSE]
+Built on the Strands Agents SDK, powered by GLM —
+and it hands Sarah only the decisions that deserve her judgment. [PAUSE]
+Any club. Any language.
 
-## [0:45] LIVE DEMO — THE NIGHT RUN (55s)
+## [0:45] RESET + THE INBOX (24s · Segment 03-reset)
 
-(Terminal: reset_demo.py, then pipeline)
+(Click "Reset data" — twelve mails appear in the inbox)
 
-Nine emails arrived overnight. Watch what happens. [PAUSE]
-(runs)
+Twelve mails arrived for SV Grünwald —
+every one a scenario a real club board deals with weekly. [PAUSE]
+Watch what the agent does on its own — and where it stops.
 
-The agent reads every mail —
-and its own club policy decides what it may do alone. [PAUSE]
+## [1:10] STEP MODE — THE ESCALATION (38s · Segment 04-step)
 
-Sign-up? Automatic. Address change? Automatic.
-The register updates itself, and warm replies land in the outbox. [PAUSE]
+(▶ Process next mail. Left: the mail. Right: the analysis.)
 
-This one mentions a fee waiver — money and empathy.
-The agent won't touch it. It queues a decision for Sarah. [PAUSE]
+A father signs up his son for the U10s. Routine — [PAUSE]
+except for one word: asthma. [PAUSE]
+The agent flags it medical, and the club's own policy stops it in its tracks:
+a human decides. [PAUSE]
+That rule is one line of YAML the club wrote — not code. [PAUSE]
 
-Same for the mid-season cancellation, and the complaint. [PAUSE]
+(Next step: a fixtures question → draft appears on the right)
 
-And the spam? Gone. Silently.
+And the routine ones? A fixtures question —
+answered, drafted, register checked. No human touched it.
 
-## [1:55] THE ESCALATION BEAT (25s)
+## [1:50] THE MORNING — HUMAN DECISIONS (50s · Segment 05-morning)
 
-(Scroll up to the medical signup line)
+(Scroll to "Decisions for you" — German cards)
 
-Now watch this one closely. [PAUSE]
-It's a sign-up — the same kind that ran automatically a minute ago.
-But this one mentions an asthma inhaler. [PAUSE]
-The agent flagged it "medical", and the club's own policy rule
-stops it in its tracks: a human decides. [PAUSE]
-That rule is one line of YAML the club wrote — not code.
+Morning. Each card tells Sarah three things:
+what the mail said, what the agent proposes —
+and exactly why it's asking. In the club's own language. [PAUSE]
 
-## [2:20] THE MORNING — HUMAN DECISIONS (35s)
+(Open the instalment card, click "Approve + instruct", type)
 
-(Decide CLI, decision cards appear one by one)
+Sarah adds one instruction —
+an instalment plan for a family that's short this month — [PAUSE]
+and the agent writes the reply. Warm, correct,
+in the club's voice, in seconds.
 
-Morning. Five decisions are waiting — each one a card:
-the original mail, what the agent understood,
-what it proposes, and exactly why it's asking. [PAUSE]
+## [2:45] OUTBOX — NOTHING SENDS ITSELF (24s · Segment 06-outbox)
 
-Sarah approves the hardship case with one instruction:
-"fifty percent reduction, and offer instalments." [PAUSE]
+(Outbox: first pair open — incoming mail left, draft right)
 
-The agent writes the reply — warm, correct, done in seconds. [PAUSE]
+Nothing is ever sent automatically. [PAUSE]
+Sarah reviews every draft next to the mail it answers —
+and because every member has a persistent session,
+the agent remembers what it promised last week. Volunteers don't have to.
 
-The rest: approve, approve, approve. [PAUSE]
+## [3:15] RUN NIGHT + STOP (26s · Segment 07-runnight)
 
-Inbox zero. The club ran itself overnight.
-Sarah made the five calls that mattered.
+(Click "Run night" — the log streams. Then click Stop.)
 
-## [2:55] THE MEMORY BEAT (20s)
+Prefer to let the whole night run at once? One click. [PAUSE]
+And if Sarah needs to leave — stop is one click too.
+The remaining mails simply wait in the inbox.
 
-(Second run with the follow-up mail)
+## [3:45] HOW IT'S BUILT (26s · Segment 08-built)
 
-And when the same family writes again next week,
-ClubSteward remembers the instalment plan it proposed —
-because every member has a persistent session. [PAUSE]
-Volunteers don't have to keep promises in their heads.
+(policy.yaml with the ask_if lines, register, hero live stats)
 
-## [3:15] HOW IT'S BUILT (20s)
-
-(policy.yaml on screen, then intervention code)
-
-The entire governance model is thirty lines of YAML,
+The entire governance model is a thirty-line YAML file,
 driving the SDK's Human-in-the-Loop intervention. [PAUSE]
-Read tools run free. Writes need policy or human approval.
+Read tools run free. Writes need policy or a human.
 Unknown tools fail closed. [PAUSE]
 No cloud. No accounts. About one cent per night.
 
-## [3:35] CLOSE (15s)
+## [4:10] CLOSE (16s · Segment 09-close)
 
-(Full outbox, cleared queue, run summary)
+(Hero page, full outbox, "Inbox zero 🎉")
 
 Six hours a week back — for every Sarah, in every club. [PAUSE]
 That's an agent for humans. [PAUSE]
-
 ClubSteward — built with Strands and GLM.
-Link in the description.
 
 ---
 
 ## Recording notes
 
-- Natural pace ≈ 150 wpm; this script ≈ 560 words ≈ 3:45.
-- If runs take longer on camera, cut the memory beat narration shorter (it's the flexible block).
-- Emphasis words: **only**, **won't touch it**, **one line of YAML**, **fails closed**, **one cent**.
-- German accent is fine — clarity over polish; judges read subtitles too (add EN captions on YouTube).
+- ≈ 570 words ≈ 4:05 at 150 wpm. Hard limit 5:00.
+- Segments: `01-hook … 09-close` in `docs/voiceover/` (edge-tts; Stimme = Freigabe Kosi:
+  en-US-AriaNeural oder Guy/Jenny/Sonia — siehe 00-preview-note.mp3).
+- Emphasis words: **only**, **one word: asthma**, **not code**, **never sent automatically**, **fails closed**, **one cent**.
+- EN captions on YouTube (German UI on screen — that's the multilingual feature, say it in S5).
