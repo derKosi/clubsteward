@@ -1,0 +1,31 @@
+{
+  "id": "56b80c61",
+  "mail_file": "08-vielfach-themen.eml",
+  "from_name": "Nadine Okafor",
+  "from_email": "nadine.okafor@example.de",
+  "subject": "Adressänderung + ein paar Dinge, die mir unter den Nägeln brennen",
+  "triage": {
+    "intent": "complaint",
+    "member_email": "nadine.okafor@example.de",
+    "member_name": "Nadine Okafor",
+    "summary": "Nadine Okafor bittet um eine Adressänderung und Auskunft zu Ferien-Training samt Schnupperanmeldung für zwei Freundinnen, Hauptanliegen ist aber eine Beschwerde über den unsicheren Zustand der Umkleide 2 (wackelige Bank mit Verletzungsgefahr), die die meiste menschliche Aufmerksamkeit braucht.",
+    "proposed_action": "Zur menschlichen Entscheidung weiterleiten: Beschwerde wegen Umkleide 2 priorisieren (Sicherheitsrisiko durch wackelige Bank, Duschgeruch, Konflikte durch Ausweichen auf Umkleide 3 – Inspection/Reparatur veranlassen, Hilfsangebot der Familie aufnehmen). Daneben: Adresse im Mitgliederverzeichnis für Mia und Mutter Okafor ändern, alte Adresse im Bestand auf fehlende Hausnummer prüfen, Auskunft zu Ferien-Training (12.–24.10.) und Anmeldeverfahren für zwei Schnupper-Interessentinnen vorbereiten.",
+    "details": {
+      "adresse_alt": "Lindenstraße 53604 (im Bestand offenbar unvollständig – Hausnummer/PLZ vertauscht, Datenqualität prüfen)",
+      "adresse_neu": "Am Sportpark 4, 53783 Eitorf",
+      "anliegen_1_adressaenderung": "Neue Adresse für Mia Okafor (U16) und Kontaktperson Nadine Okafor, Rest unverändert",
+      "anliegen_3_beschwerde": "Umkleide 2 seit Sommersanierung in schlechtem Zustand: ungeklärter Geruch in der Dusche, zwei schiefe Spiegel, stark wackelige Bank vor dem Duschbereich (Verletzungsgefahr). Mädchen weichen in Umkleide 3 aus → Konflikte mit anderer Mannschaft. Familie hilft gerne beim Anpacken.",
+      "betroffene_mitglieder": "Mia Okafor (U16, Kapitänin) und Mutter Nadine Okafor als Kontaktperson",
+      "frage_2_ferien": "Training in den Herbstferien (12.–24.10.)? Mia möchte zwei Freundinnen zum Schnuppertraining mitbringen – wie ist die Anmeldung?"
+    },
+    "flags": [
+      "safety",
+      "trial_training",
+      "data_quality"
+    ],
+    "confidence": 0.95
+  },
+  "policy_reason": "Policy: intent 'complaint' requires human decision (Konflikte brauchen ein menschliches Wort)",
+  "status": "pending",
+  "created_at": "2026-09-11T13:50:20+00:00"
+}

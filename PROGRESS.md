@@ -387,3 +387,17 @@
 
 **Next**
 - Video + Voiceover (heute Nacht/morgen), Submission 12.09.
+
+## Session 2026-09-11 (6) — Locale-Fix (deutsche Karten), Draft-Gegenüberstellung, EN-Blind-Spot-Mails
+
+**Done**
+- **Sprach-Fix (Kosis Befund: „Agent proposes" bei deutschen Clubs auf Englisch)**: Ursache — TRIAGE_SYSTEM ist englisch und sagte keine Ausgabesprache; GLM antwortete default-englisch (Act-Drafts waren schon deutsch wegen expliziter Sprachanweisung). Fix: `triage_prompt_text(mail, language)` — Triage schreibt summary/proposed_action/details jetzt in der **Club-Sprache** (`brand.locale` → German/English/Spanish), Pipeline übergibt `locale=cfg.brand.locale`. Erste Verifikation zeigte den klassischen Fallstrick: der Webapp-Prozess hatte noch den VOR dem Fix geladenen Code → Mischbild. Re-Run per CLI (frischer Prozess): **alle 8 sv-gruenwald-Karten deutsch**. 2 Tests.
+- **Draft-Gegenüberstellung (Kosis Wunsch)**: Outbox zeigt jetzt **links 📥 Incoming, rechts ✉️ Draft** (Join: Draft `To:` ↔ verarbeitete Mail `From:` — 1:1 seit dem Ein-Draft-pro-Empfänger-Fix). `api_state` liefert `source` pro Draft; UI-Grid mit scrollbarer Vorschau, stackt mobil. Visuell verifiziert: 3 Draft-Paare inkl. Mail 12, wo der Agent zwei Rückfragen statt zu raten gestellt hat.
+- **EN-Blind-Spot-Mails (5, ohne AI-Auswertung — nur Corpus)**: jefferson-pta `07-data-deletion` (Datenlöschung/Privacy, DSGVO-artig) + `08-thank-you-bookfair` (Dankeschön → warm-reply-AUTO-Beat); maplewood `08-waiting-list-majors` (Waiting-List-Flag), `09-refund-double-charge` (Refund-Flag, Doppelabbuchung), `10-duplicate-signup` (Duplicate-Flag, doppelte Registrierung). Maplewood-Policy: `ask_if` um `duplicate` (signup) und `refund` (question) erweitert. **Damit abgedeckt: alle benannten Flags aus TRIAGE_SYSTEM haben jetzt mindestens einen Corpus-Vertreter** (medical, waiting_list, refund, duplicate; refund/duplicate laufen noch nie durch die Pipeline — bewusst, kosten 0 €).
+- Finaler sv-gruenwald-Stand: 12 Mails · 4 auto / 8 ask / 1 reject, alle Karten deutsch, Mail 11 `unknown` @ 0.55 → „nie raten". 61 Tests grün, ruff clean.
+
+**Learned**
+- uvicorn ohne --reload hält den Modulzustand des Prozessstarts fest — Prompt-Änderungen sind für laufende Webapp-Runs unsichtbar. Für Demo-Runs nach Code-Änderungen: CLI (frischer Prozess) oder Webapp-Neustart.
+
+**Next**
+- Video + Voiceover, Submission 12.09. (Puffer 14.09., 17:00 PT).

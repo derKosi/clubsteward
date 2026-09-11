@@ -1,0 +1,33 @@
+{
+  "id": "0382dd53",
+  "mail_file": "04-ratenzahlung.eml",
+  "from_name": "Aylin Korkmaz",
+  "from_email": "aylin.korkmaz@example.de",
+  "subject": "Beitrag in Raten möglich?",
+  "triage": {
+    "intent": "hardship_waiver",
+    "member_email": "aylin.korkmaz@example.de",
+    "member_name": "Aylin Korkmaz",
+    "summary": "Alleinerziehende Mutter Aylin Korkmaz bittet wegen finanzieller Engpässe, den Jahresbeitrag für ihre Tochter Emma in drei Raten zahlen zu dürfen – Beitragsentlastung, daher menschliche Entscheidung nötig.",
+    "proposed_action": "An Kassierer/Vorstand zur Entscheidung weiterleiten – Zahlungserleichterung ist eine Finanzentscheidung und braucht eine menschliche Freigabe. Vorschlag: Ratenzahlung in 3 Raten human prüfen und ggf. bestätigen; in der Antwort noch nichts Zusagendes versprechen.",
+    "details": {
+      "anlass": "aktueller Monat finanziell knapp",
+      "gewünschte_lösung": "Zahlung des Jahresbeitrags in 3 Raten",
+      "kind": "Emma",
+      "member_email": "aylin.korkmaz@example.de",
+      "reason": "Alleinerziehend, kommt diesen Monat finanziell nicht über die Runden",
+      "requested_instalments": 3,
+      "sprache": "Deutsch",
+      "subject": "Beitrag in Raten möglich?"
+    },
+    "flags": [
+      "instalment_plan",
+      "single_parent",
+      "hardship"
+    ],
+    "confidence": 0.97
+  },
+  "policy_reason": "Policy: intent 'hardship_waiver' requires human decision (Geld + Menschlichkeit entscheidet immer ein Mensch)",
+  "status": "pending",
+  "created_at": "2026-09-11T13:47:06+00:00"
+}

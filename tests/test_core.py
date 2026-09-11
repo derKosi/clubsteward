@@ -345,6 +345,35 @@ class TestSaveDraftReplace:
         assert self._files(cfg.outbox_dir) == ["draft_An A neu.eml", "draft_An B.eml"]
 
 
+class TestTriagePromptLanguage:
+    """Decision cards must speak the CLUB's language, not the prompt's."""
+
+    def test_german_club_gets_german_instruction(self):
+        from clubsteward.agents import triage_prompt_text
+
+        mail = MailItem.parse(DEMO / "01-signup-irena.eml")
+        prompt = triage_prompt_text(mail, "German")
+        assert "in German" in prompt
+        assert "club inbox email" in prompt  # classification instruction stays EN
+
+    def test_unknown_locale_falls_back_to_english(self):
+        from clubsteward.agents import LANGUAGE_BY_LOCALE, triage_one
+
+        assert LANGUAGE_BY_LOCALE.get("xx", "English") == "English"
+
+        class _Spy:
+            def __init__(self):
+                self.seen = None
+
+            def structured_output(self, model, prompt):
+                self.seen = prompt
+                return TriageResult(intent=Intent.QUESTION, summary="s", proposed_action="a", confidence=0.9)
+
+        spy = _Spy()
+        triage_one(spy, MailItem.parse(DEMO / "01-signup-irena.eml"), locale="xx")
+        assert "in English" in spy.seen
+
+
 class TestPipelineStop:
     """Stop flag between mails — an unprocessed mail stays in the inbox."""
 

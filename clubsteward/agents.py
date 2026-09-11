@@ -119,20 +119,31 @@ class ClubSteward:
         return self._act_sessions[member_key]
 
 
-def triage_one(triage_agent: Agent, mail: MailItem) -> TriageResult:
+LANGUAGE_BY_LOCALE = {"de": "German", "en": "English", "es": "Spanish"}
+
+
+def triage_prompt_text(mail: MailItem, language: str = "English") -> str:
+    """The per-mail triage prompt; summary/proposed_action/details come back
+    in the CLUB's language so the board reads decision cards natively."""
+    return (
+        f"Classify this club inbox email. Check carefully for special conditions "
+        f"(medical/health, waiting list, refund, ...) and set flags accordingly.\n\n"
+        f"Write summary, proposed_action and details in {language} — the club's "
+        f"language, the person reading the decision card speaks it.\n\n"
+        f"From: {mail.from_name} <{mail.from_email}>\n"
+        f"Subject: {mail.subject}\nDate: {mail.date}\n\n"
+        f"{mail.body[:2500]}"
+    )
+
+
+def triage_one(triage_agent: Agent, mail: MailItem, locale: str = "en") -> TriageResult:
     """Classify one mail; returns the agent's structured TriageResult.
 
     One plain retry: GLM structured output occasionally fails to parse
     ("Unterminated string", dropped tool call). The prompt is used temporarily
     (never added to history), so the second attempt starts clean.
     """
-    prompt = (
-        f"Classify this club inbox email. Check carefully for special conditions "
-        f"(medical/health, waiting list, refund, ...) and set flags accordingly.\n\n"
-        f"From: {mail.from_name} <{mail.from_email}>\n"
-        f"Subject: {mail.subject}\nDate: {mail.date}\n\n"
-        f"{mail.body[:2500]}"
-    )
+    prompt = triage_prompt_text(mail, LANGUAGE_BY_LOCALE.get(locale, "English"))
     try:
         return triage_agent.structured_output(TriageResult, prompt)
     except Exception:

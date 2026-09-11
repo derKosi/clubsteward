@@ -5,38 +5,49 @@
       {
         "reasoningContent": {
           "reasoningText": {
-            "text": "The member is not found in the register under either her name or email. Maybe the family is registered under the husband's name? Let me try a couple of lookups — \"Reiter\" perhaps."
+            "text": "The member is not found in the register under either email or name. So I cannot update the register (no record to update). The case: she asked for an address change but didn't provide the new address, and is unsure whether the billing address is affected. Triage says: ask for the full new address and clarify billing address, human confirm before changing.\n\nSince she's not in the register, I should note that in the reply? Hmm — careful: \"Never invent fees or members; look up before updating.\" The lookup returned NOT_FOUND. That doesn't necessarily mean she's not a member — maybe the register uses a different email. I shouldn't invent. In the draft, I shouldn't claim she's not a member (could be confusing); but I also can't update the register. The safe approach: draft a warm reply asking for the new address and clarifying billing address question; mention that once she provides it, the Geschäftsstelle will update it — and perhaps gently note we couldn't locate her record under this email so we'll double-check, or ask her to confirm the email she's registered with. Actually mentioning that could be helpful and honest: \"Damit ich alles an der richtigen Stelle ändern kann, prüfen Sie bitte kurz, ob dies die E-Mail-Adresse ist, unter der Sie bei uns gemeldet sind\" — that's a graceful way to handle NOT_FOUND without alarming her.\n\nAlso address her question: address change applies to both postal and, if desired, billing/invoice address separately; the portal — there's a member portal but she can just reply to this email. Actually I shouldn't invent portal details. The CLUB FACTS don't mention a portal. She says \"da war doch mal was mit einem Portal\". I shouldn't invent portal facts. I can say: Sie können uns die Änderung einfach per E-Mail mitteilen; wir tragen sie ein. Avoid claiming portal specifics.\n\nPer triage: decision to be confirmed by a human before changing data. So I update nothing in the register (also nothing to update — NOT_FOUND), draft the reply, and log the activity.\n\nDraft must be in German, warm, concise (~120 words max), signed exactly with the signature.\n\nDraft body:\n\n\"Guten Tag Frau Reiter,\n\nvielen Dank für Ihre Nachricht! Gerne ändern wir Ihre Adresse — ein paar Angaben fehlen mir dafür aber noch:\n\n1. Ihre vollständige neue Adresse (Straße, Hausnummer, PLZ, Ort)\n2. Soll die Änderung auch für Beiträge und Rechnungen gelten, oder bleibt dort die alte Adresse bestehen, da Ihr Mann noch oft dort ist? Wir können beides getrennt führen.\n\nKleine Bitte noch: Wir konnten Ihre Daten unter dieser E-Mail-Adresse nicht eindeutig finden — falls Sie bei uns eine andere Adresse hinterlegt haben, teilen Sie mir diese gerne kurz mit.\n\nSobald Sie mir Bescheid geben, erledige ich alles Weitere.\n\nHerzliche Grüße\n[signature]\"\n\nWord count roughly fine. Keep concise.\n\nSince register NOT_FOUND — is that an ERROR? It returned NOT_FOUND, not ERROR. So I can proceed: no register update possible. I'll note it in the log and final answer.\n\nI could also save the draft and log activity — those are independent? The log should state what was done, including draft saved. I can do both in one block since log text doesn't depend on tool result. But strictly the log says \"what was done\" — I know I'm saving the draft, so I can write both in one block. Yes, save_draft and log_activity are independent of each other's outputs. Make both calls in the same block."
           }
         }
       },
       {
-        "text": "Der Registereintrag wurde nicht gefunden. Ich prüfe nun, ob die Familie unter dem Namen des Ehemanns eingetragen sein könnte."
+        "text": "Frau Reiter ist weder unter ihrer E-Mail noch unter ihrem Namen im Register zu finden. Daher werde ich (noch) keine Daten ändern — wie in der Triage vorgemerkt —, sondern stattdessen eine freundliche Antwort verfassen, in der ich um die vollständige neue Adresse bitte und frage, ob die Änderung auch die Rechnungsadresse betrifft."
       },
       {
         "toolUse": {
-          "toolUseId": "call_ecbf515631e84097826e48da",
-          "name": "register_lookup",
+          "toolUseId": "call_d907efa201cf453792dbc36b",
+          "name": "save_draft",
           "input": {
-            "query": "Reiter"
+            "body": "Guten Tag Frau Reiter,\n\nherzlichen Dank für Ihre Nachricht — gerne ändern wir Ihre Adresse. Damit ich alles richtig eintragen kann, bräuchte ich noch zwei Dinge von Ihnen:\n\n1. Ihre vollständige neue Adresse (Straße, Hausnummer, PLZ, Ort).\n2. Soll die Änderung auch für Beiträge und Rechnungen gelten, oder soll dort die alte Adresse bestehen bleiben, da Ihr Mann noch oft dort ist? Beides können wir gerne getrennt führen.\n\nEine kleine Bitte noch: Unter dieser E-Mail-Adresse konnten wir Ihre Daten im Register leider nicht eindeutig finden. Falls Sie bei uns eine andere E-Mail-Adresse hinterlegt haben, teilen Sie mir diese doch kurz mit.\n\nSobald ich von Ihnen höre, erledige ich alles Weitere.\n\nHerzliche Grüße\nSarah Verwald\nGeschäftsstelle, SV Grünwald 1912 e.V.\n(Entwurf erstellt von ClubSteward, dem Vereins-Agenten — vom Menschen freigegeben)",
+            "subject": "Ihre Adressänderung — zwei kurze Rückfragen",
+            "to": "hannelore.reiter@example.de"
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "call_36d0cb1d54f44a6d8cbd7316",
+          "name": "log_activity",
+          "input": {
+            "event": "Adresse änderung (Hannelore Reiter): Register-Eintrag unter E-Mail und Name nicht gefunden (NOT_FOUND) — daher keine Datenänderung. Antwortentwurf gespeichert: um vollständige neue Adresse gebeten, Rückfrage ob Beitrags-/Rechnungsadresse mitgeändert werden soll (Ehemann wohnt teils noch an alter Adresse), sowie um Bestätigung der im Register hinterlegten E-Mail gebeten. Änderung erst nach menschlicher Prüfung/Rückmeldung."
           }
         }
       }
     ],
     "metadata": {
       "usage": {
-        "inputTokens": 760,
-        "outputTokens": 70,
-        "totalTokens": 830
+        "inputTokens": 935,
+        "outputTokens": 553,
+        "totalTokens": 1488
       },
       "metrics": {
         "latencyMs": 0,
-        "timeToFirstByteMs": 6729
+        "timeToFirstByteMs": 6314
       }
     },
-    "tracking_id": "2691a1e7-b4d7-4361-901f-2feee6d3b42a"
+    "tracking_id": "37632cc4-4786-45ee-a11c-59066295ee27"
   },
   "message_id": 5,
   "redact_message": null,
-  "created_at": "2026-09-11T13:03:05.678659+00:00",
-  "updated_at": "2026-09-11T13:03:05.678675+00:00"
+  "created_at": "2026-09-11T13:53:37.309287+00:00",
+  "updated_at": "2026-09-11T13:53:37.309307+00:00"
 }

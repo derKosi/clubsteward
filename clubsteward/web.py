@@ -165,6 +165,19 @@ def api_state(club_id: str):
     _club_dir(club_id)  # validates club id (raises 404)
     cfg = Config.load(club_id)
     reg_rows = load_register_state(cfg)
+    # incoming mail per member (from processed/*.eml) so the console can show
+    # mail and draft side by side — joined on the email address
+    incoming: dict[str, dict] = {}
+    for p in sorted(cfg.processed_dir.glob("*.eml")):
+        try:
+            m = MailItem.parse(p)
+        except Exception:
+            continue
+        incoming[m.from_email.lower()] = {
+            "from": m.from_name,
+            "subject": m.subject,
+            "body": m.body[:900],
+        }
     drafts = []
     for p in sorted(cfg.outbox_dir.glob("*.eml")):
         text = p.read_text(encoding="utf-8")
@@ -175,7 +188,13 @@ def api_state(club_id: str):
                 to = ln[3:].strip()
             elif ln.lower().startswith("subject:"):
                 subject = ln[8:].strip()
-        drafts.append({"file": p.name, "to": to, "subject": subject, "body": body.strip()[:600]})
+        drafts.append({
+            "file": p.name,
+            "to": to,
+            "subject": subject,
+            "body": body.strip()[:600],
+            "source": incoming.get(to.lower()),
+        })
     return {
         "club": club_id,
         "inbox": [p.name for p in sorted(cfg.inbox_dir.glob("*.eml"))],

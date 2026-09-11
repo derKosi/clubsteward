@@ -64,7 +64,7 @@ def run(max_mails: int | None = None, recorder: RunRecorder | None = None, club:
         mail = MailItem.parse(path)
         print(f"\n--- {path.name} ---")
         try:
-            triage = triage_one(ck.triage_agent, mail)
+            triage = triage_one(ck.triage_agent, mail, locale=cfg.brand.locale)
         except Exception as e:
             print(f"  TRIAGE FAILED: {e}")
             shutil.move(str(path), cfg.errors_dir / path.name)

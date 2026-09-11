@@ -1,0 +1,33 @@
+{
+  "id": "52f63fcb",
+  "mail_file": "09-unterstuetzung-angebot.eml",
+  "from_name": "Thomas Krüger",
+  "from_email": "thomas.krueger@example.de",
+  "subject": "Wir möchten etwas zurückgeben — wie können wir helfen?",
+  "triage": {
+    "intent": "offer",
+    "member_email": "thomas.krueger@example.de",
+    "member_name": "Thomas Krüger",
+    "summary": "Absender Thomas Krüger möchte dem Verein etwas zurückgeben (Jugendspende 500–1000 €/Jahr, Trikotsponsorship über seine Fahrradwerkstatt oder Repair-Café-Nachmittag) und fragt nach dem richtigen Ansprechpartner – zusätzlich fragt er nach einer Anmeldung für seine Tochter Lea (9), sobald es eine Mädchenmannschaft gibt (Hauptthema: das Sponsoring-/Spendenangebot, da dies die meise menschliche Aufmerksamkeit braucht).",
+    "proposed_action": "An Vereinsvorstand/Sponsoring-Verantwortliche zur Entscheidung weiterleiten; in der Antwort nur zusagen, dass sich ein Mensch meldet (keine Zusage über Betrag, Trikotsponsorship oder Repair-Café). Zusätzlich Frage zur Anmeldung von Lea (9) und möglicher Warteliste für eine Mädchenmannschaft an die Jugendleitung übergeben.",
+    "details": {
+      "angebot_geld": "Gesponserter Betrag 500–1000 € pro Jahr für die Jugend, Verwendung nach Vereinsentscheid",
+      "angebot_praktisch": "Repair-Café-Nachmittag im Vereinsheim („Bring dein kaputtes Rad mit“), Verein nimmt Spenden nach eigenem Ermessen",
+      "angebot_trikotsponsor": "Trikotsponsorship über die Werkstatt, vollständige Finanzierung durch ihn",
+      "bestehendes_mitglied": "Familie seit 2 Jahren im Verein; Sohn Luca (6) spielt bereits",
+      "dringendste_entscheidung": "Sponsoring-/Spendenangebot (menschliche Entscheidung nötig, Zusagen nur durch Vorstand)",
+      "frage_anmeldung": "Kann Lea schon angemeldet werden oder gibt es Wartelisten?",
+      "frage_ansprechpartner": "An wen wendet er sich – Vorstand, Sponsoring-Beauftragter oder Jugendleitung?",
+      "geschäft": "Krügers Radwerk, kleine Fahrradwerkstatt in Grünwald-Mitte, seit Frühjahr selbstständig",
+      "kind_neu": "Lea, 9 Jahre – möchte Fußball spielen, sobald es eine Mädchenmannschaft für ihre Altersklasse gibt"
+    },
+    "flags": [
+      "waiting_list",
+      "youth_sponsorship"
+    ],
+    "confidence": 0.96
+  },
+  "policy_reason": "No policy rule for intent 'offer' — defaulting to ask.",
+  "status": "pending",
+  "created_at": "2026-09-11T13:51:00+00:00"
+}

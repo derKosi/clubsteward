@@ -5,38 +5,40 @@
       {
         "reasoningContent": {
           "reasoningText": {
-            "text": "Both actions completed successfully. Now log the activity."
+            "text": "Update successful. Now draft the reply. Send to the OLD address since that's where she wrote from (per instruction: \"draft a reply to mia.hoffmann@example.de\"). Warm, human, concise, German, with exact signature."
           }
         }
       },
       {
-        "text": "Both updates succeeded. Now logging the activity:"
+        "text": "Register updated successfully. Now I'll draft the confirmation reply to her old address (where she wrote from):"
       },
       {
         "toolUse": {
-          "toolUseId": "call_9a7a10da22a04246b6010f64",
-          "name": "log_activity",
+          "toolUseId": "call_402d242b1cf24535bfcaa71c",
+          "name": "save_draft",
           "input": {
-            "event": "E-Mail-Wechsel & U17-Vormerkung für Mia Hoffmann (M005) verarbeitet: Register auf mia.hoffmann.neu@example.de aktualisiert, geplanter U17-Aufstieg im Oktober in Notizen vermerkt; Bestätigungsentwurf an alte Adresse gespeichert."
+            "body": "Hallo Mia,\n\ndanke für deine Nachricht! Deine neue E-Mail-Adresse (mia.hoffmann.neu@example.de) ist jetzt im System hinterlegt, und dein Wechsel in die U17 ab Oktober haben wir ebenfalls vermerkt.\n\nWir drücken die Daumen für die Rückrunde in der neuen Mannschaft — und schöne Herbstferien, falls sie vor der Tür stehen!\n\nLiebe Grüße\n\nSarah Verwald\nGeschäftsstelle, SV Grünwald 1912 e.V.\n(Entwurf erstellt von ClubSteward, dem Vereins-Agenten — vom Menschen freigegeben)",
+            "subject": "Aktualisierung deiner Daten — E-Mail & U17-Wechsel",
+            "to": "mia.hoffmann@example.de"
           }
         }
       }
     ],
     "metadata": {
       "usage": {
-        "inputTokens": 1128,
-        "outputTokens": 116,
-        "totalTokens": 1244
+        "inputTokens": 987,
+        "outputTokens": 235,
+        "totalTokens": 1222
       },
       "metrics": {
         "latencyMs": 0,
-        "timeToFirstByteMs": 8992
+        "timeToFirstByteMs": 7651
       }
     },
-    "tracking_id": "7d29c598-c934-4201-85de-759a01a9fccd"
+    "tracking_id": "0c7901a9-02c7-44ff-81dd-13005d44955f"
   },
   "message_id": 5,
   "redact_message": null,
-  "created_at": "2026-09-11T12:58:58.843583+00:00",
-  "updated_at": "2026-09-11T12:58:58.843603+00:00"
+  "created_at": "2026-09-11T13:48:18.652568+00:00",
+  "updated_at": "2026-09-11T13:48:18.652585+00:00"
 }

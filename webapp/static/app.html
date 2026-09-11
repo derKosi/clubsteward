@@ -63,6 +63,14 @@
   .draft:last-child { border-bottom:none; }
   .draft b { display:block; word-break:break-word; } .draft span { color:var(--mut); }
   .draft p { margin-top:4px; color:#334155; font-size:12.5px; white-space:pre-wrap; max-height:80px; overflow:hidden; }
+  .draft-pair { display:grid; grid-template-columns:1fr 1fr; gap:0 16px; border-bottom:1px solid #eef2f7; padding:12px 0; font-size:13px; }
+  .draft-pair:last-child { border-bottom:none; }
+  .draft-pair b { display:block; word-break:break-word; }
+  .draft-pair .mut { color:var(--mut); font-size:12px; }
+  .draft-pair p { margin-top:4px; font-size:12.5px; white-space:pre-wrap; max-height:150px; overflow:auto; color:#334155; }
+  .draft-src { background:#f8fafc; border:1px solid #eef2f7; border-radius:8px; padding:8px 10px; }
+  .draft-out { border-left:3px solid var(--pri, #15803d); background:#fff; border-radius:8px; padding:8px 10px; }
+  @media (max-width:820px){ .draft-pair { grid-template-columns:1fr; gap:10px; } }
   table { width:100%; border-collapse:collapse; font-size:12.5px; }
   th { text-align:left; color:var(--mut); font-weight:600; padding:6px 8px; border-bottom:1px solid #e2e8f0; }
   td { padding:6px 8px; border-bottom:1px solid #f1f5f9; }
@@ -162,8 +170,16 @@ async function loadState(){
   $('kpiDec').classList.toggle('hot', s.decisions_pending > 0);
   $('kpis').children[2].querySelector('b').textContent = s.drafts.length;
   $('draftCount').textContent = s.drafts.length;
-  $('drafts').innerHTML = s.drafts.length ? s.drafts.map(d=>
-    `<div class="draft"><b>${esc(d.subject || d.file.replace(/^draft_/,'').replace(/\.eml$/,'').replace(/_/g,' '))}</b><span>to ${esc(d.to)}</span><p>${esc(d.body.slice(0,160))}…</p></div>`).join('')
+  $('drafts').innerHTML = s.drafts.length ? s.drafts.map(d=>{
+    const src = d.source;
+    const srcHtml = src
+      ? `<b>${esc(src.subject)}</b><span class="mut">from ${esc(src.from)}</span><p>${esc(src.body.slice(0,420))}${src.body.length>420?'…':''}</p>`
+      : '<p style="color:var(--mut)">no matching incoming mail in processed/</p>';
+    return `<div class="draft-pair">
+      <div class="draft-src"><span class="mut">📥 Incoming</span>${srcHtml}</div>
+      <div class="draft-out"><span class="mut">✉️ Draft</span><b>${esc(d.subject || d.file.replace(/^draft_/,'').replace(/\.eml$/,'').replace(/_/g,' '))}</b><span class="mut">to ${esc(d.to)}</span><p>${esc(d.body.slice(0,420))}…</p></div>
+    </div>`;
+  }).join('')
     : '<p style="color:var(--mut);font-size:13px">No drafts yet.</p>';
   const reg = s.register;
   if(reg.length){

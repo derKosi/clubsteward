@@ -20,6 +20,7 @@ rules:
     ask_if:
       - medical
       - waiting_list
+      - duplicate
   - intent: address_change
     decision: auto
     note: routine data hygiene
@@ -36,6 +37,7 @@ rules:
     note: informational replies are routine
     ask_if:
       - medical
+      - refund
   - intent: complaint
     decision: ask
     note: conflicts need a human touch
