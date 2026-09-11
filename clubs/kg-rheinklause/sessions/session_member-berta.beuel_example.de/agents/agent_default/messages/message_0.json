@@ -1,0 +1,15 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "text": "Process this case for the club automatically.\n\nCLUB FACTS (authoritative — NEVER invent or change amounts; if a fee is not listed, say you will confirm):\n  club: KG Rheinklause 1967 e.V.\n  season: Session 2026/27\n  tone: herzlich, rheinisch-jovial, knapp — auf Deutsch\n  fees:\n  jahresbeitrag: 60.0\n  gardemitglied: 30.0\n  hardness_waiver_max: 60.0\n  signature (use EXACTLY this signature):\nDer Elferrat\nKG Rheinklause 1967 e.V.\n(Entwurf erstellt von ClubSteward, dem Vereins-Agenten — vom Menschen freigegeben)\n\nMAIL from Berta Beuel <berta.beuel@example.de> subject 'Neue Adresse':\nHallo Elferrat,\n\nwir sind umgezogen, bitte Adresse aktualisieren:\nHauptstraße 88a, 50667 Köln. Alles andere bleibt.\n\nDanke und Helau!\nBerta Beuel\n\nTRIAGE: intent=address_change, summary=Berta Beuel informiert über ihren Umzug und bittet um Aktualisierung ihrer Adresse im Mitgliederbestand.\nDETAILS: {'neue_adresse': 'Hauptstraße 88a, 50667 Köln', 'sender_email': 'berta.beuel@example.de', 'sender_name': 'Berta Beuel', 'sonstige_änderungen': 'keine (Alles andere bleibt)'}\nProposed action: Mitgliedsdatensatz von Berta Beuel im Vereinsregister mit der neuen Adresse aktualisieren und dem Mitglied kurz bestätigen.\n\nReply in the language of the member's mail (this club's default: German if unsure). Use the tools to update the register and draft a reply to berta.beuel@example.de. Finish with a log entry."
+      }
+    ],
+    "tracking_id": "3debd05d-ba26-45a9-a837-f3d14f1dc576"
+  },
+  "message_id": 0,
+  "redact_message": null,
+  "created_at": "2026-09-11T14:57:49.420384+00:00",
+  "updated_at": "2026-09-11T14:57:49.420390+00:00"
+}

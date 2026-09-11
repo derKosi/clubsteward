@@ -1,0 +1,39 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "reasoningContent": {
+          "reasoningText": {
+            "text": "Let me process this case. Berta Beuel sent an email saying she moved to a new address and wants it updated. I need to:\n\n1. Look up Berta Beuel in the register (by email or name) to confirm she exists before updating.\n2. Update her record with the new address.\n3. Draft a reply confirming the change.\n4. Log the activity.\n\nFirst, let me look up the member. The update depends on knowing her record exists, so I'll do the lookup first, then update, then draft and log."
+          }
+        }
+      },
+      {
+        "toolUse": {
+          "toolUseId": "call_e54b34a0d1be47498e5ed749",
+          "name": "register_lookup",
+          "input": {
+            "query": "berta.beuel@example.de"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 581,
+        "outputTokens": 45,
+        "totalTokens": 626
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 6839
+      }
+    },
+    "tracking_id": "8b9daa82-32ba-4f23-ab5c-e4e1323f0b86"
+  },
+  "message_id": 1,
+  "redact_message": null,
+  "created_at": "2026-09-11T14:57:56.520075+00:00",
+  "updated_at": "2026-09-11T14:57:56.520087+00:00"
+}

@@ -401,3 +401,20 @@
 
 **Next**
 - Video + Voiceover, Submission 12.09. (Puffer 14.09., 17:00 PT).
+
+## Session 2026-09-11 (7) — Step-Modus (Klick für Klick), Tenant-Leak-Fix, Störungs-Postmortem
+
+**Done**
+- **Störungs-Postmortem**: Ein UI-Run um 16:12 (Kosi klickte währenddessen) lief in die Z.ai-Störungsphase — alle 6 kg-Mails: Triage-Calls scheiterten (0 Tokens empfangen), landeten korrekt konserviert in `_errors`, Spam trotzdem aussortiert, Run nicht gestorben. Degradation funktionierte wie designed; repariert per `club reset` + Re-Run (4 auto / 2 ask / 1 reject). **Fehler meinerseits**: den Dirty-State blind mit `git add -A` + falscher Message („sv-gruenwald") committet — Inhalt war korrekt (kg-Snapshot), Message unsauber. Regel: vor `add -A` immer Status lesen.
+- **og-lindenthal Re-Run mit Locale-Fix**: Karten jetzt deutsch (u. a. „Beschwerde: Festplatz nach dem Sommerfest" → deutsche Weiterleitungs-Empfehlung).
+- **Step-Modus-Backend (05151f1)**: `process_mail()` aus `pipeline.run` extrahiert (identisches Verhalten: Moves, Summary, Recorder, Prints) + gibt Trace-Dict zurück (Triage-Felder, Decision + Reason, Draft, Decision-Id). `run_one(club)` verarbeitet genau die erste Inbox-Mail über denselben Code-Pfad. Web: `GET /clubs/{id}/inbox/next` + `POST /clubs/{id}/process-one` (synchron, 409 bei laufendem Batch).
+- **Step-Modus-UI (0baa3e8 + 8b9205e)**: full-width Inbox-Karte mit Mail-Liste + „▶ Process next mail". Klick → links die Incoming-Mail, rechts rotierende Warte-Strings, dann Analyse (Intent/Confidence/Flags/Summary) + „Why you"-Reason + Draft bzw. Queued-Hinweis; danach Decisions/Outbox live aktualisiert. Batch („Run night") + Stop + Reset bleiben daneben.
+- **Tenant-Leak, zwei Iterationen**: (1) Step-Panel blieb beim Club-Wechsel stehen und renderte Ergebnisse ins falsche Rendering → Fix. (2) Kosis Test: Zurückwechseln zeigte die laufende Mail nicht mehr → **`stepStates{}` pro Tenant**: Wechseln re-bindet das Panel nur; der Serverprozess läuft unberührt weiter, zurück = „processing…" wieder sichtbar, Fertigstellung landet im richtigen Tenant (Toast auch bei Abwesenheit). Backend war zu keinem Zeitpunkt leaky (Run-Lock serialisiert; `set_config` pro Run).
+- E2E bewiesen: kg per Step-Endpoint (signup @ 0.96, deutsche Reason, Draft „Willkommen Milla! – Anmeldung Kindergarde") + echter UI-Klick via Accessibility.
+
+**Learned**
+- Wer UI-Zustand tenant-übergreifend stehen lässt, baut einen Cross-Tenant-Leak — Panel-Zustand gehört in ein per-Tenant-Model, nicht in den DOM.
+- Ein „abgebrochener" Browser-Fetch bricht den Serverprozess NICHT ab (FastAPI-Threadpool) — Abbruch-Semantik muss man pro Schicht bewusst entscheiden.
+
+**Next**
+- „Why you"-Reasons auf Tenant-Sprache heben (läuft), dann Video + Voiceover.

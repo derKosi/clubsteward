@@ -1,0 +1,32 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "toolUse": {
+          "toolUseId": "call_f0bdb1cb82cf4d19b66ef6c7",
+          "name": "log_activity",
+          "input": {
+            "event": "Adresse von Berta Beuel (berta.beuel@example.de, M001) auf Hauptstraße 88a, 50667 Köln aktualisiert (Notizfeld, da Adressfeld im Demo-Register nicht verfügbar); Bestätigungsmail als Entwurf gespeichert."
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 1316,
+        "outputTokens": 102,
+        "totalTokens": 1418
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 3012
+      }
+    },
+    "tracking_id": "eaaae267-c9e8-4c81-b67c-f9e59f085330"
+  },
+  "message_id": 13,
+  "redact_message": null,
+  "created_at": "2026-09-11T14:58:45.905058+00:00",
+  "updated_at": "2026-09-11T14:58:45.905071+00:00"
+}

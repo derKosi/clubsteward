@@ -1,20 +1,20 @@
 {
-  "started_at": "2026-09-11T12:39:18+00:00",
-  "finished_at": "2026-09-11T12:45:14+00:00",
+  "started_at": "2026-09-11T14:41:33+00:00",
+  "finished_at": "2026-09-11T14:46:57+00:00",
   "mails_total": 6,
   "auto": 3,
   "ask": 2,
   "rejected": 1,
-  "total_tokens": 18614,
+  "total_tokens": 12869,
   "steps": [
     {
       "mail_file": "01-familienbeitritt.eml",
       "intent": "signup",
       "route": "auto",
       "triage_tokens": 0,
-      "act_tokens": 5956,
+      "act_tokens": 3738,
       "act_latency_ms": 0,
-      "tool_calls": 5,
+      "tool_calls": 4,
       "notes": ""
     },
     {
@@ -22,7 +22,7 @@
       "intent": "question",
       "route": "auto",
       "triage_tokens": 0,
-      "act_tokens": 4943,
+      "act_tokens": 4163,
       "act_latency_ms": 0,
       "tool_calls": 4,
       "notes": ""
@@ -52,9 +52,9 @@
       "intent": "address_change",
       "route": "auto",
       "triage_tokens": 0,
-      "act_tokens": 7715,
+      "act_tokens": 4968,
       "act_latency_ms": 0,
-      "tool_calls": 7,
+      "tool_calls": 4,
       "notes": ""
     },
     {

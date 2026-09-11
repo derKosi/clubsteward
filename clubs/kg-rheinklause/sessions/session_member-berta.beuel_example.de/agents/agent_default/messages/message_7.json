@@ -1,0 +1,36 @@
+{
+  "message": {
+    "role": "assistant",
+    "content": [
+      {
+        "text": "Die Adresse ist noch nicht im Datensatz sichtbar — ich versuche es mit einem alternativen Feldnamen:"
+      },
+      {
+        "toolUse": {
+          "toolUseId": "call_6ea81b8835f0412f99d2aef5",
+          "name": "register_update",
+          "input": {
+            "email": "berta.beuel@example.de",
+            "updates": "{\"address\": \"Hauptstraße 88a, 50667 Köln\"}"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "usage": {
+        "inputTokens": 854,
+        "outputTokens": 99,
+        "totalTokens": 953
+      },
+      "metrics": {
+        "latencyMs": 0,
+        "timeToFirstByteMs": 6084
+      }
+    },
+    "tracking_id": "a7016a12-8ff0-4c56-98d2-0dc27d596068"
+  },
+  "message_id": 7,
+  "redact_message": null,
+  "created_at": "2026-09-11T14:58:16.634742+00:00",
+  "updated_at": "2026-09-11T14:58:16.634755+00:00"
+}

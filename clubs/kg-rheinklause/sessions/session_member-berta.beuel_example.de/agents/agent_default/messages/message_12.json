@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "call_73873c61435f49a2b4c47ffe",
+          "status": "success",
+          "content": [
+            {
+              "text": "DRAFT SAVED draft_Adresse aktualisiert Helau.eml"
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "99b91224-7d8d-41d5-bae3-04ebac1c46af"
+  },
+  "message_id": 12,
+  "redact_message": null,
+  "created_at": "2026-09-11T14:58:42.884327+00:00",
+  "updated_at": "2026-09-11T14:58:42.884337+00:00"
+}

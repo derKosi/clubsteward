@@ -1,0 +1,15 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "text": "Process this case for the club automatically.\n\nCLUB FACTS (authoritative — NEVER invent or change amounts; if a fee is not listed, say you will confirm):\n  club: KG Rheinklause 1967 e.V.\n  season: Session 2026/27\n  tone: herzlich, rheinisch-jovial, knapp — auf Deutsch\n  fees:\n  jahresbeitrag: 60.0\n  gardemitglied: 30.0\n  hardness_waiver_max: 60.0\n  signature (use EXACTLY this signature):\nDer Elferrat\nKG Rheinklause 1967 e.V.\n(Entwurf erstellt von ClubSteward, dem Vereins-Agenten — vom Menschen freigegeben)\n\nMAIL from Gaby Grips <gaby.grips@example.de> subject 'Wann sind die November-Sitzungen?':\nHallo,\n\nkann mir jemand die Sitzungstermine für November sagen?\nIch möchte zwei Gäste mitbringen und brauche die Termine für die Einladungen.\n\nDanke!\nGaby\n\nTRIAGE: intent=question, summary=Gaby fragt nach den Sitzungsterminen im November, weil sie zwei Gäste einladen möchte – reine Terminanfrage, kein besonderer Klärungsbedarf.\nDETAILS: {'gaeste': 2, 'gewuenschte_info': 'Sitzungstermine November', 'grund': 'Einladungen für zwei Gäste', 'monat': 'November'}\nProposed action: Mit den Sitzungsterminen im November antworten; falls Gäste angemeldet oder einer Gastkarte bedürfen, Regelung kurz mitteilen.\n\nReply in the language of the member's mail (this club's default: German if unsure). Use the tools to update the register and draft a reply to gaby.grips@example.de. Finish with a log entry."
+      }
+    ],
+    "tracking_id": "eebd0dcf-9e88-4052-a6b3-86497335e761"
+  },
+  "message_id": 0,
+  "redact_message": null,
+  "created_at": "2026-09-11T15:12:40.078258+00:00",
+  "updated_at": "2026-09-11T15:12:40.078264+00:00"
+}

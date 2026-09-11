@@ -1,0 +1,31 @@
+{
+  "id": "90381740",
+  "mail_file": "03-beitrag-rente.eml",
+  "from_name": "Renate Kirsch",
+  "from_email": "renate.kirsch@example.de",
+  "subject": "Beitrag — Erlass möglich?",
+  "triage": {
+    "intent": "hardship_waiver",
+    "member_email": "renate.kirsch@example.de",
+    "member_name": "Renate Kirsch",
+    "summary": "Bestandsmitglied Renate Kirsch bittet wegen ihrer gesunkenen Witwenrente um Beitragsreduzierung oder -erlass (36 Euro) und bietet im Gegenzug freiwillige Hilfe am Kuchenstand an — Geldentscheidung, daher an einen Menschen weiterzuleiten.",
+    "proposed_action": "Zur menschlichen Entscheidung über Beitragsreduzierung/Ermäßigung weiterleiten (keine automatische Zusage oder Absage); das Kuchenstand-Angebot dankend als Antwort eines Menschen bestätigen.",
+    "details": {
+      "beitrag": "36 Euro",
+      "grund": "Witwenrente im Januar neu berechnet und gesunken; sehr knapper Haushalt",
+      "mitglied_status": "Bestandsmitglied (Seniorin), möchte bleiben",
+      "name": "Renate Kirsch",
+      "thema": "Beitragserlass/Ermäßigung für Seniorinnen angefragt",
+      "zusatzangebot": "freiwillige Hilfe am Kuchenstand"
+    },
+    "flags": [
+      "hardship",
+      "senior",
+      "volunteering"
+    ],
+    "confidence": 0.97
+  },
+  "policy_reason": "Policy: intent 'hardship_waiver' requires human decision (Geld + Menschlichkeit entscheidet immer ein Mensch)",
+  "status": "pending",
+  "created_at": "2026-09-11T14:45:07+00:00"
+}

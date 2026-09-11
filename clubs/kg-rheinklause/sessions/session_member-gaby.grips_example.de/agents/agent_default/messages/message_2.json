@@ -1,0 +1,23 @@
+{
+  "message": {
+    "role": "user",
+    "content": [
+      {
+        "toolResult": {
+          "toolUseId": "call_77e1fd797f38442381bac960",
+          "status": "success",
+          "content": [
+            {
+              "text": "member_id=M004, first_name=Gaby, last_name=Grips, email=gaby.grips@example.de, birth_year=1980, team=Elferrat, fee_status=paid, joined=2024-02-01, notes="
+            }
+          ]
+        }
+      }
+    ],
+    "tracking_id": "b2bbf12c-4d49-4a38-ae56-16aac880c171"
+  },
+  "message_id": 2,
+  "redact_message": null,
+  "created_at": "2026-09-11T15:13:02.467084+00:00",
+  "updated_at": "2026-09-11T15:13:02.467093+00:00"
+}
