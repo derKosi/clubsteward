@@ -34,3 +34,6 @@ demo/data/run_summary.json
 .traces/
 docs/screenshots/03-decision-cards.png
 docs/screenshots/*.jpg
+
+# video v2 working material (raw beat clips + club-state snapshots) — not for git
+docs/video/clips-v2/
